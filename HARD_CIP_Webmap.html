@@ -158,7 +158,7 @@
 
     /* ── Side panel ── */
     #panel {
-      width: 840px;
+      width: min(840px, 48vw);
       background: var(--hard-panel);
       border-left: 1px solid var(--hard-border);
       display: flex;
@@ -169,9 +169,24 @@
     }
 
     #panel.hidden {
-      transform: translateX(840px);
+      transform: translateX(min(840px, 48vw));
       position: absolute;
       right: 0;
+    }
+
+    @media (max-width: 700px) {
+      #panel {
+        width: 100vw;
+        position: absolute;
+        top: 0; right: 0; bottom: 0;
+        z-index: 90;
+      }
+      #panel.hidden { transform: translateX(100vw); }
+      .header-meta { display: none; }
+      #search-input { width: 160px; }
+      #map-btn-open {
+        display: flex !important;
+      }
     }
 
     .panel-default {
@@ -378,17 +393,73 @@
 
     .project-link:hover { color: white; }
 
-    /* ── Legend ── */
-    #legend {
+    /* ── Map controls (legend + amenities) ── */
+    #map-controls {
       position: absolute;
       bottom: 24px;
       left: 16px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: calc(100% - 48px);
+    }
+
+    #legend, #amenity-panel {
       background: var(--hard-panel);
       border: 1px solid var(--hard-border);
       border-radius: 8px;
       padding: 12px 14px;
-      z-index: 50;
       font-size: 11px;
+    }
+
+    /* ── Amenity toggles ── */
+    .amenity-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .amenity-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 9px;
+      border-radius: 20px;
+      border: 1px solid var(--hard-border);
+      cursor: pointer;
+      font-size: 11px;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-main);
+      transition: all 0.2s;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    .amenity-pill:hover { border-color: var(--hard-accent); }
+
+    .amenity-pill.off {
+      opacity: 0.35;
+    }
+
+    /* ── Mobile open button ── */
+    #map-btn-open {
+      display: none;
+      position: absolute;
+      bottom: 24px;
+      right: 16px;
+      z-index: 50;
+      background: var(--hard-blue);
+      border: none;
+      color: white;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.05em;
     }
 
     .legend-title {
@@ -496,17 +567,24 @@
 <!-- Main -->
 <div class="main">
   <div id="map">
-    <div id="legend">
-      <div class="legend-title">Legend</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;border-radius:50%;"></div> HARD Park</div>
-      <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
-      <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
+    <div id="map-controls">
+      <div id="amenity-panel">
+        <div class="legend-title">Amenities</div>
+        <div class="amenity-pills" id="amenity-pills"></div>
+      </div>
+      <div id="legend">
+        <div class="legend-title">CIP Status</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;border-radius:50%;"></div> HARD Park</div>
+        <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
+        <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
+        <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
+      </div>
     </div>
+    <button id="map-btn-open" onclick="openPanel()">View Details</button>
   </div>
 
   <!-- Side panel -->
@@ -538,9 +616,11 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "esri/layers/FeatureLayer",
+  "esri/layers/GraphicsLayer",
+  "esri/Graphic",
   "esri/renderers/UniqueValueRenderer",
   "esri/symbols/SimpleFillSymbol"
-], function(Map, MapView, FeatureLayer, UniqueValueRenderer, SimpleFillSymbol) {
+], function(Map, MapView, FeatureLayer, GraphicsLayer, Graphic, UniqueValueRenderer, SimpleFillSymbol) {
 
   // ── Status config ──────────────────────────────────────────────────────────
   const STATUS_COLORS = {
@@ -735,6 +815,10 @@ require([
   function closePanel() {
     document.getElementById("park-detail").classList.remove("active");
     document.getElementById("panel-default").style.display = "flex";
+    // On mobile, collapse panel back to map
+    if (window.innerWidth <= 700) {
+      document.getElementById("panel").classList.add("hidden");
+    }
   }
   window.closePanel = closePanel;
 
@@ -815,6 +899,9 @@ require([
     if (response.results.length > 0) {
       const attrs = response.results[0].graphic.attributes;
       showPark(attrs);
+      if (window.innerWidth <= 700) {
+        document.getElementById("panel").classList.remove("hidden");
+      }
     }
   });
 
@@ -822,6 +909,85 @@ require([
   view.on("pointer-move", async (event) => {
     const response = await view.hitTest(event, { include: [layer] });
     view.container.style.cursor = response.results.length > 0 ? "pointer" : "default";
+  });
+
+  // ── Mobile panel toggle ───────────────────────────────────────────────────
+  function openPanel() {
+    document.getElementById("panel").classList.remove("hidden");
+  }
+  window.openPanel = openPanel;
+
+  // ── Amenity categories ────────────────────────────────────────────────────
+  const CATEGORIES = [
+    { id: "courts",      label: "Courts",           emoji: "🏀", regex: /basketball|tennis|\bcourt\b|pickleball|futsal/ },
+    { id: "playground",  label: "Playground",        emoji: "🛝", regex: /playground/ },
+    { id: "aquatic",     label: "Aquatic",           emoji: "🏊", regex: /plunge|pool|aquatic/ },
+    { id: "trail",       label: "Trail",             emoji: "🥾", regex: /trail/ },
+    { id: "community",   label: "Community Center",  emoji: "🏛️", regex: /community center|senior center|senior/ },
+    { id: "acquisition", label: "New / Acquisition", emoji: "🏗️", regex: /acquisition|new park|future neighborhood/ },
+    { id: "renovation",  label: "Park Renovation",   emoji: "🌳", regex: /renovation/ },
+  ];
+
+  function getCategoryId(projectName) {
+    const lower = projectName.toLowerCase();
+    for (const cat of CATEGORIES) {
+      if (cat.regex.test(lower)) return cat.id;
+    }
+    return null;
+  }
+
+  // Create a GraphicsLayer per category and add to map
+  CATEGORIES.forEach(cat => {
+    cat.layer = new GraphicsLayer({ title: cat.label });
+    map.add(cat.layer);
+  });
+
+  // Build amenity toggle pills
+  const pillsContainer = document.getElementById("amenity-pills");
+  CATEGORIES.forEach(cat => {
+    const pill = document.createElement("div");
+    pill.className = "amenity-pill";
+    pill.innerHTML = `${cat.emoji} ${cat.label}`;
+    pill.title = `Toggle ${cat.label}`;
+    pill.addEventListener("click", () => {
+      const isOff = pill.classList.toggle("off");
+      cat.layer.visible = !isOff;
+    });
+    pillsContainer.appendChild(pill);
+    cat.pill = pill;
+  });
+
+  // After view loads, query CIP polygons for park centroids → add emoji markers
+  view.when(async () => {
+    const result = await layer.queryFeatures({
+      where: "1=1",
+      outFields: ["Park_Name"],
+      returnGeometry: true,
+      num: 2000
+    });
+
+    // Deduplicate — keep first centroid per park name
+    const centroids = {};
+    result.features.forEach(f => {
+      const name = f.attributes.Park_Name;
+      if (name && !centroids[name] && f.geometry) {
+        centroids[name] = f.geometry.centroid || f.geometry.extent.center;
+      }
+    });
+
+    // Add a graphic to each matched category layer
+    CATEGORIES.forEach(cat => {
+      const symbol = { type: "text", text: cat.emoji, font: { size: "16px" }, haloColor: [0,0,0,0.8], haloSize: "2px" };
+      Object.entries(PARK_PROJECTS).forEach(([parkName, projIds]) => {
+        const pt = centroids[parkName];
+        if (!pt) return;
+        const matches = projIds.some(id => {
+          const p = PROJECTS[id];
+          return p && getCategoryId(p.name) === cat.id;
+        });
+        if (matches) cat.layer.add(new Graphic({ geometry: pt, symbol }));
+      });
+    });
   });
 
   // ── Search ────────────────────────────────────────────────────────────────

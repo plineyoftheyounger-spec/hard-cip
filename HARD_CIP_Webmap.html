@@ -674,8 +674,8 @@ require([
     document.getElementById("park-detail").classList.add("active");
 
     // Images — field names from feature service
-    const imgFields = ["Image1", "Image2", "Image3", "Image4", "Image5"];
-    const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.startsWith("http"));
+    const imgFields = ["Image_URL_", "Image_URL1", "Image_UR_1", "Image_UR_2", "Image_UR_3"];
+    const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.trim().startsWith("http"));
     buildGallery(imgs);
 
     // Projects
@@ -738,7 +738,7 @@ require([
   };
 
   const layer = new FeatureLayer({
-    url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/Capital_Investment_HTML_PopUp_2/FeatureServer/0",
+    url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CIP_Investment_v2/FeatureServer/0",
     renderer,
     outFields: ["*"],
     popupEnabled: false,

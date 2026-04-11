@@ -673,10 +673,9 @@ require([
     document.getElementById("panel-default").style.display = "none";
     document.getElementById("park-detail").classList.add("active");
 
-    // Images
-    const imgFields = ["Image1", "Image2", "Image3", "Image4", "Image5",
-                       "Image_URL_1","Image_URL_2","Image_URL_3","Image_URL_4","Image_URL_5"];
-    const imgs = imgFields.map(f => attrs[f]).filter(u => u && u.startsWith("http"));
+    // Images — field names from feature service
+    const imgFields = ["Image1", "Image2", "Image3", "Image4", "Image5"];
+    const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.startsWith("http"));
     buildGallery(imgs);
 
     // Projects

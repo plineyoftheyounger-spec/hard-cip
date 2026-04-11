@@ -576,15 +576,9 @@
       <div class="amenity-pills" id="amenity-pills"></div>
     </div>
     <div id="legend">
-      <div class="legend-title">CIP Status</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;"></div> HARD Park</div>
+      <div class="legend-title">Legend</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(31,92,153,0.5);border:1.5px solid #4AAFFF;"></div> CIP Park</div>
       <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
-      <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
     </div>
   </div>
   <button id="map-btn-open" onclick="openPanel()">View Details</button>
@@ -825,20 +819,13 @@ require([
   window.closePanel = closePanel;
 
   // ── Map ────────────────────────────────────────────────────────────────────
-  const uniqueValueInfos = Object.entries(MAP_COLORS).map(([value, rgba]) => ({
-    value,
+  const renderer = {
+    type: "simple",
     symbol: {
       type: "simple-fill",
-      color: rgba,
-      outline: { color: [rgba[0]*0.6, rgba[1]*0.6, rgba[2]*0.6, 1], width: 1.5 }
+      color: [31, 92, 153, 0.5],
+      outline: { color: [74, 175, 255, 0.9], width: 1.5 }
     }
-  }));
-
-  const renderer = {
-    type: "unique-value",
-    field: "Status_Sum",
-    defaultSymbol: { type: "simple-fill", color: [100,100,100,0.5], outline: { color: [80,80,80], width: 1 } },
-    uniqueValueInfos
   };
 
   const layer = new FeatureLayer({
@@ -864,23 +851,7 @@ require([
     title: "Trail"
   }));
 
-  // ── Park points ───────────────────────────────────────────────────────────
-  const parkPoints = new FeatureLayer({
-    url: `${trailBase}/3`,
-    renderer: {
-      type: "simple",
-      symbol: {
-        type: "simple-marker",
-        color: [255, 255, 255, 0.9],
-        outline: { color: [31, 92, 153, 1], width: 1.5 },
-        size: 7
-      }
-    },
-    popupEnabled: false,
-    title: "HARD Parks"
-  });
-
-  const map = new Map({ basemap: "satellite", layers: [...trails, parkPoints, layer] });
+  const map = new Map({ basemap: "satellite", layers: [...trails, layer] });
 
   const view = new MapView({
     container: "map",

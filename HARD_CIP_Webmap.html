@@ -406,6 +406,7 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 5px;
+      white-space: nowrap;
     }
 
     .legend-dot {
@@ -494,7 +495,19 @@
 
 <!-- Main -->
 <div class="main">
-  <div id="map"></div>
+  <div id="map">
+    <div id="legend">
+      <div class="legend-title">Legend</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;border-radius:50%;"></div> HARD Park</div>
+      <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
+      <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
+    </div>
+  </div>
 
   <!-- Side panel -->
   <div id="panel">
@@ -750,7 +763,38 @@ require([
     title: "CIP Parks"
   });
 
-  const map = new Map({ basemap: "satellite", layers: [layer] });
+  // ── Trail layers ──────────────────────────────────────────────────────────
+  const trailStyle = {
+    type: "simple",
+    symbol: { type: "simple-line", color: [80, 220, 140, 0.9], width: 2.5, style: "solid" }
+  };
+
+  const trailBase = "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer";
+
+  const trails = [0, 1, 2, 8].map(id => new FeatureLayer({
+    url: `${trailBase}/${id}`,
+    renderer: trailStyle,
+    popupEnabled: false,
+    title: "Trail"
+  }));
+
+  // ── Park points ───────────────────────────────────────────────────────────
+  const parkPoints = new FeatureLayer({
+    url: `${trailBase}/3`,
+    renderer: {
+      type: "simple",
+      symbol: {
+        type: "simple-marker",
+        color: [255, 255, 255, 0.9],
+        outline: { color: [31, 92, 153, 1], width: 1.5 },
+        size: 7
+      }
+    },
+    popupEnabled: false,
+    title: "HARD Parks"
+  });
+
+  const map = new Map({ basemap: "satellite", layers: [...trails, parkPoints, layer] });
 
   const view = new MapView({
     container: "map",

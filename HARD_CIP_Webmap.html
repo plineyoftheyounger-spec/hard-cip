@@ -899,13 +899,14 @@ require([
   // ── Amenity categories ────────────────────────────────────────────────────
   // xoffset/yoffset fan out overlapping dots so they don't pile up
   const CATEGORIES = [
-    { id: "courts",      label: "Courts",           emoji: "🏀", color: [255, 140,   0], ox:  -9, oy:  9, regex: /basketball|tennis|\bcourt\b|pickleball|futsal/ },
-    { id: "playground",  label: "Playground",        emoji: "🛝", color: [100, 210,  60], ox:   9, oy:  9, regex: /playground/ },
-    { id: "aquatic",     label: "Aquatic",           emoji: "🏊", color: [  0, 160, 230], ox:  -9, oy: -9, regex: /plunge|pool|aquatic/ },
-    { id: "trail",       label: "Trail",             emoji: "🥾", color: [ 80, 220, 140], ox:   9, oy: -9, regex: /trail/ },
-    { id: "community",   label: "Community Center",  emoji: "🏛️", color: [160,  80, 200], ox: -14, oy:  0, regex: /community center|senior center|senior/ },
-    { id: "acquisition", label: "New / Acquisition", emoji: "🏗️", color: [255,  70,  40], ox:  14, oy:  0, regex: /acquisition|new park|future neighborhood/ },
-    { id: "renovation",  label: "Park Renovation",   emoji: "🌳", color: [ 50, 180,  60], ox:   0, oy: 14, regex: /renovation/ },
+    { id: "courts",     label: "Basketball",        emoji: "🏀", color: [255, 140,   0], ox:  -9, oy:  9, regex: /basketball|\bcourt\b|pickleball|futsal/ },
+    { id: "tennis",     label: "Tennis",            emoji: "🎾", color: [180, 230,   0], ox:   9, oy:  9, regex: /tennis/ },
+    { id: "playground", label: "Playground",        emoji: "🛝", color: [100, 210,  60], ox:  -9, oy: -9, regex: /playground/ },
+    { id: "aquatic",    label: "Aquatic",           emoji: "🏊", color: [  0, 160, 230], ox:   9, oy: -9, regex: /plunge|pool|aquatic/ },
+    { id: "trail",      label: "Trail",             emoji: "🥾", color: [ 80, 220, 140], ox: -14, oy:  0, regex: /trail/ },
+    { id: "community",  label: "Community Center",  emoji: "🏛️", color: [160,  80, 200], ox:  14, oy:  0, regex: /community center|senior center|senior/ },
+    { id: "icc",        label: "ICC",               emoji: "🏢", color: [230, 160,   0], ox:   0, oy: -14, regex: /\bicc\b/ },
+    { id: "renovation", label: "Park Renovation",   emoji: "🌳", color: [ 50, 180,  60], ox:   0, oy:  14, regex: /renovation/ },
   ];
 
   function getCategoryId(projectName) {

@@ -395,14 +395,15 @@
 
     /* ── Map controls (legend + amenities) ── */
     #map-controls {
-      position: absolute;
+      position: fixed;
       bottom: 24px;
       left: 16px;
-      z-index: 50;
+      z-index: 500;
       display: flex;
       flex-direction: column;
       gap: 8px;
-      max-height: calc(100% - 48px);
+      max-height: calc(100vh - 80px);
+      overflow-y: auto;
     }
 
     #legend, #amenity-panel {
@@ -446,10 +447,10 @@
     /* ── Mobile open button ── */
     #map-btn-open {
       display: none;
-      position: absolute;
+      position: fixed;
       bottom: 24px;
       right: 16px;
-      z-index: 50;
+      z-index: 500;
       background: var(--hard-blue);
       border: none;
       color: white;
@@ -566,26 +567,27 @@
 
 <!-- Main -->
 <div class="main">
-  <div id="map">
-    <div id="map-controls">
-      <div id="amenity-panel">
-        <div class="legend-title">Amenities</div>
-        <div class="amenity-pills" id="amenity-pills"></div>
-      </div>
-      <div id="legend">
-        <div class="legend-title">CIP Status</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;border-radius:50%;"></div> HARD Park</div>
-        <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
-        <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
-        <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
-      </div>
+  <div id="map"></div>
+
+  <!-- Map controls: amenities + legend (fixed, outside ArcGIS container) -->
+  <div id="map-controls">
+    <div id="amenity-panel">
+      <div class="legend-title">Amenities</div>
+      <div class="amenity-pills" id="amenity-pills"></div>
     </div>
-    <button id="map-btn-open" onclick="openPanel()">View Details</button>
+    <div id="legend">
+      <div class="legend-title">CIP Status</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#fff;border:1.5px solid #1F5C99;"></div> HARD Park</div>
+      <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
+      <div style="border-top:1px solid var(--hard-border);margin:6px 0;"></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFF2CC;border:1.5px solid #7A5C00;"></div> Planning</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FCE4D6;border:1.5px solid #8B3A00;"></div> Under Construction</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#DDEBF7;border:1.5px solid #1F5C99;"></div> Construction Documents</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E2CFFF;border:1.5px solid #5B00A5;"></div> Bid / Design Dev.</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E2EFDA;border:1.5px solid #2E6B1E;"></div> Complete</div>
+    </div>
   </div>
+  <button id="map-btn-open" onclick="openPanel()">View Details</button>
 
   <!-- Side panel -->
   <div id="panel">
@@ -919,13 +921,13 @@ require([
 
   // ── Amenity categories ────────────────────────────────────────────────────
   const CATEGORIES = [
-    { id: "courts",      label: "Courts",           emoji: "🏀", regex: /basketball|tennis|\bcourt\b|pickleball|futsal/ },
-    { id: "playground",  label: "Playground",        emoji: "🛝", regex: /playground/ },
-    { id: "aquatic",     label: "Aquatic",           emoji: "🏊", regex: /plunge|pool|aquatic/ },
-    { id: "trail",       label: "Trail",             emoji: "🥾", regex: /trail/ },
-    { id: "community",   label: "Community Center",  emoji: "🏛️", regex: /community center|senior center|senior/ },
-    { id: "acquisition", label: "New / Acquisition", emoji: "🏗️", regex: /acquisition|new park|future neighborhood/ },
-    { id: "renovation",  label: "Park Renovation",   emoji: "🌳", regex: /renovation/ },
+    { id: "courts",      label: "Courts",           emoji: "🏀", color: [255, 140,   0], regex: /basketball|tennis|\bcourt\b|pickleball|futsal/ },
+    { id: "playground",  label: "Playground",        emoji: "🛝", color: [100, 210,  60], regex: /playground/ },
+    { id: "aquatic",     label: "Aquatic",           emoji: "🏊", color: [  0, 160, 230], regex: /plunge|pool|aquatic/ },
+    { id: "trail",       label: "Trail",             emoji: "🥾", color: [ 80, 220, 140], regex: /trail/ },
+    { id: "community",   label: "Community Center",  emoji: "🏛️", color: [160,  80, 200], regex: /community center|senior center|senior/ },
+    { id: "acquisition", label: "New / Acquisition", emoji: "🏗️", color: [255,  70,  40], regex: /acquisition|new park|future neighborhood/ },
+    { id: "renovation",  label: "Park Renovation",   emoji: "🌳", color: [ 50, 180,  60], regex: /renovation/ },
   ];
 
   function getCategoryId(projectName) {
@@ -977,7 +979,6 @@ require([
 
     // Add a graphic to each matched category layer
     CATEGORIES.forEach(cat => {
-      const symbol = { type: "text", text: cat.emoji, font: { size: "16px" }, haloColor: [0,0,0,0.8], haloSize: "2px" };
       Object.entries(PARK_PROJECTS).forEach(([parkName, projIds]) => {
         const pt = centroids[parkName];
         if (!pt) return;
@@ -985,7 +986,15 @@ require([
           const p = PROJECTS[id];
           return p && getCategoryId(p.name) === cat.id;
         });
-        if (matches) cat.layer.add(new Graphic({ geometry: pt, symbol }));
+        if (matches) cat.layer.add(new Graphic({
+          geometry: pt,
+          symbol: {
+            type: "simple-marker",
+            color: [...cat.color, 0.9],
+            outline: { color: [255, 255, 255, 0.8], width: 1.5 },
+            size: 10
+          }
+        }));
       });
     });
   });

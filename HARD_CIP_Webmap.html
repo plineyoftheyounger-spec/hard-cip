@@ -954,10 +954,9 @@ require([
         cat.layer.add(new Graphic({
           geometry: f.geometry,
           symbol: {
-            type: "simple-marker",
-            color: [...cat.color, 0.9],
-            outline: { color: [255, 255, 255, 0.8], width: 1.5 },
-            size: 10,
+            type: "text",
+            text: cat.emoji,
+            font: { size: 16 },
             xoffset: cat.ox,
             yoffset: cat.oy
           }

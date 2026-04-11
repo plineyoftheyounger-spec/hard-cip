@@ -197,43 +197,42 @@
 
     /* ── Image gallery ── */
     #image-gallery {
-      flex-shrink: 0;
+      flex: 1;
+      overflow-y: auto;
       padding: 10px 16px 16px;
       border-top: 1px solid var(--hard-border);
       display: none;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
 
     #image-gallery.has-images {
       display: flex;
     }
 
+    #image-gallery::-webkit-scrollbar { width: 4px; }
+    #image-gallery::-webkit-scrollbar-track { background: transparent; }
+    #image-gallery::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
+
     .gallery-label {
       font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      flex-shrink: 0;
     }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .gallery-grid img {
+    #image-gallery img {
       width: 100%;
-      height: 180px;
+      height: auto;
       border-radius: 6px;
-      object-fit: cover;
       display: block;
+      flex-shrink: 0;
     }
 
     /* ── Project cards ── */
     .projects-scroll {
-      flex: 1;
-      overflow-y: auto;
+      flex-shrink: 0;
       padding: 16px;
     }
 
@@ -584,9 +583,8 @@ require([
     const valid   = images.filter(u => u && u.trim().startsWith("http"));
     const gallery = document.getElementById("image-gallery");
 
-    // Remove any previously added grid (keep the label div)
-    const old = gallery.querySelector(".gallery-grid");
-    if (old) old.remove();
+    // Remove any previously added images (keep the label div)
+    gallery.querySelectorAll("img").forEach(el => el.remove());
 
     if (valid.length === 0) {
       gallery.classList.remove("has-images");
@@ -594,15 +592,12 @@ require([
     }
 
     gallery.classList.add("has-images");
-    const grid = document.createElement("div");
-    grid.className = "gallery-grid";
     valid.forEach(url => {
       const img = document.createElement("img");
       img.src = url;
       img.alt = "Park photo";
-      grid.appendChild(img);
+      gallery.appendChild(img);
     });
-    gallery.appendChild(grid);
   }
 
   // ── Panel ──────────────────────────────────────────────────────────────────

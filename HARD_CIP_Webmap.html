@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H.A.R.D. Capital Improvement Projects</title>
+
+  <!-- ArcGIS JS API -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/dark/main.css" />
+  <script src="https://js.arcgis.com/4.29/"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --hard-blue:    #1F5C99;
+      --hard-blue-lt: #2E7BC4;
+      --hard-dark:    #0a1628;
+      --hard-panel:   #0e1e36;
+      --hard-border:  #1a3a5c;
+      --hard-accent:  #4AAFFF;
+      --text-main:    #e8f0f8;
+      --text-muted:   #7a9abf;
+      --status-plan:  #7A5C00;
+      --status-plan-bg: #FFF2CC;
+      --status-uc:    #8B3A00;
+      --status-uc-bg: #FCE4D6;
+      --status-cd:    #1F5C99;
+      --status-cd-bg: #DDEBF7;
+      --status-bid:   #5B00A5;
+      --status-bid-bg:#E2CFFF;
+      --status-done:  #2E6B1E;
+      --status-done-bg:#E2EFDA;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--hard-dark);
+      color: var(--text-main);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--hard-panel);
+      border-bottom: 2px solid var(--hard-blue);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--text-main);
+    }
+
+    .header-title span {
+      color: var(--hard-accent);
+    }
+
+    .header-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── Main layout ── */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ── Map ── */
+    #map {
+      flex: 1;
+      position: relative;
+    }
+
+    /* ── Side panel ── */
+    #panel {
+      width: 420px;
+      background: var(--hard-panel);
+      border-left: 1px solid var(--hard-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    #panel.hidden {
+      transform: translateX(420px);
+      position: absolute;
+      right: 0;
+    }
+
+    .panel-default {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .panel-default .icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.4;
+    }
+
+    .panel-default h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .panel-default p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ── Park detail panel ── */
+    #park-detail {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #park-detail.active {
+      display: flex;
+    }
+
+    .park-header {
+      background: linear-gradient(135deg, var(--hard-blue) 0%, #0f3460 100%);
+      padding: 20px 24px 16px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .park-header h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .park-header .subtitle {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .close-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* ── Image gallery ── */
+    #image-gallery {
+      flex-shrink: 0;
+      background: #000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #gallery-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    #gallery-track img {
+      width: 420px;
+      height: 220px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .gallery-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .gallery-nav:hover { background: rgba(0,0,0,0.8); }
+    .gallery-nav.prev { left: 8px; }
+    .gallery-nav.next { right: 8px; }
+    .gallery-nav.hidden { display: none; }
+
+    .gallery-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+    }
+
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .gallery-dot.active { background: white; }
+
+    /* ── Project cards ── */
+    .projects-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .projects-scroll::-webkit-scrollbar { width: 4px; }
+    .projects-scroll::-webkit-scrollbar-track { background: transparent; }
+    .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
+
+    .project-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--hard-border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      transition: border-color 0.2s;
+    }
+
+    .project-card:hover { border-color: var(--hard-blue-lt); }
+
+    .project-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.2;
+      color: var(--text-main);
+    }
+
+    .status-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+
+    .project-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+      margin-bottom: 10px;
+    }
+
+    .meta-item { }
+    .meta-label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1px;
+    }
+    .meta-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .project-scope {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .project-link {
+      font-size: 12px;
+      color: var(--hard-accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .project-link:hover { color: white; }
+
+    /* ── Legend ── */
+    #legend {
+      position: absolute;
+      bottom: 24px;
+      left: 16px;
+      background: var(--hard-panel);
+      border: 1px solid var(--hard-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      z-index: 50;
+      font-size: 11px;
+    }
+
+    .legend-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .legend-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Loading ── */
+    #loading {
+      position: absolute;
+      inset: 0;
+      background: var(--hard-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.5s;
+    }
+
+    #loading.fade {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--hard-accent);
+      margin-bottom: 8px;
+    }
+
+    .loader-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 32px;
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 2px;
+      background: var(--hard-border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: var(--hard-accent);
+      border-radius: 1px;
+      animation: load 1.8s ease-in-out forwards;
+    }
+
+    @keyframes load {
+      0% { width: 0%; }
+      60% { width: 75%; }
+      100% { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div id="loading">
+  <div class="loader-title">H.A.R.D.</div>
+  <div class="loader-sub">Capital Improvement Projects</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-title">H.A.R.D. <span>Capital Improvement Projects</span></div>
+  <div class="header-meta">Hayward Area Recreation & Park District</div>
+</header>
+
+<!-- Main -->
+<div class="main">
+  <div id="map"></div>
+
+  <!-- Side panel -->
+  <div id="panel">
+    <div class="panel-default" id="panel-default">
+      <div class="icon">🗺️</div>
+      <h3>Select a Park</h3>
+      <p>Click any highlighted park on the map to view Capital Improvement Project details, photos, and status.</p>
+    </div>
+
+    <div id="park-detail">
+      <div class="park-header">
+        <button class="close-btn" onclick="closePanel()">✕</button>
+        <h2 id="detail-name"></h2>
+        <div class="subtitle">HARD Capital Improvement Projects</div>
+      </div>
+
+      <div id="image-gallery">
+        <div id="gallery-track"></div>
+        <button class="gallery-nav prev hidden" id="btn-prev" onclick="galleryNav(-1)">‹</button>
+        <button class="gallery-nav next hidden" id="btn-next" onclick="galleryNav(1)">›</button>
+        <div class="gallery-dots" id="gallery-dots"></div>
+      </div>
+
+      <div class="projects-scroll" id="projects-container"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+require([
+  "esri/Map",
+  "esri/views/MapView",
+  "esri/layers/FeatureLayer",
+  "esri/renderers/UniqueValueRenderer",
+  "esri/symbols/SimpleFillSymbol"
+], function(Map, MapView, FeatureLayer, UniqueValueRenderer, SimpleFillSymbol) {
+
+  // ── Status config ──────────────────────────────────────────────────────────
+  const STATUS_COLORS = {
+    "Planning":               { fill: "#FFF2CC", outline: "#7A5C00", text: "#7A5C00" },
+    "Under Construction":     { fill: "#FCE4D6", outline: "#8B3A00", text: "#8B3A00" },
+    "Construction Documents": { fill: "#DDEBF7", outline: "#1F5C99", text: "#1F5C99" },
+    "Bid and Award Phase":    { fill: "#E2CFFF", outline: "#5B00A5", text: "#5B00A5" },
+    "Design Development":     { fill: "#E2CFFF", outline: "#5B00A5", text: "#5B00A5" },
+    "Complete":               { fill: "#E2EFDA", outline: "#2E6B1E", text: "#2E6B1E" },
+  };
+
+  const MAP_COLORS = {
+    "Planning":               [255, 242, 0, 0.75],
+    "Under Construction":     [255, 120, 0, 0.85],
+    "Construction Documents": [0, 120, 215, 0.75],
+    "Bid and Award Phase":    [140, 0, 200, 0.75],
+    "Design Development":     [140, 0, 200, 0.6],
+    "Complete":               [50, 180, 50, 0.7],
+  };
+
+  // ── Project data ───────────────────────────────────────────────────────────
+  const PROJECTS = {
+    1504: { name: "Playground Renovations (District-Wide)", status: "Planning", budget: "$4,167,000", start: "Winter 2025", end: "Summer 2027", size: "Multiple sites", scope: "Renovation of playgrounds at multiple sites district-wide.", pm: "Marvin Yee" },
+    1506: { name: "Restroom Renovations (District-Wide)", status: "Planning", budget: "$4,680,000", start: "Winter 2025", end: "Winter 2027", size: "Multiple sites", scope: "Restroom renovations and replacements at multiple sites district-wide.", pm: "Brian Laczko" },
+    1509: { name: "Basketball & Tennis Court Renovations – Phase 3", status: "Planning", budget: "$1,000,000", start: "Winter 2025", end: "Winter 2026", size: "10 basketball + 1 tennis court", scope: "Court renovations at multiple parks.", pm: "Diane Hardy" },
+    983:  { name: "Canyon Middle School Sports Fields", status: "Under Construction", budget: "$8,000,000", start: "Spring 2025", end: "Summer 2026", size: "School sports fields", scope: "Partnership with Castro Valley USD to improve existing soccer and baseball fields.", pm: "Meghan Tiernan" },
+    1502: { name: "Bay Trees ADA Improvements", status: "Under Construction", budget: "$3,000,000", start: "Winter 2025", end: "Spring 2026", size: "Park-wide", scope: "Improvements to pathways and parking lots to meet current ADA standards.", pm: "Diane Hardy" },
+    1495: { name: "Foothill Trail – A Street to Grove Way", status: "Planning", budget: "$1,640,000", start: "Winter 2025", end: "Winter 2027", size: "Linear trail segment", scope: "Design and construction of a portion of the Foothill Trail.", pm: "Michael C. Williams" },
+    1472: { name: "Laurel School Acquisition & Future Neighborhood Park", status: "Planning", budget: "$5,300,000", start: "Winter 2022", end: "Fall 2027", size: "3.1 acres", scope: "Acquisition of ~3.1 acres from Hayward USD. Northern field to be converted to a public neighborhood park.", pm: "Brian Laczko" },
+    1454: { name: "Discovery Center at Sulphur Creek Nature Center", status: "Planning", budget: "TBD", start: "Spring 2025", end: "TBD", size: "55-year-old Discovery Center building", scope: "Complete redesign of the Discovery Center.", pm: "Brian Laczko" },
+    981:  { name: "Mt. Eden Park Renovation", status: "Under Construction", budget: "$5,000,000", start: "Spring 2024", end: "Summer 2026", size: "Park-wide", scope: "Sports field/court lighting upgrades, pavement repairs, fitness court, court resurfacing, pathway enhancements.", pm: "Diane Hardy" },
+    1168: { name: "Energy Efficiency Improvements (District-Wide)", status: "Under Construction", budget: "$14,268,458", start: "Spring 2022", end: "Winter 2025", size: "26 sites", scope: "LED lighting, HVAC upgrades, solar PV installation, transformer replacements.", pm: "Monty Boyd" },
+    584:  { name: "Valley View Park", status: "Construction Documents", budget: "$6,300,000", start: "Summer 2026", end: "Spring 2027", size: "24 acres", scope: "New 24-acre park with sweeping views.", pm: "Brian Laczko" },
+    1087: { name: "D & Clay Street Acquisition – Carol Pereira Park", status: "Construction Documents", budget: "$2,300,000", start: "Fall 2021", end: "2027", size: "1.83 acres", scope: "Acquisition and development of 1.83-acre parcel.", pm: "Hai-Ping Mo" },
+    965:  { name: "Ashland-East 14th Street – Ashland Grove", status: "Under Construction", budget: "$13,733,000", start: "Fall 2020", end: "Fall 2027", size: "1.77 acres", scope: "New neighborhood park (Ashland Grove) on 1.77-acre site.", pm: "Hai-Ping Mo" },
+    449:  { name: "Ashland-Mateo Street – future Ashland Grove", status: "Construction Documents", budget: "$10,852,000", start: "Fall 2020", end: "Fall 2027", size: "1.43 acres", scope: "New 1.43-acre neighborhood park designed with Trust for Public Land.", pm: "Hai-Ping Mo" },
+    197:  { name: "Bidwell Park and Community Center", status: "Bid and Award Phase", budget: "$19,150,000", start: "Spring 2019", end: "Summer 2027", size: "Former Bidwell Elementary School site", scope: "Transformation of former Bidwell Elementary School into a community hub.", pm: "Monty Boyd" },
+    198:  { name: "El Rancho Verde Park", status: "Design Development", budget: "$3,000,000", start: "Spring 2019", end: "TBD", size: "2.48 acres", scope: "Design and construction of improvements.", pm: "Marvin Yee" },
+    492:  { name: "Greenridge Park Renovation", status: "Planning", budget: "$425,000", start: "TBD", end: "TBD", size: "N/A", scope: "Park improvements including basketball court resurfacing and ADA parking lot improvements.", pm: "Meghan Tiernan" },
+    73:   { name: "Hayward Plunge Renovation", status: "Under Construction", budget: "$5,000,000", start: "Fall 2024", end: "Summer 2026", size: "Aquatic center", scope: "Renovation of Hayward Plunge aquatic center.", pm: "Diane Hardy" },
+    79:   { name: "La Vista Park", status: "Under Construction", budget: "$15,400,000", start: "Summer 2017", end: "Summer 2027", size: "New community park", scope: "New community park managed by City of Hayward; HARD will operate upon completion.", pm: "Meghan Tiernan" },
+    90:   { name: "San Lorenzo Community Center Renovation", status: "Under Construction", budget: "$15,270,000", start: "Spring 2024", end: "Early 2026", size: "8,236 sq ft facility", scope: "Renovation of existing 8,236 sq ft community center.", pm: "Monty Boyd" },
+    99:   { name: "Weekes Community Park Renovation", status: "Planning", budget: "$2,042,000", start: "TBD", end: "TBD", size: "16.6 acres", scope: "Design and development of improvements to 16.6-acre Weekes Community Park.", pm: "Meghan Tiernan" },
+    980:  { name: "Palomares Hills Park Renovation", status: "Complete", budget: "$1,500,000", start: "Summer 2025", end: "Fall 2025", size: "Park-wide", scope: "Slope stabilization, water runoff control, and pathway reconstruction.", pm: "Diane Hardy" },
+    1329: { name: "Alameda County Agricultural History Center", status: "Complete", budget: "$500,000", start: "Spring 2024", end: "July 2025", size: "Historic orchard site", scope: "Restoration of historic orchard and creation of agricultural demonstration area.", pm: "Marvin Yee" },
+    1367: { name: "ADA Small Projects (District-Wide)", status: "Complete", budget: "$2,200,000", start: "Winter 2024", end: "Winter 2025", size: "Multiple sites", scope: "Phases 1 & 2 complete. Pathway and parking lot repairs at multiple parks.", pm: "Diane Hardy" },
+    1343: { name: "Basketball & Tennis Court Renovations – Phase 2", status: "Complete", budget: "$1,660,000", start: "Spring 2024", end: "January 2025", size: "16 basketball + 2 tennis courts", scope: "Renovations to 16 basketball courts and 2 tennis courts across 15 parks.", pm: "Darcie DeLashmutt" },
+    975:  { name: "Palma Ceia Park Renovation", status: "Complete", budget: "$1,500,000", start: "Spring 2022", end: "Fall 2024", size: "5.7 acres", scope: "Walkway upgrades, new picnic furnishings, repaved walking paths, expanded play area.", pm: "Diane Hardy" },
+    1213: { name: "Kenneth Aitken Senior & Community Center Renovation", status: "Complete", budget: "$2,250,000", start: "Winter 2021", end: "Summer 2023", size: "13,500 sq ft facility", scope: "Roof and gutter replacement, new HVAC, energy-efficient lighting, accessible restrooms.", pm: "Diane Hardy" },
+    972:  { name: "Southgate Park Renovation", status: "Complete", budget: "$1,500,000", start: "Fall 2021", end: "Winter 2023", size: "Park-wide", scope: "Drainage improvements, new picnic furnishings, repaved walking paths, new playground equipment.", pm: "Diane Hardy" },
+    1040: { name: "Sorensdale Park Renovation", status: "Complete", budget: "$1,500,000", start: "Spring 2021", end: "Winter 2022", size: "Park-wide", scope: "Parking lot repaving, walkway improvements, grading and drainage enhancements.", pm: "Diane Hardy" },
+    973:  { name: "Basketball & Tennis Court Renovations – Phase 1", status: "Complete", budget: "$2,330,000", start: "Fall 2021", end: "Fall 2023", size: "17 courts (4 parks)", scope: "Renovations to 17 sports courts at multiple parks.", pm: "Darcie DeLashmutt" },
+    745:  { name: "Ashland Roots Center at Madrone Terrace", status: "Complete", budget: "$5,800,000", start: "Spring 2019", end: "June 2025", size: "12,300 sq ft community center", scope: "New 12,300 sq ft community center. Design Award Winner.", pm: "Brian Laczko" },
+    588:  { name: "Tennis Court Renovations (Phase 1 / Pickleball Conversions)", status: "Complete", budget: "$540,000", start: "Winter 2019", end: "Winter 2021", size: "Multiple courts", scope: "Renovation of tennis courts and conversion to pickleball courts.", pm: "Darcie DeLashmutt" },
+    77:   { name: "Kennedy Park Renovation", status: "Complete", budget: "$19,255,333", start: "Summer 2017", end: "Spring 2022", size: "N/A", scope: "Renovated picnic areas, new central play areas, new teacup ride, new concession building. Award Winner.", pm: "Marvin Yee" },
+    94:   { name: "Tennyson Park Renovation", status: "Complete", budget: "$11,500,000", start: "Spring 2019", end: "Summer 2025", size: "10 acres", scope: "Renovated sports field, skate park, basketball courts, walking paths, pump track.", pm: "Marvin Yee" },
+    93:   { name: "Sunset Futsal Courts", status: "Complete", budget: "$3,450,000", start: "Fall 2019", end: "Spring 2023", size: "1 acre / 4 futsal courts", scope: "4 youth futsal courts, perimeter netting, lighting, restroom. Opened February 24, 2023.", pm: "Hai-Ping Mo" },
+    92:   { name: "Sulphur Creek Nature Center Renovation", status: "Complete", budget: "$1,264,000", start: "Spring 2020", end: "Fall 2024", size: "N/A", scope: "Grounds enhancements per 2021 community-led Master Plan.", pm: "Darcie DeLashmutt" },
+    52:   { name: "San Lorenzo Community Park – Phase 1", status: "Complete", budget: "$12,000,000", start: "Spring 2012", end: "Fall 2017", size: "31 acres", scope: "Phase 1: new pond area, active play zone, and softball complex.", pm: "Meghan Tiernan" },
+    95:   { name: "Via Toledo Park", status: "Complete", budget: "$2,992,000", start: "Fall 2017", end: "Spring 2021", size: "2 acres", scope: "New 2-acre park: multipurpose lawn, half-court basketball, play area, fitness stations.", pm: "Hai-Ping Mo" },
+    86:   { name: "Alden E. Oliver Sports Park Renovation", status: "Complete", budget: "$3,000,000", start: "Spring 2019", end: "Winter 2022", size: "Sports park", scope: "Sports park renovation including fields, courts, lighting, and amenities.", pm: "Hai-Ping Mo" },
+    91:   { name: "San Lorenzo Community Park – Phase 2", status: "Complete", budget: "$5,000,000", start: "Fall 2019", end: "Summer 2022", size: "31 acres", scope: "Phase 2 improvements to San Lorenzo Community Park.", pm: "Meghan Tiernan" },
+    1497: { name: "1797 D Street Acquisition", status: "Complete", budget: "$1,000,000", start: "Winter 2024", end: "Spring 2025", size: "1.43 acres", scope: "Acquisition of 1.43-acre site adjacent to Sulphur Creek Nature Center.", pm: "Brian Laczko" },
+    1164: { name: "541 Blanche Street Acquisition", status: "Complete", budget: "$3,230,000", start: "Spring 2021", end: "Spring 2022", size: "2.4 acres", scope: "Acquisition of existing 90-foot baseball field from New Haven USD.", pm: "Brian Laczko" },
+    1089: { name: "1350 E Street Acquisition – Carol Pereira Park", status: "Complete", budget: "$1,385,000", start: "Spring 2021", end: "Summer 2021", size: "2.42 acres", scope: "Acquisition of 2.42 acres of new parkland.", pm: "Meghan Tiernan" },
+    1073: { name: "Picnic Area Upgrades – Castro Valley & Weekes Parks", status: "Complete", budget: "$1,000,000", start: "Winter 2020", end: "Fall 2021", size: "6 + 4 group picnic facilities", scope: "Renovation of group picnic facilities at Castro Valley and Weekes Parks.", pm: "Darcie DeLashmutt" },
+    451:  { name: "Sports Lighting Upgrades", status: "Complete", budget: "$2,500,000", start: "Winter 2020", end: "Fall 2021", size: "Multiple parks", scope: "LED sports lighting upgrades at multiple parks district-wide.", pm: "Monty Boyd" },
+    61:   { name: "Tennyson Park – Phase 1", status: "Complete", budget: "$3,000,000", start: "Spring 2017", end: "Fall 2019", size: "10 acres", scope: "Phase 1 renovation of Tennyson Park.", pm: "Marvin Yee" },
+    74:   { name: "Hayward Area Senior Center Renovation", status: "Complete", budget: "$3,500,000", start: "Fall 2018", end: "Winter 2020", size: "Senior center facility", scope: "Comprehensive renovation of the Hayward Area Senior Center.", pm: "Brian Laczko" },
+    72:   { name: "Hayward Community Gardens", status: "Complete", budget: "$400,000", start: "Spring 2019", end: "Summer 2020", size: "Community garden site", scope: "Development and improvements to Hayward Community Gardens.", pm: "Marvin Yee" },
+    82:   { name: "Meek Estate Park Improvements", status: "Complete", budget: "$1,000,000", start: "Fall 2017", end: "Summer 2020", size: "N/A", scope: "Renovation and expansion of existing parking lot at Meek Estate Park.", pm: "Brian Laczko" },
+    83:   { name: "Memorial Park Renovation", status: "Complete", budget: "$2,000,000", start: "Spring 2018", end: "Fall 2020", size: "Park-wide", scope: "Renovation of Memorial Park including sports fields, pathways, and amenities.", pm: "Meghan Tiernan" },
+    85:   { name: "Mission Hills Golf Course Improvements", status: "Complete", budget: "$1,500,000", start: "Summer 2019", end: "Spring 2021", size: "Golf course", scope: "Course improvements and facility upgrades.", pm: "Marvin Yee" },
+    65:   { name: "East Avenue Park Renovation", status: "Complete", budget: "$800,000", start: "Spring 2019", end: "Fall 2020", size: "Park-wide", scope: "Park renovation including play area upgrades and pathway improvements.", pm: "Diane Hardy" },
+    71:   { name: "Fairmont Terrace Park", status: "Complete", budget: "$600,000", start: "Summer 2019", end: "Spring 2020", size: "Park-wide", scope: "Park improvements including playground replacement and site furnishings.", pm: "Marvin Yee" },
+    363:  { name: "Edendale Park Renovation", status: "Complete", budget: "$1,200,000", start: "Spring 2018", end: "Fall 2019", size: "Park-wide", scope: "Park renovation including pathways, picnic areas, and playground improvements.", pm: "Diane Hardy" },
+    70:   { name: "Edendale Community Center", status: "Complete", budget: "$2,500,000", start: "Winter 2017", end: "Spring 2019", size: "Community center facility", scope: "Renovation of Edendale Community Center.", pm: "Monty Boyd" },
+    481:  { name: "Ashland Zocolo", status: "Complete", budget: "$2,000,000", start: "Spring 2018", end: "Fall 2020", size: "Plaza/park site", scope: "Development of the Ashland Zocolo plaza and community gathering space.", pm: "Hai-Ping Mo" },
+    582:  { name: "Unity Park", status: "Complete", budget: "$1,800,000", start: "Spring 2018", end: "Winter 2020", size: "Park site", scope: "Development of Unity Park community space and amenities.", pm: "Meghan Tiernan" },
+  };
+
+  const PARK_PROJECTS = {
+    "Alden E. Oliver Sports Park": [86, 451, 973],
+    "Ashland Grove Park": [965, 449],
+    "Ashland Zocolo": [481],
+    "Bay Trees Park": [1502, 973],
+    "Bechtel Mini Park": [1504],
+    "Bidwell Park": [197],
+    "Birchfield Park": [1504, 1509],
+    "Canyon View Park": [983],
+    "Carol Pereira Park": [1087, 1089],
+    "Castro Valley Community Park": [1073, 1343, 588],
+    "East Avenue Park": [65],
+    "Edendale Park": [363, 70],
+    "El Rancho Verde Park": [198, 1164],
+    "Fairmont Terrace Park": [71],
+    "Greenridge Park": [492, 1343],
+    "Hayward Area Senior Center": [74],
+    "Hayward Community Gardens": [72],
+    "Hayward Plunge": [73],
+    "Kennedy Park": [77],
+    "Kenneth C. Aitken Senior Community Center": [1213],
+    "Laurel School Site": [1472],
+    "Meek Estate Park": [1329, 82],
+    "Memorial Park": [83],
+    "Mission Hills Of Hayward Golf Course": [85],
+    "Mt. Eden Park": [981],
+    "Palma Ceia Park": [975],
+    "Palomares Hills Park": [980],
+    "San Lorenzo Community Park": [52, 91, 90],
+    "Sorensdale Park": [1040],
+    "Southgate Park": [972, 588, 451],
+    "Stonybrook Park": [973, 1504],
+    "Sulphur Creek Nature Center": [1454, 1497, 92],
+    "Sunset Futsol": [93],
+    "Tennyson Park": [94, 61, 451],
+    "Unity Park": [582],
+    "Valley View Park": [584],
+    "Via Toledo Park": [95],
+    "Weekes Park": [973, 1073, 99],
+  };
+
+  // ── Gallery state ──────────────────────────────────────────────────────────
+  let galleryImages = [];
+  let galleryIndex  = 0;
+
+  function buildGallery(images) {
+    galleryImages = images.filter(u => u && u.startsWith("http"));
+    galleryIndex  = 0;
+    const track   = document.getElementById("gallery-track");
+    const dots    = document.getElementById("gallery-dots");
+    const gallery = document.getElementById("image-gallery");
+    const btnPrev = document.getElementById("btn-prev");
+    const btnNext = document.getElementById("btn-next");
+
+    track.innerHTML = "";
+    dots.innerHTML  = "";
+
+    if (galleryImages.length === 0) {
+      gallery.style.display = "none";
+      return;
+    }
+
+    gallery.style.display = "block";
+    galleryImages.forEach((url, i) => {
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "Park photo";
+      track.appendChild(img);
+
+      const dot = document.createElement("div");
+      dot.className = "gallery-dot" + (i === 0 ? " active" : "");
+      dot.onclick = () => goToSlide(i);
+      dots.appendChild(dot);
+    });
+
+    btnPrev.classList.toggle("hidden", galleryImages.length <= 1);
+    btnNext.classList.toggle("hidden", galleryImages.length <= 1);
+    updateGallery();
+  }
+
+  function galleryNav(dir) {
+    galleryIndex = (galleryIndex + dir + galleryImages.length) % galleryImages.length;
+    updateGallery();
+  }
+
+  function goToSlide(i) {
+    galleryIndex = i;
+    updateGallery();
+  }
+
+  function updateGallery() {
+    document.getElementById("gallery-track").style.transform = `translateX(-${galleryIndex * 420}px)`;
+    document.querySelectorAll(".gallery-dot").forEach((d, i) =>
+      d.classList.toggle("active", i === galleryIndex));
+  }
+
+  // ── Panel ──────────────────────────────────────────────────────────────────
+  function showPark(attrs) {
+    const parkName = attrs.Park_Name || attrs.Name || attrs.name || "";
+    document.getElementById("detail-name").textContent = parkName;
+    document.getElementById("panel-default").style.display = "none";
+    document.getElementById("park-detail").classList.add("active");
+
+    // Images
+    const imgFields = ["Image1", "Image2", "Image3", "Image4", "Image5",
+                       "Image_URL_1","Image_URL_2","Image_URL_3","Image_URL_4","Image_URL_5"];
+    const imgs = imgFields.map(f => attrs[f]).filter(u => u && u.startsWith("http"));
+    buildGallery(imgs);
+
+    // Projects
+    const container = document.getElementById("projects-container");
+    container.innerHTML = "";
+    const projIds = PARK_PROJECTS[parkName] || [];
+    const seen = new Set();
+    const unique = projIds.filter(id => { if (seen.has(id)) return false; seen.add(id); return true; });
+
+    if (unique.length === 0) {
+      container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">No project details available.</p>`;
+      return;
+    }
+
+    unique.forEach(pid => {
+      const p = PROJECTS[pid];
+      if (!p) return;
+      const sc = STATUS_COLORS[p.status] || { fill: "#eee", outline: "#999", text: "#333" };
+      const card = document.createElement("div");
+      card.className = "project-card";
+      card.innerHTML = `
+        <div class="project-name">${p.name}</div>
+        <div class="status-badge" style="background:${sc.fill};color:${sc.text};">${p.status}</div>
+        <div class="project-meta">
+          <div class="meta-item"><div class="meta-label">Budget</div><div class="meta-value">${p.budget}</div></div>
+          <div class="meta-item"><div class="meta-label">Size</div><div class="meta-value">${p.size}</div></div>
+          <div class="meta-item"><div class="meta-label">Start</div><div class="meta-value">${p.start}</div></div>
+          <div class="meta-item"><div class="meta-label">End</div><div class="meta-value">${p.end}</div></div>
+          <div class="meta-item" style="grid-column:span 2"><div class="meta-label">Project Manager</div><div class="meta-value">${p.pm}</div></div>
+        </div>
+        <div class="project-scope">${p.scope}</div>
+        <a class="project-link" href="https://hard.icitywork.com/#projectDetail${pid}" target="_blank">🔗 View Full Project Details</a>
+      `;
+      container.appendChild(card);
+    });
+  }
+
+  function closePanel() {
+    document.getElementById("park-detail").classList.remove("active");
+    document.getElementById("panel-default").style.display = "flex";
+  }
+  window.closePanel = closePanel;
+  window.galleryNav = galleryNav;
+
+  // ── Map ────────────────────────────────────────────────────────────────────
+  const uniqueValueInfos = Object.entries(MAP_COLORS).map(([value, rgba]) => ({
+    value,
+    symbol: {
+      type: "simple-fill",
+      color: rgba,
+      outline: { color: [rgba[0]*0.6, rgba[1]*0.6, rgba[2]*0.6, 1], width: 1.5 }
+    }
+  }));
+
+  const renderer = {
+    type: "unique-value",
+    field: "Status_Sum",
+    defaultSymbol: { type: "simple-fill", color: [100,100,100,0.5], outline: { color: [80,80,80], width: 1 } },
+    uniqueValueInfos
+  };
+
+  const layer = new FeatureLayer({
+    url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/Capital_Investment_HTML_PopUp_2/FeatureServer/0",
+    renderer,
+    outFields: ["*"],
+    popupEnabled: false,
+    title: "CIP Parks"
+  });
+
+  const map = new Map({ basemap: "satellite", layers: [layer] });
+
+  const view = new MapView({
+    container: "map",
+    map,
+    center: [-122.08, 37.67],
+    zoom: 12,
+    ui: { components: ["zoom", "compass"] }
+  });
+
+  view.when(() => {
+    const loading = document.getElementById("loading");
+    setTimeout(() => loading.classList.add("fade"), 400);
+    setTimeout(() => loading.remove(), 900);
+  });
+
+  view.on("click", async (event) => {
+    const response = await view.hitTest(event, { include: [layer] });
+    if (response.results.length > 0) {
+      const attrs = response.results[0].graphic.attributes;
+      showPark(attrs);
+    }
+  });
+
+  // Hover cursor
+  view.on("pointer-move", async (event) => {
+    const response = await view.hitTest(event, { include: [layer] });
+    view.container.style.cursor = response.results.length > 0 ? "pointer" : "default";
+  });
+
+});
+</script>
+</body>
+</html>

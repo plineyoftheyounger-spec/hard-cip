@@ -898,24 +898,17 @@ require([
 
   // ── Amenity categories ────────────────────────────────────────────────────
   // xoffset/yoffset fan out overlapping dots so they don't pile up
+  // fields: amenity columns from HARD_Parks_District_Point (layer 3) — any truthy value triggers the marker
   const CATEGORIES = [
-    { id: "courts",     label: "Basketball",        emoji: "🏀", color: [255, 140,   0], ox:  -9, oy:  9, regex: /basketball|\bcourt\b|pickleball|futsal/ },
-    { id: "tennis",     label: "Tennis",            emoji: "🎾", color: [180, 230,   0], ox:   9, oy:  9, regex: /tennis/ },
-    { id: "playground", label: "Playground",        emoji: "🛝", color: [100, 210,  60], ox:  -9, oy: -9, regex: /playground/ },
-    { id: "aquatic",    label: "Aquatic",           emoji: "🏊", color: [  0, 160, 230], ox:   9, oy: -9, regex: /plunge|pool|aquatic/ },
-    { id: "trail",      label: "Trail",             emoji: "🥾", color: [ 80, 220, 140], ox: -14, oy:  0, regex: /trail/ },
-    { id: "community",  label: "Community Center",  emoji: "🏛️", color: [160,  80, 200], ox:  14, oy:  0, regex: /community center|senior center|senior/ },
-    { id: "icc",        label: "ICC",               emoji: "🏢", color: [230, 160,   0], ox:   0, oy: -14, regex: /\bicc\b/ },
-    { id: "renovation", label: "Park Renovation",   emoji: "🌳", color: [ 50, 180,  60], ox:   0, oy:  14, regex: /renovation/ },
+    { id: "basketball", label: "Basketball",       emoji: "🏀", color: [255, 140,   0], ox:  -9, oy:  9,  fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
+    { id: "tennis",     label: "Tennis",           emoji: "🎾", color: [180, 230,   0], ox:   9, oy:  9,  fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
+    { id: "playground", label: "Playground",       emoji: "🛝", color: [100, 210,  60], ox:  -9, oy: -9,  fields: ["CIP_CBOC_Built_Renovated_PG"] },
+    { id: "aquatic",    label: "Aquatic",          emoji: "🏊", color: [  0, 160, 230], ox:   9, oy: -9,  fields: ["CIP_CBOC_Pool_Renovation"] },
+    { id: "trail",      label: "Trail",            emoji: "🥾", color: [ 80, 220, 140], ox: -14, oy:  0,  fields: ["CIP_CBOC_Trail_Walking_Circuit"] },
+    { id: "community",  label: "Community Center", emoji: "🏛️", color: [160,  80, 200], ox:  14, oy:  0,  fields: ["CIP_CBOC_Community_Senior_Center"] },
+    { id: "icc",        label: "ICC",              emoji: "💧", color: [230, 160,   0], ox:   0, oy: -14, fields: ["CIP_CBOC_ICC_Controller", "CIP_CBOC_ICC_MV_FS"] },
+    { id: "renovation", label: "Park Renovation",  emoji: "🌳", color: [ 50, 180,  60], ox:   0, oy:  14, fields: ["CIP_CBOC_Renovation"] },
   ];
-
-  function getCategoryId(projectName) {
-    const lower = projectName.toLowerCase();
-    for (const cat of CATEGORIES) {
-      if (cat.regex.test(lower)) return cat.id;
-    }
-    return null;
-  }
 
   // Create a GraphicsLayer per category and add to map
   CATEGORIES.forEach(cat => {
@@ -939,35 +932,27 @@ require([
     cat.pill = pill;
   });
 
-  // After view loads, query CIP polygons for park centroids → add emoji markers
+  // After view loads, query HARD_Parks_District_Point for amenity field values
   view.when(async () => {
-    const result = await layer.queryFeatures({
+    const ptLayer = new FeatureLayer({
+      url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer/3"
+    });
+
+    const allFields = CATEGORIES.flatMap(c => c.fields);
+    const result = await ptLayer.queryFeatures({
       where: "1=1",
-      outFields: ["Park_Name"],
+      outFields: allFields,
       returnGeometry: true,
       num: 2000
     });
 
-    // Deduplicate — keep first centroid per park name
-    const centroids = {};
     result.features.forEach(f => {
-      const name = f.attributes.Park_Name;
-      if (name && !centroids[name] && f.geometry) {
-        centroids[name] = f.geometry.centroid || f.geometry.extent.center;
-      }
-    });
-
-    // Add a graphic to each matched category layer
-    CATEGORIES.forEach(cat => {
-      Object.entries(PARK_PROJECTS).forEach(([parkName, projIds]) => {
-        const pt = centroids[parkName];
-        if (!pt) return;
-        const matches = projIds.some(id => {
-          const p = PROJECTS[id];
-          return p && getCategoryId(p.name) === cat.id;
-        });
-        if (matches) cat.layer.add(new Graphic({
-          geometry: pt,
+      const attrs = f.attributes;
+      CATEGORIES.forEach(cat => {
+        const hasAmenity = cat.fields.some(field => attrs[field] && attrs[field] !== 0);
+        if (!hasAmenity) return;
+        cat.layer.add(new Graphic({
+          geometry: f.geometry,
           symbol: {
             type: "simple-marker",
             color: [...cat.color, 0.9],

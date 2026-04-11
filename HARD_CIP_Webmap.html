@@ -897,17 +897,17 @@ require([
   window.openPanel = openPanel;
 
   // ── Amenity categories ────────────────────────────────────────────────────
-  // xoffset/yoffset fan out overlapping dots so they don't pile up
-  // fields: amenity columns from HARD_Parks_District_Point (layer 3) — any truthy value triggers the marker
+  // ox/oy: small screen-pixel offsets to fan icons out from the park point
+  // fields: amenity columns from HARD_Parks_District_Point (layer 3)
   const CATEGORIES = [
-    { id: "basketball", label: "Basketball",       emoji: "🏀", color: [255, 140,   0], fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
-    { id: "tennis",     label: "Tennis",           emoji: "🎾", color: [180, 230,   0], fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
-    { id: "playground", label: "Playground",       emoji: "🛝", color: [100, 210,  60], fields: ["CIP_CBOC_Built_Renovated_PG"] },
-    { id: "aquatic",    label: "Aquatic",          emoji: "🏊", color: [  0, 160, 230], fields: ["CIP_CBOC_Pool_Renovation"] },
-    { id: "trail",      label: "Trail",            emoji: "🥾", color: [ 80, 220, 140], fields: ["CIP_CBOC_Trail_Walking_Circuit"] },
-    { id: "community",  label: "Community Center", emoji: "🏛️", color: [160,  80, 200], fields: ["CIP_CBOC_Community_Senior_Center"] },
-    { id: "icc",        label: "ICC",              emoji: "💧", color: [230, 160,   0], fields: ["CIP_CBOC_ICC_Controller", "CIP_CBOC_ICC_MV_FS"] },
-    { id: "renovation", label: "Park Renovation",  emoji: "🌳", color: [ 50, 180,  60], fields: ["CIP_CBOC_Renovation"] },
+    { id: "basketball", label: "Basketball",       emoji: "🏀", ox: -10, oy:  10, fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
+    { id: "tennis",     label: "Tennis",           emoji: "🎾", ox:  10, oy:  10, fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
+    { id: "playground", label: "Playground",       emoji: "🛝", ox: -10, oy: -10, fields: ["CIP_CBOC_Built_Renovated_PG"] },
+    { id: "aquatic",    label: "Aquatic",          emoji: "🏊", ox:  10, oy: -10, fields: ["CIP_CBOC_Pool_Renovation"] },
+    { id: "trail",      label: "Trail",            emoji: "🥾", ox: -14, oy:   0, fields: ["CIP_CBOC_Trail_Walking_Circuit"] },
+    { id: "community",  label: "Community Center", emoji: "🏛️", ox:  14, oy:   0, fields: ["CIP_CBOC_Community_Senior_Center"] },
+    { id: "icc",        label: "ICC",              emoji: "💧", ox:   0, oy: -14, fields: ["CIP_CBOC_ICC_Controller", "CIP_CBOC_ICC_MV_FS"] },
+    { id: "renovation", label: "Park Renovation",  emoji: "🌳", ox:   0, oy:  14, fields: ["CIP_CBOC_Renovation"] },
   ];
 
   // Create a GraphicsLayer per category and add to map
@@ -919,10 +919,9 @@ require([
   // Build amenity toggle pills
   const pillsContainer = document.getElementById("amenity-pills");
   CATEGORIES.forEach(cat => {
-    const [r, g, b] = cat.color;
     const pill = document.createElement("div");
     pill.className = "amenity-pill";
-    pill.innerHTML = `<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:rgb(${r},${g},${b});border:1.5px solid rgba(255,255,255,0.6);flex-shrink:0;"></span> ${cat.emoji} ${cat.label}`;
+    pill.innerHTML = `${cat.emoji} ${cat.label}`;
     pill.title = `Toggle ${cat.label}`;
     pill.addEventListener("click", () => {
       const isOff = pill.classList.toggle("off");
@@ -933,13 +932,15 @@ require([
   });
 
   // Build an emoji picture-marker symbol using inline SVG (works in WebGL)
-  function emojiSymbol(emoji) {
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><text y='24' font-size='24'>${emoji}</text></svg>`;
+  function emojiSymbol(cat) {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><text y='17' font-size='17'>${cat.emoji}</text></svg>`;
     return {
       type: "picture-marker",
       url: "data:image/svg+xml," + encodeURIComponent(svg),
-      width: 24,
-      height: 24
+      width: 18,
+      height: 18,
+      xoffset: cat.ox,
+      yoffset: cat.oy
     };
   }
 
@@ -966,7 +967,7 @@ require([
           if (!hasAmenity) return;
           cat.layer.add(new Graphic({
             geometry: f.geometry,
-            symbol: emojiSymbol(cat.emoji)
+            symbol: emojiSymbol(cat)
           }));
         });
       });

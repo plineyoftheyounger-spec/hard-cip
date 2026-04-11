@@ -932,35 +932,47 @@ require([
     cat.pill = pill;
   });
 
+  // Build an emoji picture-marker symbol using inline SVG (works in WebGL)
+  function emojiSymbol(emoji) {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28'><text y='24' font-size='24'>${emoji}</text></svg>`;
+    return {
+      type: "picture-marker",
+      url: "data:image/svg+xml," + encodeURIComponent(svg),
+      width: 24,
+      height: 24
+    };
+  }
+
   // After view loads, query HARD_Parks_District_Point for amenity field values
   view.when(async () => {
-    const ptLayer = new FeatureLayer({
-      url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer/3"
-    });
-
-    const allFields = CATEGORIES.flatMap(c => c.fields);
-    const result = await ptLayer.queryFeatures({
-      where: "1=1",
-      outFields: allFields,
-      returnGeometry: true,
-      num: 2000
-    });
-
-    result.features.forEach(f => {
-      const attrs = f.attributes;
-      CATEGORIES.forEach(cat => {
-        const hasAmenity = cat.fields.some(field => attrs[field] && attrs[field] !== 0);
-        if (!hasAmenity) return;
-        cat.layer.add(new Graphic({
-          geometry: f.geometry,
-          symbol: {
-            type: "text",
-            text: cat.emoji,
-            font: { size: 16 }
-          }
-        }));
+    try {
+      const ptLayer = new FeatureLayer({
+        url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer/3"
       });
-    });
+      await ptLayer.load();
+
+      const allFields = CATEGORIES.flatMap(c => c.fields);
+      const result = await ptLayer.queryFeatures({
+        where: "1=1",
+        outFields: allFields,
+        returnGeometry: true,
+        num: 2000
+      });
+
+      result.features.forEach(f => {
+        const attrs = f.attributes;
+        CATEGORIES.forEach(cat => {
+          const hasAmenity = cat.fields.some(field => attrs[field] && attrs[field] !== 0);
+          if (!hasAmenity) return;
+          cat.layer.add(new Graphic({
+            geometry: f.geometry,
+            symbol: emojiSymbol(cat.emoji)
+          }));
+        });
+      });
+    } catch (e) {
+      console.error("Amenity layer load failed:", e);
+    }
   });
 
   // ── Search ────────────────────────────────────────────────────────────────

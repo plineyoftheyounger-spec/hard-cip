@@ -198,7 +198,7 @@
     /* ── Image gallery ── */
     #image-gallery {
       flex-shrink: 0;
-      padding: 12px 16px 16px;
+      padding: 10px 16px 16px;
       border-top: 1px solid var(--hard-border);
       display: none;
       flex-direction: column;
@@ -216,9 +216,15 @@
       letter-spacing: 0.08em;
     }
 
-    #image-gallery img {
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .gallery-grid img {
       width: 100%;
-      height: 320px;
+      height: 180px;
       border-radius: 6px;
       object-fit: cover;
       display: block;
@@ -578,8 +584,9 @@ require([
     const valid   = images.filter(u => u && u.trim().startsWith("http"));
     const gallery = document.getElementById("image-gallery");
 
-    // Remove any previously added images (keep the label div)
-    gallery.querySelectorAll("img").forEach(el => el.remove());
+    // Remove any previously added grid (keep the label div)
+    const old = gallery.querySelector(".gallery-grid");
+    if (old) old.remove();
 
     if (valid.length === 0) {
       gallery.classList.remove("has-images");
@@ -587,12 +594,15 @@ require([
     }
 
     gallery.classList.add("has-images");
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
     valid.forEach(url => {
       const img = document.createElement("img");
       img.src = url;
       img.alt = "Park photo";
-      gallery.appendChild(img);
+      grid.appendChild(img);
     });
+    gallery.appendChild(grid);
   }
 
   // ── Panel ──────────────────────────────────────────────────────────────────

@@ -900,14 +900,14 @@ require([
   // xoffset/yoffset fan out overlapping dots so they don't pile up
   // fields: amenity columns from HARD_Parks_District_Point (layer 3) — any truthy value triggers the marker
   const CATEGORIES = [
-    { id: "basketball", label: "Basketball",       emoji: "🏀", color: [255, 140,   0], ox:  -9, oy:  9,  fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
-    { id: "tennis",     label: "Tennis",           emoji: "🎾", color: [180, 230,   0], ox:   9, oy:  9,  fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
-    { id: "playground", label: "Playground",       emoji: "🛝", color: [100, 210,  60], ox:  -9, oy: -9,  fields: ["CIP_CBOC_Built_Renovated_PG"] },
-    { id: "aquatic",    label: "Aquatic",          emoji: "🏊", color: [  0, 160, 230], ox:   9, oy: -9,  fields: ["CIP_CBOC_Pool_Renovation"] },
-    { id: "trail",      label: "Trail",            emoji: "🥾", color: [ 80, 220, 140], ox: -14, oy:  0,  fields: ["CIP_CBOC_Trail_Walking_Circuit"] },
-    { id: "community",  label: "Community Center", emoji: "🏛️", color: [160,  80, 200], ox:  14, oy:  0,  fields: ["CIP_CBOC_Community_Senior_Center"] },
-    { id: "icc",        label: "ICC",              emoji: "💧", color: [230, 160,   0], ox:   0, oy: -14, fields: ["CIP_CBOC_ICC_Controller", "CIP_CBOC_ICC_MV_FS"] },
-    { id: "renovation", label: "Park Renovation",  emoji: "🌳", color: [ 50, 180,  60], ox:   0, oy:  14, fields: ["CIP_CBOC_Renovation"] },
+    { id: "basketball", label: "Basketball",       emoji: "🏀", color: [255, 140,   0], fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
+    { id: "tennis",     label: "Tennis",           emoji: "🎾", color: [180, 230,   0], fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
+    { id: "playground", label: "Playground",       emoji: "🛝", color: [100, 210,  60], fields: ["CIP_CBOC_Built_Renovated_PG"] },
+    { id: "aquatic",    label: "Aquatic",          emoji: "🏊", color: [  0, 160, 230], fields: ["CIP_CBOC_Pool_Renovation"] },
+    { id: "trail",      label: "Trail",            emoji: "🥾", color: [ 80, 220, 140], fields: ["CIP_CBOC_Trail_Walking_Circuit"] },
+    { id: "community",  label: "Community Center", emoji: "🏛️", color: [160,  80, 200], fields: ["CIP_CBOC_Community_Senior_Center"] },
+    { id: "icc",        label: "ICC",              emoji: "💧", color: [230, 160,   0], fields: ["CIP_CBOC_ICC_Controller", "CIP_CBOC_ICC_MV_FS"] },
+    { id: "renovation", label: "Park Renovation",  emoji: "🌳", color: [ 50, 180,  60], fields: ["CIP_CBOC_Renovation"] },
   ];
 
   // Create a GraphicsLayer per category and add to map
@@ -956,9 +956,7 @@ require([
           symbol: {
             type: "text",
             text: cat.emoji,
-            font: { size: 16 },
-            xoffset: cat.ox,
-            yoffset: cat.oy
+            font: { size: 16 }
           }
         }));
       });

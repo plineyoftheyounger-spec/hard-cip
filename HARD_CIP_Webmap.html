@@ -601,10 +601,13 @@
       <div class="legend-title">Amenities</div>
       <div class="amenity-pills" id="amenity-pills"></div>
     </div>
+    <div id="trail-panel">
+      <div class="legend-title">Trail Corridors</div>
+      <div class="amenity-pills" id="trail-pills"></div>
+    </div>
     <div id="legend">
       <div class="legend-title">Legend</div>
       <div class="legend-item"><div class="legend-dot" style="background:rgba(31,92,153,0.5);border:1.5px solid #4AAFFF;"></div> CIP Park</div>
-      <div class="legend-item"><div style="width:22px;height:3px;background:#50DC8C;border-radius:2px;flex-shrink:0;"></div> Trail Corridor</div>
     </div>
   </div>
   <button id="map-btn-open" onclick="openPanel()">View Details</button>
@@ -863,21 +866,33 @@ require([
   });
 
   // ── Trail layers ──────────────────────────────────────────────────────────
-  const trailStyle = {
-    type: "simple",
-    symbol: { type: "simple-line", color: [80, 220, 140, 0.9], width: 2.5, style: "solid" }
-  };
-
   const trailBase = "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer";
 
-  const trails = [0, 1, 2, 8].map(id => new FeatureLayer({
+  // Foothill Trail: layers 0 (WRTfoothill040) + 8 (FoothillTrail) — warm amber
+  const foothillStyle = {
+    type: "simple",
+    symbol: { type: "simple-line", color: [230, 140, 40, 0.95], width: 3, style: "solid" }
+  };
+  const foothillTrails = [0, 8].map(id => new FeatureLayer({
     url: `${trailBase}/${id}`,
-    renderer: trailStyle,
+    renderer: foothillStyle,
     popupEnabled: false,
-    title: "Trail"
+    title: "Foothill Trail"
   }));
 
-  const map = new Map({ basemap: "satellite", layers: [...trails, layer] });
+  // San Lorenzo Creek Trail: layers 1 (SLCTrail_WRT) + 2 (SanLorenzoCreekTrail) — teal
+  const slcStyle = {
+    type: "simple",
+    symbol: { type: "simple-line", color: [30, 200, 210, 0.95], width: 3, style: "solid" }
+  };
+  const slcTrails = [1, 2].map(id => new FeatureLayer({
+    url: `${trailBase}/${id}`,
+    renderer: slcStyle,
+    popupEnabled: false,
+    title: "San Lorenzo Creek Trail"
+  }));
+
+  const map = new Map({ basemap: "satellite", layers: [...foothillTrails, ...slcTrails, layer] });
 
   const view = new MapView({
     container: "map",
@@ -906,12 +921,12 @@ require([
 
   // Hover cursor + amenity tooltip fan-out
   const tooltip = document.getElementById("amenity-tooltip");
-  const allCatLayers = CATEGORIES.map(c => c.layer);
 
   view.on("pointer-move", async (event) => {
+    // CATEGORIES.map deferred here so cat.layer is always initialized
     const [cipHit, catHit] = await Promise.all([
       view.hitTest(event, { include: [layer] }),
-      view.hitTest(event, { include: allCatLayers })
+      view.hitTest(event, { include: CATEGORIES.map(c => c.layer).filter(Boolean) })
     ]);
 
     if (catHit.results.length > 0) {
@@ -968,6 +983,24 @@ require([
     });
     pillsContainer.appendChild(pill);
     cat.pill = pill;
+  });
+
+  // Build trail toggle pills
+  const TRAIL_GROUPS = [
+    { label: "Foothill Trail",          color: "#E68C28", layers: foothillTrails },
+    { label: "San Lorenzo Creek Trail", color: "#1EC8D2", layers: slcTrails },
+  ];
+  const trailPillsContainer = document.getElementById("trail-pills");
+  TRAIL_GROUPS.forEach(tg => {
+    const pill = document.createElement("div");
+    pill.className = "amenity-pill";
+    pill.innerHTML = `<span style="display:inline-block;width:14px;height:4px;border-radius:2px;background:${tg.color};vertical-align:middle;margin-right:5px;"></span>${tg.label}`;
+    pill.title = `Toggle ${tg.label}`;
+    pill.addEventListener("click", () => {
+      const isOff = pill.classList.toggle("off");
+      tg.layers.forEach(l => l.visible = !isOff);
+    });
+    trailPillsContainer.appendChild(pill);
   });
 
   // Build an emoji picture-marker symbol using inline SVG (works in WebGL)

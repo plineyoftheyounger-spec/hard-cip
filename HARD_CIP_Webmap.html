@@ -923,18 +923,18 @@ require([
   const tooltip = document.getElementById("amenity-tooltip");
 
   view.on("pointer-move", async (event) => {
-    // CATEGORIES.map deferred here so cat.layer is always initialized
-    const [cipHit, catHit] = await Promise.all([
+    const [cipHit, markerHit] = await Promise.all([
       view.hitTest(event, { include: [layer] }),
-      view.hitTest(event, { include: CATEGORIES.map(c => c.layer).filter(Boolean) })
+      view.hitTest(event, { include: [markerLayer] })
     ]);
 
-    if (catHit.results.length > 0) {
+    if (markerHit.results.length > 0) {
       view.container.style.cursor = "pointer";
-      const key = catHit.results[0].graphic.attributes?.parkKey;
+      const key = markerHit.results[0].graphic.attributes?.parkKey;
       if (key && parkAmenityMap.has(key)) {
-        const cats = parkAmenityMap.get(key);
-        tooltip.textContent = cats.map(c => c.emoji).join(" ");
+        const { cats } = parkAmenityMap.get(key);
+        // Fan out: show all park cats (even inactive) spaced out large
+        tooltip.textContent = cats.map(c => c.emoji).join("  ");
         tooltip.style.left = event.x + "px";
         tooltip.style.top  = event.y + "px";
         tooltip.style.display = "block";
@@ -964,11 +964,12 @@ require([
     { id: "renovation", label: "Park Renovation",  emoji: "🌳", fields: ["CIP_CBOC_Renovation"] },
   ];
 
-  // Create a GraphicsLayer per category and add to map
-  CATEGORIES.forEach(cat => {
-    cat.layer = new GraphicsLayer({ title: cat.label });
-    map.add(cat.layer);
-  });
+  // Single layer for all park amenity markers
+  const markerLayer = new GraphicsLayer({ title: "Park Amenities" });
+  map.add(markerLayer);
+
+  // Which categories are currently active (for toggle filtering)
+  const activeCategories = new Set(CATEGORIES.map(c => c.id));
 
   // Build amenity toggle pills
   const pillsContainer = document.getElementById("amenity-pills");
@@ -979,7 +980,9 @@ require([
     pill.title = `Toggle ${cat.label}`;
     pill.addEventListener("click", () => {
       const isOff = pill.classList.toggle("off");
-      cat.layer.visible = !isOff;
+      if (isOff) activeCategories.delete(cat.id);
+      else activeCategories.add(cat.id);
+      rebuildMarkers();
     });
     pillsContainer.appendChild(pill);
     cat.pill = pill;
@@ -1003,19 +1006,39 @@ require([
     trailPillsContainer.appendChild(pill);
   });
 
-  // Build an emoji picture-marker symbol using inline SVG (works in WebGL)
-  function emojiSymbol(cat) {
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20'><text y='17' font-size='17'>${cat.emoji}</text></svg>`;
-    return {
-      type: "picture-marker",
-      url: "data:image/svg+xml," + encodeURIComponent(svg),
-      width: 18,
-      height: 18
-    };
-  }
-
-  // parkAmenityMap: coordKey → array of category ids present at that park
+  // parkAmenityMap: coordKey → { cats: [...], geometry }
   const parkAmenityMap = new Map();
+
+  // Build/rebuild one combined pill marker per park using currently active categories
+  function rebuildMarkers() {
+    markerLayer.removeAll();
+    parkAmenityMap.forEach(({ cats, geometry }, key) => {
+      const visible = cats.filter(c => activeCategories.has(c.id));
+      if (visible.length === 0) return;
+
+      const emojis = visible.map(c => c.emoji).join("");
+      const charW = 17;
+      const pad   = 6;
+      const w     = visible.length * charW + pad * 2;
+      const h     = 26;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>` +
+        `<rect x='1' y='1' width='${w - 2}' height='${h - 2}' rx='6' ` +
+        `fill='rgba(10,20,40,0.72)' stroke='rgba(255,255,255,0.28)' stroke-width='1'/>` +
+        `<text x='${pad}' y='${h - 6}' font-size='15'>${emojis}</text>` +
+        `</svg>`;
+
+      markerLayer.add(new Graphic({
+        geometry,
+        symbol: {
+          type: "picture-marker",
+          url: "data:image/svg+xml," + encodeURIComponent(svg),
+          width: w,
+          height: h
+        },
+        attributes: { parkKey: key }
+      }));
+    });
+  }
 
   // After view loads, query HARD_Parks_District_Point for amenity field values
   view.when(async () => {
@@ -1043,17 +1066,14 @@ require([
           const hasAmenity = cat.fields.some(field => attrs[field] && attrs[field] !== 0);
           if (!hasAmenity) return;
           presentCats.push(cat);
-          cat.layer.add(new Graphic({
-            geometry: f.geometry,
-            symbol: emojiSymbol(cat),
-            attributes: { parkKey: key }
-          }));
         });
 
         if (presentCats.length > 0) {
-          parkAmenityMap.set(key, presentCats);
+          parkAmenityMap.set(key, { cats: presentCats, geometry: f.geometry });
         }
       });
+
+      rebuildMarkers();
     } catch (e) {
       console.error("Amenity layer load failed:", e);
     }

@@ -637,6 +637,9 @@
 </div>
 
 <script>
+// Save native Map before AMD require shadows it with esri/Map
+const _NativeMap = Map;
+
 require([
   "esri/Map",
   "esri/views/MapView",
@@ -1007,7 +1010,7 @@ require([
   });
 
   // parkAmenityMap: coordKey → { cats: [...], geometry }
-  const parkAmenityMap = new Map();
+  const parkAmenityMap = new _NativeMap();
 
   // Build/rebuild one combined emoji marker per park using currently active categories
   function rebuildMarkers() {

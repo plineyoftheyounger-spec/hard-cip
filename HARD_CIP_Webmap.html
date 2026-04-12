@@ -1009,7 +1009,7 @@ require([
   // parkAmenityMap: coordKey → { cats: [...], geometry }
   const parkAmenityMap = new Map();
 
-  // Build/rebuild one combined pill marker per park using currently active categories
+  // Build/rebuild one combined emoji marker per park using currently active categories
   function rebuildMarkers() {
     markerLayer.removeAll();
     parkAmenityMap.forEach(({ cats, geometry }, key) => {
@@ -1017,15 +1017,11 @@ require([
       if (visible.length === 0) return;
 
       const emojis = visible.map(c => c.emoji).join("");
-      const charW = 17;
-      const pad   = 6;
-      const w     = visible.length * charW + pad * 2;
-      const h     = 26;
-      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>` +
-        `<rect x='1' y='1' width='${w - 2}' height='${h - 2}' rx='6' ` +
-        `fill='rgba(10,20,40,0.72)' stroke='rgba(255,255,255,0.28)' stroke-width='1'/>` +
-        `<text x='${pad}' y='${h - 6}' font-size='15'>${emojis}</text>` +
-        `</svg>`;
+      // Each emoji is ~18px wide; add small padding
+      const w = visible.length * 18 + 4;
+      const h = 22;
+      // Match the exact SVG format that worked for single-emoji markers
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><text y='18' font-size='16'>${emojis}</text></svg>`;
 
       markerLayer.add(new Graphic({
         geometry,
@@ -1073,6 +1069,7 @@ require([
         }
       });
 
+      console.log(`Amenity query: ${result.features.length} features, ${parkAmenityMap.size} parks with amenities`);
       rebuildMarkers();
     } catch (e) {
       console.error("Amenity layer load failed:", e);

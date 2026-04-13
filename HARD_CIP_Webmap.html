@@ -420,7 +420,7 @@
     #map-controls::-webkit-scrollbar-track { background: transparent; }
     #map-controls::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
-    #legend, #amenity-panel {
+    #legend, #amenity-panel, #trail-panel {
       background: var(--hard-panel);
       border: 1px solid var(--hard-border);
       border-radius: 8px;
@@ -457,25 +457,6 @@
 
     .amenity-pill.off {
       opacity: 0.35;
-    }
-
-    /* ── Amenity hover tooltip ── */
-    #amenity-tooltip {
-      position: fixed;
-      z-index: 600;
-      pointer-events: none;
-      display: none;
-      background: rgba(10, 20, 40, 0.82);
-      color: #fff;
-      padding: 6px 12px;
-      border-radius: 10px;
-      font-size: 22px;
-      letter-spacing: 4px;
-      white-space: nowrap;
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,0.15);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
-      transform: translate(12px, -50%);
     }
 
     /* ── Mobile open button ── */
@@ -602,7 +583,6 @@
 <!-- Main -->
 <div class="main">
   <div id="map"></div>
-  <div id="amenity-tooltip"></div>
 
   <!-- Map controls: amenities + legend (fixed, outside ArcGIS container) -->
   <div id="map-controls">
@@ -931,30 +911,11 @@ require([
     }
   });
 
-  // Hover cursor + amenity tooltip fan-out
-  const tooltip = document.getElementById("amenity-tooltip");
-
-  view.on("pointer-move", async (event) => {
-    const [cipHit, markerHit] = await Promise.all([
-      view.hitTest(event, { include: [layer] }),
-      view.hitTest(event, { include: [markerLayer] })
-    ]);
-
-    if (markerHit.results.length > 0) {
-      view.container.style.cursor = "pointer";
-      const key = markerHit.results[0].graphic.attributes?.parkKey;
-      if (key && parkAmenityMap.has(key)) {
-        const { cats } = parkAmenityMap.get(key);
-        // Fan out: show all park cats (even inactive) spaced out large
-        tooltip.textContent = cats.map(c => c.emoji).join("  ");
-        tooltip.style.left = event.x + "px";
-        tooltip.style.top  = event.y + "px";
-        tooltip.style.display = "block";
-      }
-    } else {
-      tooltip.style.display = "none";
-      view.container.style.cursor = cipHit.results.length > 0 ? "pointer" : "default";
-    }
+  // Pointer cursor over CIP polygons only — lightweight, no async hitTest on move
+  view.on("pointer-move", (event) => {
+    view.hitTest(event, { include: [layer] }).then(r => {
+      view.container.style.cursor = r.results.length > 0 ? "pointer" : "default";
+    });
   });
 
   // ── Mobile panel toggle ───────────────────────────────────────────────────

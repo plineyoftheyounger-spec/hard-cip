@@ -14,24 +14,33 @@
 
   <style>
     :root {
-      --hard-blue:    #1F5C99;
-      --hard-blue-lt: #2E7BC4;
-      --hard-dark:    #0a1628;
-      --hard-panel:   #0e1e36;
-      --hard-border:  #1a3a5c;
-      --hard-accent:  #4AAFFF;
-      --text-main:    #e8f0f8;
-      --text-muted:   #7a9abf;
-      --status-plan:  #7A5C00;
+      /* HARD Brand — Primary */
+      --hard-blue:    #005775;   /* Primary Dark Blue  RGB 0,87,117    */
+      --hard-blue-lt: #3CA4D4;   /* Primary Light Blue RGB 60,164,212  */
+      --hard-green:   #719500;   /* Primary Green      RGB 113,149,0   */
+      /* HARD Brand — Accent */
+      --hard-blue-dk2:#1F5268;   /* Accent Dark Blue   RGB 31,82,104   */
+      --hard-blue-lt2:#8DC9E8;   /* Accent Light Blue  RGB 141,201,232 */
+      --hard-mustard: #F2AE00;   /* Accent Mustard     RGB 242,174,0   */
+      --hard-red:     #C13832;   /* Accent Red         RGB 193,56,50   */
+      /* UI surfaces (dark derivations of primary dark blue) */
+      --hard-dark:    #001C26;
+      --hard-panel:   #002B3D;
+      --hard-border:  #1F5268;
+      --hard-accent:  #3CA4D4;   /* Primary Light Blue as interactive accent */
+      --text-main:    #E8F5FA;
+      --text-muted:   #8DC9E8;   /* Accent Light Blue for secondary text */
+      /* Status badge colors */
+      --status-plan:    #7A5C00;
       --status-plan-bg: #FFF2CC;
-      --status-uc:    #8B3A00;
-      --status-uc-bg: #FCE4D6;
-      --status-cd:    #1F5C99;
-      --status-cd-bg: #DDEBF7;
-      --status-bid:   #5B00A5;
-      --status-bid-bg:#E2CFFF;
-      --status-done:  #2E6B1E;
-      --status-done-bg:#E2EFDA;
+      --status-uc:      #8B3A00;
+      --status-uc-bg:   #FCE4D6;
+      --status-cd:      #005775;
+      --status-cd-bg:   #CCE8F0;
+      --status-bid:     #5B00A5;
+      --status-bid-bg:  #E2CFFF;
+      --status-done:    #4A6300;
+      --status-done-bg: #DDF0B8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -120,7 +129,7 @@
     }
 
     .search-item:hover, .search-item.active {
-      background: rgba(74,175,255,0.12);
+      background: rgba(60,164,212,0.12);
       color: var(--hard-accent);
     }
 
@@ -232,7 +241,7 @@
     }
 
     .park-header {
-      background: linear-gradient(135deg, var(--hard-blue) 0%, #0f3460 100%);
+      background: linear-gradient(135deg, var(--hard-blue) 0%, var(--hard-dark) 100%);
       padding: 20px 24px 16px;
       flex-shrink: 0;
       position: relative;
@@ -607,7 +616,7 @@
     </div>
     <div id="legend">
       <div class="legend-title">Legend</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(31,92,153,0.5);border:1.5px solid #4AAFFF;"></div> CIP Park</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(0,87,117,0.45);border:1.5px solid #3CA4D4;"></div> CIP Park</div>
     </div>
   </div>
   <button id="map-btn-open" onclick="openPanel()">View Details</button>
@@ -855,8 +864,8 @@ require([
     type: "simple",
     symbol: {
       type: "simple-fill",
-      color: [31, 92, 153, 0.5],
-      outline: { color: [74, 175, 255, 0.9], width: 1.5 }
+      color: [0, 87, 117, 0.45],           /* Primary Dark Blue */
+      outline: { color: [60, 164, 212, 0.9], width: 1.5 }  /* Primary Light Blue */
     }
   };
 
@@ -871,10 +880,10 @@ require([
   // ── Trail layers ──────────────────────────────────────────────────────────
   const trailBase = "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer";
 
-  // Foothill Trail: layers 0 (WRTfoothill040) + 8 (FoothillTrail) — warm amber
+  // Foothill Trail: layers 0 (WRTfoothill040) + 8 (FoothillTrail) — HARD Mustard
   const foothillStyle = {
     type: "simple",
-    symbol: { type: "simple-line", color: [230, 140, 40, 0.95], width: 3, style: "solid" }
+    symbol: { type: "simple-line", color: [242, 174, 0, 0.95], width: 3, style: "solid" }
   };
   const foothillTrails = [0, 8].map(id => new FeatureLayer({
     url: `${trailBase}/${id}`,
@@ -883,10 +892,10 @@ require([
     title: "Foothill Trail"
   }));
 
-  // San Lorenzo Creek Trail: layers 1 (SLCTrail_WRT) + 2 (SanLorenzoCreekTrail) — teal
+  // San Lorenzo Creek Trail: layers 1 (SLCTrail_WRT) + 2 (SanLorenzoCreekTrail) — HARD Light Blue
   const slcStyle = {
     type: "simple",
-    symbol: { type: "simple-line", color: [30, 200, 210, 0.95], width: 3, style: "solid" }
+    symbol: { type: "simple-line", color: [60, 164, 212, 0.95], width: 3, style: "solid" }
   };
   const slcTrails = [1, 2].map(id => new FeatureLayer({
     url: `${trailBase}/${id}`,
@@ -993,8 +1002,8 @@ require([
 
   // Build trail toggle pills
   const TRAIL_GROUPS = [
-    { label: "Foothill Trail",          color: "#E68C28", layers: foothillTrails },
-    { label: "San Lorenzo Creek Trail", color: "#1EC8D2", layers: slcTrails },
+    { label: "Foothill Trail",          color: "#F2AE00", layers: foothillTrails },
+    { label: "San Lorenzo Creek Trail", color: "#3CA4D4", layers: slcTrails },
   ];
   const trailPillsContainer = document.getElementById("trail-pills");
   TRAIL_GROUPS.forEach(tg => {

@@ -403,6 +403,27 @@
 
     .project-link:hover { color: white; }
 
+    /* ── Injected HTML_Popup from ArcGIS feature service ── */
+    .popup-inject {
+      background: #fff;
+      border-radius: 6px;
+      padding: 6px;
+      overflow: hidden;
+    }
+    /* Remove the max-width constraint designed for ArcGIS popup windows */
+    .popup-inject > div {
+      max-width: 100% !important;
+    }
+    /* Hide the redundant park name header and subtitle already shown in the panel */
+    .popup-inject h3,
+    .popup-inject > div > p:first-of-type {
+      display: none;
+    }
+    /* Hide the small image strip inside the popup — the panel gallery shows larger photos */
+    .popup-inject > div > div:first-of-type {
+      display: none;
+    }
+
     /* ── Map controls (legend + amenities) ── */
     #map-controls {
       position: fixed;
@@ -640,15 +661,7 @@ require([
   "esri/symbols/SimpleFillSymbol"
 ], function(Map, MapView, FeatureLayer, GraphicsLayer, Graphic, UniqueValueRenderer, SimpleFillSymbol) {
 
-  // ── Status config ──────────────────────────────────────────────────────────
-  const STATUS_COLORS = {
-    "Planning":               { fill: "#FFF2CC", outline: "#7A5C00", text: "#7A5C00" },
-    "Under Construction":     { fill: "#FCE4D6", outline: "#8B3A00", text: "#8B3A00" },
-    "Construction Documents": { fill: "#DDEBF7", outline: "#1F5C99", text: "#1F5C99" },
-    "Bid and Award Phase":    { fill: "#E2CFFF", outline: "#5B00A5", text: "#5B00A5" },
-    "Design Development":     { fill: "#E2CFFF", outline: "#5B00A5", text: "#5B00A5" },
-    "Complete":               { fill: "#E2EFDA", outline: "#2E6B1E", text: "#2E6B1E" },
-  };
+  // ── Status config (used for map renderer only) ────────────────────────────
 
   const MAP_COLORS = {
     "Planning":               [255, 242, 0, 0.75],
@@ -659,8 +672,9 @@ require([
     "Complete":               [50, 180, 50, 0.7],
   };
 
-  // ── Project data ───────────────────────────────────────────────────────────
-  const PROJECTS = {
+  // ── Project data (now sourced from ArcGIS HTML_Popup field) ──────────────
+  // PROJECTS and PARK_PROJECTS removed — map reads HTML_Popup from FeatureServer/0
+  const PROJECTS_LEGACY = {
     1504: { name: "Playground Renovations (District-Wide)", status: "Planning", budget: "$4,167,000", start: "Winter 2025", end: "Summer 2027", size: "Multiple sites", scope: "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Stonybrook Park, and others. Scope at each site may include new equipment, safety surfacing, and site furnishings.", pm: "Marvin Yee" },
     1506: { name: "Restroom Renovations (District-Wide)", status: "Planning", budget: "$4,680,000", start: "Winter 2025", end: "Winter 2027", size: "Multiple sites", scope: "Restroom renovations and replacements at multiple park sites district-wide to improve safety, cleanliness, and ADA accessibility.", pm: "Brian Laczko" },
     1509: { name: "Basketball & Tennis Court Renovations – Phase 3", status: "Planning", budget: "$1,000,000", start: "Winter 2025", end: "Winter 2026", size: "10 basketball + 1 tennis court", scope: "Phase 3 of H.A.R.D.'s district-wide court renovation program, targeting 10 basketball courts and 1 tennis court across multiple parks. Upgrades will include new paving, surfacing, striping, hoops, nets, and site furnishings.", pm: "Diane Hardy" },
@@ -720,7 +734,7 @@ require([
     582:  { name: "Unity Park", status: "Complete", budget: "$7,127,486", start: "Spring 2019", end: "Summer 2025", size: "2.5 acres", scope: "Creation of Unity Park on a former abandoned lot at Mission Boulevard and Mattox Road, converted using F1 Bond and ARPA funds into a full-sized basketball court, six pickleball courts, a multi-use court, roller-skating area, children's play area, ping pong tables, bike skills course, picnic areas, and food truck accommodations. A temporary-use facility with over 20,000 visitors to date, serving as a community hub at a key gateway to the Ashland, Hayward, and Cherryland neighborhoods.", pm: "Meghan Tiernan" },
   };
 
-  const PARK_PROJECTS = {
+  const PARK_PROJECTS_LEGACY = {
     "Alden E. Oliver Sports Park": [86, 451, 973],
     "Ashland Grove Park": [965, 449],
     "Ashland Zocolo": [481],
@@ -795,39 +809,16 @@ require([
     const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.trim().startsWith("http"));
     buildGallery(imgs);
 
-    // Projects
+    // Projects — read HTML_Popup directly from the ArcGIS feature service attribute.
+    // To update project content: edit the Excel table → republish to ArcGIS Online.
     const container = document.getElementById("projects-container");
-    container.innerHTML = "";
-    const projIds = PARK_PROJECTS[parkName] || [];
-    const seen = new Set();
-    const unique = projIds.filter(id => { if (seen.has(id)) return false; seen.add(id); return true; });
+    const htmlPopup = attrs.HTML_Popup;
 
-    if (unique.length === 0) {
+    if (htmlPopup && htmlPopup.trim()) {
+      container.innerHTML = `<div class="popup-inject">${htmlPopup}</div>`;
+    } else {
       container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">No project details available.</p>`;
-      return;
     }
-
-    unique.forEach(pid => {
-      const p = PROJECTS[pid];
-      if (!p) return;
-      const sc = STATUS_COLORS[p.status] || { fill: "#eee", outline: "#999", text: "#333" };
-      const card = document.createElement("div");
-      card.className = "project-card";
-      card.innerHTML = `
-        <div class="project-name">${p.name}</div>
-        <div class="status-badge" style="background:${sc.fill};color:${sc.text};">${p.status}</div>
-        <div class="project-meta">
-          <div class="meta-item"><div class="meta-label">Budget</div><div class="meta-value">${p.budget}</div></div>
-          <div class="meta-item"><div class="meta-label">Size</div><div class="meta-value">${p.size}</div></div>
-          <div class="meta-item"><div class="meta-label">Start</div><div class="meta-value">${p.start}</div></div>
-          <div class="meta-item"><div class="meta-label">End</div><div class="meta-value">${p.end}</div></div>
-          <div class="meta-item" style="grid-column:span 2"><div class="meta-label">Project Manager</div><div class="meta-value">${p.pm}</div></div>
-        </div>
-        <div class="project-scope">${p.scope}</div>
-        <a class="project-link" href="https://hard.icitywork.com/#projectDetail${pid}" target="_blank">🔗 View Full Project Details</a>
-      `;
-      container.appendChild(card);
-    });
   }
 
   function closePanel() {
@@ -1048,10 +1039,27 @@ require([
     } catch (e) {
       console.error("Amenity layer load failed:", e);
     }
+
+    // Populate search park names from the CIP parks feature service
+    try {
+      const nameResult = await layer.queryFeatures({
+        where: "Park_Name IS NOT NULL",
+        outFields: ["Park_Name"],
+        returnGeometry: false,
+        num: 500
+      });
+      parkNames = nameResult.features
+        .map(f => f.attributes.Park_Name)
+        .filter(Boolean)
+        .sort();
+    } catch (e) {
+      console.error("Park name query failed:", e);
+    }
   });
 
   // ── Search ────────────────────────────────────────────────────────────────
-  const parkNames = Object.keys(PARK_PROJECTS).sort();
+  // Park names are sourced from the feature service, not a hardcoded list.
+  let parkNames = [];
   const searchInput    = document.getElementById("search-input");
   const searchDropdown = document.getElementById("search-dropdown");
 

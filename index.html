@@ -405,7 +405,7 @@
 
     /* ── Injected popup content ── */
     .popup-inject {
-      background: #fff;
+      background: #e8eef4;
       border-radius: 6px;
       padding: 6px;
       overflow: hidden;
@@ -422,21 +422,26 @@
     .popup-inject > div > div:first-of-type {
       display: none;
     }
-    /* Larger, readable description text */
+    /* Force all text dark and readable */
+    .popup-inject * {
+      color: #1a1a2e !important;
+    }
+    .popup-inject a {
+      color: #1a5276 !important;
+      font-weight: 600;
+    }
+    /* Card background */
+    .popup-inject div[style*="border:1px solid #ccc"] {
+      background: #f4f7fb !important;
+    }
+    /* Larger description text */
     .popup-inject span[style*="font-size:11px"] {
       font-size: 13px !important;
-      color: #222 !important;
-      line-height: 1.5 !important;
+      line-height: 1.6 !important;
     }
     /* Larger project name */
     .popup-inject b[style*="font-size:13px"] {
       font-size: 15px !important;
-      color: #111 !important;
-    }
-    /* Ensure all text in popup is dark on white */
-    .popup-inject b,
-    .popup-inject span {
-      color: #222;
     }
 
     /* ── Map controls (legend + amenities) ── */

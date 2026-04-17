@@ -222,6 +222,7 @@
     .meta-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1px; }
     .meta-value { font-size: 13px; font-weight: 500; color: var(--text-main); }
 
+    .park-narrative { font-size: 14px; color: var(--text-main); line-height: 1.7; padding: 14px 16px; border-bottom: 1px solid var(--hard-border); background: rgba(113,149,0,0.06); }
     .project-narrative { font-size: 13px; color: var(--text-main); line-height: 1.65; margin-bottom: 12px; font-style: italic; border-left: 2px solid var(--hard-green); padding-left: 10px; }
     .project-scope { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
 
@@ -421,7 +422,8 @@ require([
     "Laurel School Site","Meek Estate Park","Memorial Park","Mission Hills Of Hayward Golf Course",
     "Mt. Eden Park","Palma Ceia Park","Palomares Hills Park","San Lorenzo Community Park",
     "Sorensdale Park","Southgate Park","Stonybrook Park","Sulphur Creek Nature Center",
-    "Sunset Futsol","Tennyson Park","Unity Park","Valley View Park","Via Toledo Park","Weekes Park"
+    "Sunset Futsol","Tennyson Park","Unity Park","Valley View Park","Via Toledo Park","Weekes Park",
+    "Mia's Dream Park"
   ]);
 
   // ── Amenity data (name → category list) ──────────────────────────────────
@@ -498,7 +500,9 @@ require([
     if (isCIP) {
       const data = popupData[parkName];
       if (data && data.projects && data.projects.length) {
-        container.innerHTML = data.projects.map(renderProjectCard).join("");
+        const parkNarr = data.park_narrative
+          ? `<div class="park-narrative">${data.park_narrative}</div>` : "";
+        container.innerHTML = parkNarr + data.projects.map(renderProjectCard).join("");
       } else {
         container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">Project details not yet available.</p>`;
       }

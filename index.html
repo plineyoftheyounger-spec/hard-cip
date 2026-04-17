@@ -176,9 +176,9 @@
     }
 
     .projects-scroll {
-      flex: 1; overflow-y: auto; padding: 16px; min-width: 0;
+      width: 100%; overflow-y: auto; padding: 16px; flex-shrink: 0;
     }
-    .park-body.has-images .projects-scroll { flex: 0 0 50%; }
+    .park-body.has-images .projects-scroll { width: 50%; }
     .projects-scroll::-webkit-scrollbar { width: 4px; }
     .projects-scroll::-webkit-scrollbar-track { background: transparent; }
     .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
@@ -187,17 +187,17 @@
       display: none; flex-direction: column; gap: 10px;
       overflow-y: auto; padding: 16px;
       border-left: 1px solid var(--hard-border);
-      flex: 0 0 50%; min-width: 0;
+      width: 50%; flex-shrink: 0;
     }
     #image-gallery.has-images { display: flex; }
     #image-gallery::-webkit-scrollbar { width: 4px; }
     #image-gallery::-webkit-scrollbar-track { background: transparent; }
     #image-gallery::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
-    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; margin-bottom: 4px; }
+    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; margin-bottom: 6px; }
 
     #image-gallery img {
-      width: 100%; height: 220px; object-fit: cover;
+      width: 100%; height: 260px; object-fit: cover;
       border-radius: 6px; display: block; flex-shrink: 0;
     }
 
@@ -454,10 +454,16 @@ require([
     });
   }
 
+  // District-wide court projects shown via amenity icons — skip in popup cards
+  const AMENITY_PROJECTS = /basketball.*court|tennis.*court.*renov/i;
+
   // ── Group projects that share a base name with Phase N suffix ────────────
   function renderGroupedProjects(projects) {
+    const filtered = projects.filter(p => !AMENITY_PROJECTS.test(p.name));
+    if (!filtered.length) return "";
     const used = new Set();
     const cards = [];
+    projects = filtered;
     const phaseRe = /^(.+?)\s*[-–]\s*Phase\s+(\d+)$/i;
 
     projects.forEach((p, i) => {

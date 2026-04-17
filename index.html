@@ -117,14 +117,14 @@
     #map { flex: 1; position: relative; }
 
     #panel {
-      width: min(520px, 38vw);
+      width: min(780px, 56vw);
       background: var(--hard-panel);
       border-left: 1px solid var(--hard-border);
       display: flex; flex-direction: column; overflow: hidden;
       transition: transform 0.3s ease; flex-shrink: 0;
     }
     #panel.hidden {
-      transform: translateX(min(520px, 38vw));
+      transform: translateX(min(780px, 56vw));
       position: absolute; right: 0;
     }
 
@@ -171,30 +171,35 @@
     }
     .close-btn:hover { background: rgba(255,255,255,0.25); }
 
+    .park-body {
+      display: flex; flex: 1; overflow: hidden;
+    }
+
+    .projects-scroll {
+      flex: 1; overflow-y: auto; padding: 16px; min-width: 0;
+    }
+    .park-body.has-images .projects-scroll { flex: 0 0 50%; }
+    .projects-scroll::-webkit-scrollbar { width: 4px; }
+    .projects-scroll::-webkit-scrollbar-track { background: transparent; }
+    .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
+
     #image-gallery {
-      flex-shrink: 0; overflow-y: auto; padding: 10px 16px 16px;
-      border-top: 1px solid var(--hard-border);
       display: none; flex-direction: column; gap: 10px;
-      max-height: 280px;
+      overflow-y: auto; padding: 16px;
+      border-left: 1px solid var(--hard-border);
+      flex: 0 0 50%; min-width: 0;
     }
     #image-gallery.has-images { display: flex; }
     #image-gallery::-webkit-scrollbar { width: 4px; }
     #image-gallery::-webkit-scrollbar-track { background: transparent; }
     #image-gallery::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
-    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; margin-bottom: 4px; }
 
     #image-gallery img {
-      width: 100%; height: 200px; object-fit: cover;
+      width: 100%; height: 220px; object-fit: cover;
       border-radius: 6px; display: block; flex-shrink: 0;
     }
-
-    .projects-scroll {
-      flex: 1; overflow-y: auto; padding: 16px;
-    }
-    .projects-scroll::-webkit-scrollbar { width: 4px; }
-    .projects-scroll::-webkit-scrollbar-track { background: transparent; }
-    .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
     .project-card {
       background: rgba(255,255,255,0.04);
@@ -254,7 +259,7 @@
       position: fixed; bottom: 24px; left: 16px; z-index: 500;
       display: flex; flex-direction: column; gap: 8px;
       max-height: calc(100vh - 96px);
-      max-width: calc(100vw - min(520px, 38vw) - 32px);
+      max-width: calc(100vw - min(780px, 56vw) - 32px);
       overflow-y: auto;
     }
     #map-controls::-webkit-scrollbar { width: 3px; }
@@ -365,10 +370,11 @@
         <div class="subtitle" id="detail-subtitle">HARD Capital Improvement Projects</div>
       </div>
 
-      <div class="projects-scroll" id="projects-container"></div>
-
-      <div id="image-gallery">
-        <div class="gallery-label">Photos</div>
+      <div class="park-body" id="park-body">
+        <div class="projects-scroll" id="projects-container"></div>
+        <div id="image-gallery">
+          <div class="gallery-label">Photos</div>
+        </div>
       </div>
     </div>
   </div>
@@ -433,13 +439,76 @@ require([
   function buildGallery(urls) {
     const valid = (urls || []).filter(u => u && u.startsWith("http"));
     const gallery = document.getElementById("image-gallery");
+    const body    = document.getElementById("park-body");
     gallery.querySelectorAll("img").forEach(el => el.remove());
-    if (!valid.length) { gallery.classList.remove("has-images"); return; }
+    if (!valid.length) {
+      gallery.classList.remove("has-images");
+      body.classList.remove("has-images");
+      return;
+    }
     gallery.classList.add("has-images");
+    body.classList.add("has-images");
     valid.forEach(url => {
       const img = document.createElement("img");
       img.src = url; img.alt = "Park photo"; gallery.appendChild(img);
     });
+  }
+
+  // ── Group projects that share a base name with Phase N suffix ────────────
+  function renderGroupedProjects(projects) {
+    const used = new Set();
+    const cards = [];
+    const phaseRe = /^(.+?)\s*[-–]\s*Phase\s+(\d+)$/i;
+
+    projects.forEach((p, i) => {
+      if (used.has(i)) return;
+      const m = p.name.match(phaseRe);
+      if (m) {
+        const base = m[1].trim();
+        const phases = [{ idx: i, p, num: parseInt(m[2]) }];
+        projects.forEach((p2, j) => {
+          if (j === i || used.has(j)) return;
+          const m2 = p2.name.match(phaseRe);
+          if (m2 && m2[1].trim() === base) phases.push({ idx: j, p: p2, num: parseInt(m2[2]) });
+        });
+        phases.sort((a, b) => a.num - b.num);
+        phases.forEach(ph => used.add(ph.idx));
+        if (phases.length > 1) {
+          cards.push(renderPhaseGroupCard(base, phases.map(ph => ph.p)));
+          return;
+        }
+      }
+      used.add(i);
+      cards.push(renderProjectCard(p));
+    });
+    return cards.join("");
+  }
+
+  function renderPhaseGroupCard(baseName, phases) {
+    const anyActive = phases.some(p => p.status !== "Complete");
+    const overallStatus = anyActive ? phases.find(p => p.status !== "Complete").status : "Complete";
+    const badgeStyle = STATUS_STYLES[overallStatus] || "background:#eee;color:#333;";
+    const totalBudget = phases.map(p => p.budget).join(" + ");
+    const timeline = `${phases[0].start} – ${phases[phases.length - 1].end}`;
+    const narrative = phases.find(p => p.narrative)?.narrative || phases.find(p => p.scope)?.scope || "";
+    const phaseRows = phases.map(p => {
+      const bs = STATUS_STYLES[p.status] || "background:#eee;color:#333;";
+      return `<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--hard-border);gap:8px;">
+        <span style="font-size:12px;color:var(--text-main);">${p.name}</span>
+        <span class="status-badge" style="${bs};margin-bottom:0;">${p.status}</span>
+      </div>`;
+    }).join("");
+    return `<div class="project-card">
+      <div class="project-name">${baseName}</div>
+      <span class="status-badge" style="${badgeStyle}">${overallStatus}</span>
+      ${narrative ? `<div class="project-narrative">${narrative}</div>` : ""}
+      <div class="project-meta">
+        <div><div class="meta-label">Total Budget</div><div class="meta-value">${totalBudget}</div></div>
+        <div><div class="meta-label">Timeline</div><div class="meta-value">${timeline}</div></div>
+      </div>
+      ${phaseRows}
+      <a class="project-link" href="${phases[phases.length - 1].link}" target="_blank" style="margin-top:10px;display:inline-flex;">🔗 View Full Project Details</a>
+    </div>`;
   }
 
   // ── Render one CIP project card ───────────────────────────────────────────
@@ -501,7 +570,7 @@ require([
       if (data && data.projects && data.projects.length) {
         const parkNarr = data.park_narrative
           ? `<div class="park-narrative">${data.park_narrative}</div>` : "";
-        container.innerHTML = parkNarr + data.projects.map(renderProjectCard).join("");
+        container.innerHTML = parkNarr + renderGroupedProjects(data.projects);
       } else {
         container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">Project details not yet available.</p>`;
       }

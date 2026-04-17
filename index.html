@@ -5,42 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>H.A.R.D. Capital Improvement Projects</title>
 
-  <!-- ArcGIS JS API -->
   <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/dark/main.css" />
   <script src="https://js.arcgis.com/4.29/"></script>
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      /* HARD Brand — Primary */
-      --hard-blue:    #005775;   /* Primary Dark Blue  RGB 0,87,117    */
-      --hard-blue-lt: #3CA4D4;   /* Primary Light Blue RGB 60,164,212  */
-      --hard-green:   #719500;   /* Primary Green      RGB 113,149,0   */
-      /* HARD Brand — Accent */
-      --hard-blue-dk2:#1F5268;   /* Accent Dark Blue   RGB 31,82,104   */
-      --hard-blue-lt2:#8DC9E8;   /* Accent Light Blue  RGB 141,201,232 */
-      --hard-mustard: #F2AE00;   /* Accent Mustard     RGB 242,174,0   */
-      --hard-red:     #C13832;   /* Accent Red         RGB 193,56,50   */
-      /* UI surfaces (dark derivations of primary dark blue) */
+      --hard-blue:    #005775;
+      --hard-blue-lt: #3CA4D4;
+      --hard-green:   #719500;
+      --hard-blue-dk2:#1F5268;
+      --hard-blue-lt2:#8DC9E8;
+      --hard-mustard: #F2AE00;
+      --hard-red:     #C13832;
       --hard-dark:    #001C26;
       --hard-panel:   #002B3D;
       --hard-border:  #1F5268;
-      --hard-accent:  #3CA4D4;   /* Primary Light Blue as interactive accent */
+      --hard-accent:  #3CA4D4;
       --text-main:    #E8F5FA;
-      --text-muted:   #8DC9E8;   /* Accent Light Blue for secondary text */
-      /* Status badge colors */
-      --status-plan:    #7A5C00;
-      --status-plan-bg: #FFF2CC;
-      --status-uc:      #8B3A00;
-      --status-uc-bg:   #FCE4D6;
-      --status-cd:      #005775;
-      --status-cd-bg:   #CCE8F0;
-      --status-bid:     #5B00A5;
-      --status-bid-bg:  #E2CFFF;
-      --status-done:    #4A6300;
-      --status-done-bg: #DDF0B8;
+      --text-muted:   #8DC9E8;
+      --status-plan:    #7A5C00; --status-plan-bg: #FFF2CC;
+      --status-uc:      #8B3A00; --status-uc-bg:   #FCE4D6;
+      --status-cd:      #005775; --status-cd-bg:   #CCE8F0;
+      --status-bid:     #5B00A5; --status-bid-bg:  #E2CFFF;
+      --status-done:    #4A6300; --status-done-bg: #DDF0B8;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +43,6 @@
       overflow: hidden;
     }
 
-    /* ── Header ── */
     header {
       background: var(--hard-panel);
       border-bottom: 3px solid var(--hard-green);
@@ -70,11 +57,7 @@
       gap: 16px;
     }
 
-    /* ── Search ── */
-    #search-wrap {
-      position: relative;
-      flex-shrink: 0;
-    }
+    #search-wrap { position: relative; flex-shrink: 0; }
 
     #search-input {
       background: rgba(255,255,255,0.07);
@@ -88,246 +71,127 @@
       outline: none;
       transition: border-color 0.2s;
     }
-
     #search-input::placeholder { color: var(--text-muted); }
     #search-input:focus { border-color: var(--hard-accent); }
 
     .search-icon {
-      position: absolute;
-      right: 10px;
-      top: 50%;
+      position: absolute; right: 10px; top: 50%;
       transform: translateY(-50%);
-      color: var(--text-muted);
-      font-size: 13px;
-      pointer-events: none;
+      color: var(--text-muted); font-size: 13px; pointer-events: none;
     }
 
     #search-dropdown {
       display: none;
-      position: absolute;
-      top: calc(100% + 4px);
-      left: 0;
-      width: 100%;
+      position: absolute; top: calc(100% + 4px); left: 0; width: 100%;
       background: var(--hard-panel);
       border: 1px solid var(--hard-border);
-      border-radius: 6px;
-      overflow: hidden;
-      z-index: 200;
+      border-radius: 6px; overflow: hidden; z-index: 200;
       box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-      max-height: 280px;
-      overflow-y: auto;
+      max-height: 280px; overflow-y: auto;
     }
-
     #search-dropdown.open { display: block; }
 
     .search-item {
-      padding: 9px 14px;
-      font-size: 13px;
-      cursor: pointer;
-      color: var(--text-main);
-      transition: background 0.15s;
+      padding: 9px 14px; font-size: 13px; cursor: pointer;
+      color: var(--text-main); transition: background 0.15s;
     }
-
     .search-item:hover, .search-item.active {
-      background: rgba(60,164,212,0.12);
+      background: rgba(60,164,212,0.12); color: var(--hard-accent);
+    }
+    .search-item.cip-item::after {
+      content: " ★";
       color: var(--hard-accent);
+      font-size: 10px;
     }
 
     .header-title {
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--text-main);
+      font-size: 22px; font-weight: 800; letter-spacing: 0.08em; color: var(--text-main);
     }
+    .header-title span { color: var(--hard-green); }
 
-    .header-title span {
-      color: var(--hard-green);
-    }
+    .header-meta { font-size: 12px; color: var(--text-muted); letter-spacing: 0.05em; text-transform: uppercase; }
 
-    .header-meta {
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-    }
+    .main { display: flex; flex: 1; overflow: hidden; }
 
-    /* ── Main layout ── */
-    .main {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
+    #map { flex: 1; position: relative; }
 
-    /* ── Map ── */
-    #map {
-      flex: 1;
-      position: relative;
-    }
-
-    /* ── Side panel ── */
     #panel {
       width: min(840px, 48vw);
       background: var(--hard-panel);
       border-left: 1px solid var(--hard-border);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-      flex-shrink: 0;
+      display: flex; flex-direction: column; overflow: hidden;
+      transition: transform 0.3s ease; flex-shrink: 0;
     }
-
     #panel.hidden {
       transform: translateX(min(840px, 48vw));
-      position: absolute;
-      right: 0;
+      position: absolute; right: 0;
     }
 
     @media (max-width: 700px) {
-      #panel {
-        width: 100vw;
-        position: absolute;
-        top: 0; right: 0; bottom: 0;
-        z-index: 90;
-      }
+      #panel { width: 100vw; position: absolute; top: 0; right: 0; bottom: 0; z-index: 90; }
       #panel.hidden { transform: translateX(100vw); }
       .header-meta { display: none; }
       #search-input { width: 160px; }
-      #map-btn-open {
-        display: flex !important;
-      }
+      #map-btn-open { display: flex !important; }
     }
 
     .panel-default {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px;
-      text-align: center;
-      color: var(--text-muted);
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 40px 24px; text-align: center; color: var(--text-muted);
     }
-
-    .panel-default .icon {
-      font-size: 48px;
-      margin-bottom: 16px;
-      opacity: 0.4;
-    }
-
+    .panel-default .icon { font-size: 48px; margin-bottom: 16px; opacity: 0.4; }
     .panel-default h3 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 18px;
+      font-weight: 600; color: var(--text-muted); margin-bottom: 8px;
     }
+    .panel-default p { font-size: 13px; line-height: 1.6; }
 
-    .panel-default p {
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    /* ── Park detail panel ── */
-    #park-detail {
-      display: none;
-      flex-direction: column;
-      height: 100%;
-      overflow: hidden;
-    }
-
-    #park-detail.active {
-      display: flex;
-    }
+    #park-detail { display: none; flex-direction: column; height: 100%; overflow: hidden; }
+    #park-detail.active { display: flex; }
 
     .park-header {
       background: linear-gradient(135deg, var(--hard-blue) 0%, var(--hard-dark) 80%);
       border-bottom: 3px solid var(--hard-green);
-      padding: 20px 24px 16px;
-      flex-shrink: 0;
-      position: relative;
+      padding: 20px 24px 16px; flex-shrink: 0; position: relative;
     }
-
     .park-header h2 {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-      line-height: 1.1;
-      margin-bottom: 4px;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 26px;
+      font-weight: 800; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 4px;
     }
-
-    .park-header .subtitle {
-      font-size: 11px;
-      color: rgba(255,255,255,0.6);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
+    .park-header .subtitle { font-size: 11px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.1em; }
 
     .close-btn {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.1);
-      border: none;
-      color: white;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.1); border: none; color: white;
+      width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+      font-size: 14px; display: flex; align-items: center; justify-content: center;
       transition: background 0.2s;
     }
-
     .close-btn:hover { background: rgba(255,255,255,0.25); }
 
-    /* ── Image gallery ── */
     #image-gallery {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px 16px 16px;
+      flex-shrink: 0; overflow-y: auto; padding: 10px 16px 16px;
       border-top: 1px solid var(--hard-border);
-      display: none;
-      flex-direction: column;
-      gap: 10px;
+      display: none; flex-direction: column; gap: 10px;
+      max-height: 280px;
     }
-
-    #image-gallery.has-images {
-      display: flex;
-    }
-
+    #image-gallery.has-images { display: flex; }
     #image-gallery::-webkit-scrollbar { width: 4px; }
     #image-gallery::-webkit-scrollbar-track { background: transparent; }
     #image-gallery::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
-    .gallery-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      flex-shrink: 0;
-    }
+    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
 
     #image-gallery img {
-      width: 100%;
-      height: 360px;
-      object-fit: cover;
-      border-radius: 6px;
-      display: block;
-      flex-shrink: 0;
+      width: 100%; height: 200px; object-fit: cover;
+      border-radius: 6px; display: block; flex-shrink: 0;
     }
 
-    /* ── Project cards ── */
     .projects-scroll {
-      flex-shrink: 0;
-      max-height: 340px;
-      overflow-y: auto;
-      padding: 16px;
+      flex: 1; overflow-y: auto; padding: 16px;
     }
-
     .projects-scroll::-webkit-scrollbar { width: 4px; }
     .projects-scroll::-webkit-scrollbar-track { background: transparent; }
     .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
@@ -335,129 +199,62 @@
     .project-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--hard-border);
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
       transition: border-color 0.2s;
     }
-
     .project-card:hover { border-color: var(--hard-green); }
 
     .project-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      line-height: 1.2;
-      color: var(--text-main);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 16px;
+      font-weight: 700; margin-bottom: 8px; line-height: 1.2; color: var(--text-main);
     }
 
     .status-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 3px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 3px 8px; border-radius: 3px;
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
     }
 
     .project-meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px 12px;
-      margin-bottom: 10px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6px 12px; margin-bottom: 10px;
     }
+    .meta-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1px; }
+    .meta-value { font-size: 13px; font-weight: 500; color: var(--text-main); }
 
-    .meta-item { }
-    .meta-label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 1px;
-    }
-    .meta-value {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-main);
-    }
-
-    .project-scope {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
+    .project-scope { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
 
     .project-link {
-      font-size: 12px;
-      color: var(--hard-green);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: color 0.2s;
+      font-size: 12px; color: var(--hard-green); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 4px; transition: color 0.2s;
     }
-
     .project-link:hover { color: white; }
 
-    /* ── Injected popup content ── */
-    .popup-inject {
-      background: #e8eef4;
-      border-radius: 6px;
-      padding: 6px;
-      overflow: hidden;
+    .park-info-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--hard-border);
+      border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
     }
-    .popup-inject > div {
-      max-width: 100% !important;
+    .park-type-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 3px 8px; border-radius: 3px; margin-bottom: 12px;
+      background: rgba(113,149,0,0.2); color: var(--hard-green);
+      border: 1px solid rgba(113,149,0,0.4); text-transform: uppercase; letter-spacing: 0.06em;
     }
-    /* Hide redundant park name header and subtitle */
-    .popup-inject h3,
-    .popup-inject > div > p:first-of-type {
-      display: none;
+    .amenity-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .amenity-tag {
+      background: rgba(60,164,212,0.1); border: 1px solid rgba(60,164,212,0.3);
+      border-radius: 12px; padding: 3px 9px; font-size: 11px; color: var(--text-muted);
     }
-    /* Hide small image strip — panel gallery shows larger photos */
-    .popup-inject > div > div:first-of-type {
-      display: none;
-    }
-    /* Force all text dark and readable */
-    .popup-inject * {
-      color: #1a1a2e !important;
-    }
-    .popup-inject a {
-      color: #1a5276 !important;
-      font-weight: 600;
-    }
-    /* Card background */
-    .popup-inject div[style*="border:1px solid #ccc"] {
-      background: #f4f7fb !important;
-    }
-    /* Larger description text */
-    .popup-inject span[style*="font-size:11px"] {
-      font-size: 13px !important;
-      line-height: 1.6 !important;
-    }
-    /* Larger project name */
-    .popup-inject b[style*="font-size:13px"] {
-      font-size: 15px !important;
-    }
+    .no-cip-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-top: 12px; }
 
-    /* ── Map controls (legend + amenities) ── */
     #map-controls {
-      position: fixed;
-      bottom: 24px;
-      left: 16px;
-      z-index: 500;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      position: fixed; bottom: 24px; left: 16px; z-index: 500;
+      display: flex; flex-direction: column; gap: 8px;
       max-height: calc(100vh - 96px);
       max-width: calc(100vw - min(840px, 48vw) - 32px);
       overflow-y: auto;
     }
-
     #map-controls::-webkit-scrollbar { width: 3px; }
     #map-controls::-webkit-scrollbar-track { background: transparent; }
     #map-controls::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
@@ -465,153 +262,57 @@
     #legend, #amenity-panel, #trail-panel {
       background: var(--hard-panel);
       border: 1px solid var(--hard-border);
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 11px;
-      flex-shrink: 0;
+      border-radius: 8px; padding: 12px 14px; font-size: 11px; flex-shrink: 0;
     }
 
-    /* ── Amenity toggles ── */
-    .amenity-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 6px;
-    }
-
+    .amenity-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
     .amenity-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 9px;
-      border-radius: 20px;
-      border: 1px solid var(--hard-border);
-      cursor: pointer;
-      font-size: 11px;
-      background: rgba(255,255,255,0.06);
-      color: var(--text-main);
-      transition: all 0.2s;
-      user-select: none;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 9px; border-radius: 20px; border: 1px solid var(--hard-border);
+      cursor: pointer; font-size: 11px; background: rgba(255,255,255,0.06);
+      color: var(--text-main); transition: all 0.2s; user-select: none; white-space: nowrap;
     }
-
     .amenity-pill:hover { border-color: var(--hard-accent); }
+    .amenity-pill.off { opacity: 0.35; }
 
-    .amenity-pill.off {
-      opacity: 0.35;
-    }
-
-    /* ── Mobile open button ── */
     #map-btn-open {
-      display: none;
-      position: fixed;
-      bottom: 24px;
-      right: 16px;
-      z-index: 500;
-      background: var(--hard-blue);
-      border: none;
-      color: white;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      letter-spacing: 0.05em;
+      display: none; position: fixed; bottom: 24px; right: 16px; z-index: 500;
+      background: var(--hard-blue); border: none; color: white; border-radius: 8px;
+      padding: 10px 16px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.05em;
     }
 
     .legend-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 8px;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; white-space: nowrap; }
+    .legend-swatch {
+      width: 14px; height: 10px; border-radius: 2px; flex-shrink: 0;
     }
 
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 5px;
-      white-space: nowrap;
-    }
-
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-
-    /* ── Loading ── */
     #loading {
-      position: absolute;
-      inset: 0;
-      background: var(--hard-dark);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      transition: opacity 0.5s;
+      position: absolute; inset: 0; background: var(--hard-dark);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      z-index: 999; transition: opacity 0.5s;
     }
+    #loading.fade { opacity: 0; pointer-events: none; }
 
-    #loading.fade {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .loader-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      color: var(--hard-accent);
-      margin-bottom: 8px;
-    }
-
-    .loader-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      margin-bottom: 32px;
-    }
-
-    .loader-bar {
-      width: 200px;
-      height: 2px;
-      background: var(--hard-border);
-      border-radius: 1px;
-      overflow: hidden;
-    }
-
-    .loader-fill {
-      height: 100%;
-      background: var(--hard-accent);
-      border-radius: 1px;
-      animation: load 1.8s ease-in-out forwards;
-    }
-
-    @keyframes load {
-      0% { width: 0%; }
-      60% { width: 75%; }
-      100% { width: 100%; }
-    }
+    .loader-title { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; letter-spacing: 0.1em; color: var(--hard-accent); margin-bottom: 8px; }
+    .loader-sub { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 32px; }
+    .loader-bar { width: 200px; height: 2px; background: var(--hard-border); border-radius: 1px; overflow: hidden; }
+    .loader-fill { height: 100%; background: var(--hard-accent); border-radius: 1px; animation: load 1.8s ease-in-out forwards; }
+    @keyframes load { 0% { width: 0%; } 60% { width: 75%; } 100% { width: 100%; } }
   </style>
 </head>
 <body>
 
-<!-- Loading screen -->
 <div id="loading">
   <div class="loader-title">H.A.R.D.</div>
   <div class="loader-sub">Capital Improvement Projects</div>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
 
-<!-- Header -->
 <header>
   <div class="header-title">H.A.R.D. <span>Capital Improvement Projects</span></div>
   <div id="search-wrap">
@@ -622,11 +323,9 @@
   <div class="header-meta">Hayward Area Recreation & Park District</div>
 </header>
 
-<!-- Main -->
 <div class="main">
   <div id="map"></div>
 
-  <!-- Map controls: amenities + legend (fixed, outside ArcGIS container) -->
   <div id="map-controls">
     <div id="amenity-panel">
       <div class="legend-title">Amenities</div>
@@ -638,24 +337,30 @@
     </div>
     <div id="legend">
       <div class="legend-title">Legend</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(0,87,117,0.45);border:1.5px solid #3CA4D4;"></div> CIP Park</div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:rgba(0,87,117,0.55);border:1.5px solid #3CA4D4;"></div>
+        CIP Park
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:rgba(80,100,120,0.18);border:1px solid rgba(120,150,170,0.45);"></div>
+        Other Park
+      </div>
     </div>
   </div>
   <button id="map-btn-open" onclick="openPanel()">View Details</button>
 
-  <!-- Side panel -->
   <div id="panel">
     <div class="panel-default" id="panel-default">
       <div class="icon">🗺️</div>
       <h3>Select a Park</h3>
-      <p>Click any highlighted park on the map to view Capital Improvement Project details, photos, and status.</p>
+      <p>Click any park on the map. Highlighted parks show Capital Improvement Project details. Other parks show amenity information.</p>
     </div>
 
     <div id="park-detail">
       <div class="park-header">
         <button class="close-btn" onclick="closePanel()">✕</button>
         <h2 id="detail-name"></h2>
-        <div class="subtitle">HARD Capital Improvement Projects</div>
+        <div class="subtitle" id="detail-subtitle">HARD Capital Improvement Projects</div>
       </div>
 
       <div class="projects-scroll" id="projects-container"></div>
@@ -668,7 +373,6 @@
 </div>
 
 <script>
-// Save native Map before AMD require shadows it with esri/Map
 const _NativeMap = Map;
 
 require([
@@ -676,238 +380,181 @@ require([
   "esri/views/MapView",
   "esri/layers/FeatureLayer",
   "esri/layers/GraphicsLayer",
-  "esri/Graphic",
-  "esri/renderers/UniqueValueRenderer",
-  "esri/symbols/SimpleFillSymbol"
-], function(Map, MapView, FeatureLayer, GraphicsLayer, Graphic, UniqueValueRenderer, SimpleFillSymbol) {
+  "esri/Graphic"
+], function(Map, MapView, FeatureLayer, GraphicsLayer, Graphic) {
 
-  // ── Status config (used for map renderer only) ────────────────────────────
-
-  const MAP_COLORS = {
-    "Planning":               [255, 242, 0, 0.75],
-    "Under Construction":     [255, 120, 0, 0.85],
-    "Construction Documents": [0, 120, 215, 0.75],
-    "Bid and Award Phase":    [140, 0, 200, 0.75],
-    "Design Development":     [140, 0, 200, 0.6],
-    "Complete":               [50, 180, 50, 0.7],
+  // ── Status badge styles ───────────────────────────────────────────────────
+  const STATUS_STYLES = {
+    "Planning":               "background:var(--status-plan-bg);color:var(--status-plan);",
+    "Under Construction":     "background:var(--status-uc-bg);color:var(--status-uc);",
+    "Construction Documents": "background:var(--status-cd-bg);color:var(--status-cd);",
+    "Bid and Award Phase":    "background:var(--status-bid-bg);color:var(--status-bid);",
+    "Design Development":     "background:var(--status-bid-bg);color:var(--status-bid);",
+    "Complete":               "background:var(--status-done-bg);color:var(--status-done);",
   };
 
-  // ── Popup content (sourced from popup_data.json in this repo) ───────────
-  // To update: re-run build_hard_popup.ipynb → push popup_data.json to GitHub
+  // ── Load popup_data.json and images.json ──────────────────────────────────
+  // popup_data.json: { "Park Name": { "projects": [{name,status,budget,...}] } }
+  // images.json:     { "Park Name": ["agol_url", ...] }
+  // To update project data: edit generate_hard_json.py → run it → push popup_data.json
+  // To add images: upload to AGOL → add URL to images.json → push
   let popupData = {};
-  fetch("popup_data.json")
-    .then(r => r.json())
-    .then(d => { popupData = d; })
-    .catch(e => console.warn("Could not load popup_data.json:", e));
-  const PROJECTS_LEGACY = {
-    1504: { name: "Playground Renovations (District-Wide)", status: "Planning", budget: "$4,167,000", start: "Winter 2025", end: "Summer 2027", size: "Multiple sites", scope: "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Stonybrook Park, and others. Scope at each site may include new equipment, safety surfacing, and site furnishings.", pm: "Marvin Yee" },
-    1506: { name: "Restroom Renovations (District-Wide)", status: "Planning", budget: "$4,680,000", start: "Winter 2025", end: "Winter 2027", size: "Multiple sites", scope: "Restroom renovations and replacements at multiple park sites district-wide to improve safety, cleanliness, and ADA accessibility.", pm: "Brian Laczko" },
-    1509: { name: "Basketball & Tennis Court Renovations – Phase 3", status: "Planning", budget: "$1,000,000", start: "Winter 2025", end: "Winter 2026", size: "10 basketball + 1 tennis court", scope: "Phase 3 of H.A.R.D.'s district-wide court renovation program, targeting 10 basketball courts and 1 tennis court across multiple parks. Upgrades will include new paving, surfacing, striping, hoops, nets, and site furnishings.", pm: "Diane Hardy" },
-    983:  { name: "Canyon Middle School Sports Fields", status: "Under Construction", budget: "$8,000,000", start: "Spring 2025", end: "Summer 2026", size: "School sports fields", scope: "Partnership with Castro Valley Unified School District to improve existing soccer and baseball fields at Canyon Middle School. Currently under construction with completion estimated Summer 2026.", pm: "Meghan Tiernan" },
-    1502: { name: "Bay Trees ADA Improvements", status: "Under Construction", budget: "$3,000,000", start: "Winter 2025", end: "Spring 2026", size: "Park-wide", scope: "Improvements to pathways and parking lots at Bay Trees Park to meet current ADA accessibility standards. Construction began January 2026 and will be complete in Spring 2026. The park's tennis courts were previously renovated in 2023 as part of the Basketball & Tennis Court Renovations – Phase 1 project.", pm: "Diane Hardy" },
-    1495: { name: "Foothill Trail – A Street to Grove Way", status: "Planning", budget: "$1,640,000", start: "Winter 2025", end: "Winter 2027", size: "Linear trail segment", scope: "Design and construction of a segment of the Foothill Trail connecting A Street to Grove Way, expanding the district's active transportation and trail network.", pm: "Michael C. Williams" },
-    1472: { name: "Laurel School Acquisition & Future Neighborhood Park", status: "Planning", budget: "$5,300,000", start: "Winter 2022", end: "Fall 2027", size: "3.1 acres", scope: "Approximately 3.1 acres of open space surrounding Laurel Elementary School was acquired from Hayward Unified School District in December 2025. The northern field will be converted into a public neighborhood park, while the southern play areas will be renovated and remain available for student use during school days. A series of community meetings will accompany the design process.", pm: "Brian Laczko" },
-    1454: { name: "Discovery Center at Sulphur Creek Nature Center", status: "Planning", budget: "TBD", start: "Spring 2025", end: "TBD", size: "55-year-old Discovery Center building", scope: "Complete redesign of the 55-year-old Discovery Center building at Sulphur Creek Nature Center, a beloved environmental education resource for children and families throughout the district.", pm: "Brian Laczko" },
-    981:  { name: "Mt. Eden Park Renovation", status: "Under Construction", budget: "$5,000,000", start: "Spring 2024", end: "Summer 2026", size: "Park-wide", scope: "Renovation of Mt. Eden Park including upgrades to sports field and court lighting, concrete and asphalt pavement repairs, a new fitness court, court resurfacing, and pathway enhancements. New play equipment was installed in 2025; remaining improvements are underway with completion expected Fall 2026.", pm: "Diane Hardy" },
-    1168: { name: "Energy Efficiency Improvements (District-Wide)", status: "Under Construction", budget: "$14,268,458", start: "Spring 2022", end: "Winter 2025", size: "26 sites", scope: "District-wide energy efficiency improvements at 26 parks and facilities, projected to generate approximately $29,000,000 in savings over 30 years. Improvements include LED lighting, HVAC upgrades, solar PV installation, battery storage, EV charging, and roof replacements at 11 sites.", pm: "Monty Boyd" },
-    584:  { name: "Valley View Park", status: "Construction Documents", budget: "$6,300,000", start: "Summer 2026", end: "Spring 2027", size: "24 acres", scope: "Brand-new 24-acre park at 2811 Sydney Way in Castro Valley featuring noteworthy topography and sweeping views, purchased from EBMUD in 2014. The community-informed Master Plan includes a tot lot, adventure hill, pump track, multi-purpose lawn, picnic areas, a terraced seating area, multiple overlooks, a reflection grove, wellness areas, a dog area, and a variety of trails including a native plant walk. Construction is planned to begin Spring/Summer 2026.", pm: "Brian Laczko" },
-    1087: { name: "D & Clay Street Acquisition – Carol Pereira Park", status: "Construction Documents", budget: "$2,300,000", start: "Fall 2021", end: "2027", size: "1.83 acres", scope: "Acquisition of a 1.83-acre former Caltrans parcel at the southwest corner of D &amp; Clay Streets. Together with the adjacent 1350 E Street acquisition, the two sites provide the future 4-acre Carol Pereira Park and a critical link in the future Foothill Trail. Awarded a $1.3M Land and Water Conservation Fund grant for park development and a $597,000 Habitat Conservation Fund grant for creek and habitat restoration.", pm: "Hai-Ping Mo" },
-    965:  { name: "Ashland-East 14th Street – Ashland Grove", status: "Under Construction", budget: "$13,733,000", start: "Fall 2020", end: "Fall 2027", size: "1.77 acres", scope: "Acquisition and development of 1.77 acres in the Ashland community for a new neighborhood park, one of three adjoining acquisitions that will create a contiguous through-block park fronting the Ashland Roots Community Center. The community-driven plan includes a multi-use lawn, active sports zone/event plaza, looped pathway, all-ages play area, shade trees, a water feature, and quiet seating areas. Awarded $3,997,500 from the Land and Water Conservation Fund; soil remediation completed early 2024 and park construction is now underway.", pm: "Hai-Ping Mo" },
-    449:  { name: "Ashland-Mateo Street – future Ashland Grove", status: "Construction Documents", budget: "$10,852,000", start: "Fall 2020", end: "Fall 2027", size: "1.43 acres", scope: "New 1.43-acre neighborhood park designed with the Trust for Public Land and extensive community input, awarded a $7,082,000 Proposition 68 Statewide Park Development grant. The community-informed plan includes terraced seating, flexible gathering areas, a looped walking path, play areas, a multipurpose court, fitness stations, and lighting for safety. Existing structures were demolished in April 2023; park construction begins in 2026.", pm: "Hai-Ping Mo" },
-    197:  { name: "Bidwell Park and Community Center", status: "Bid and Award Phase", budget: "$19,150,000", start: "Spring 2019", end: "Summer 2027", size: "Former Bidwell Elementary School site", scope: "Transformation of the former Bidwell Elementary School site at 175 Fairway Street into a new community hub in south Hayward. The master plan — developed through community workshops in 2019 with strong neighborhood support — calls for adaptive reuse of two buildings as a community center, an expanded children's play area, walking paths, a multi-use sports court, bocce courts, a fitness area, an event plaza, dog areas, picnic areas, edible gardens, and a large multi-use lawn. Construction is anticipated to begin early 2026 and be completed Summer 2027.", pm: "Monty Boyd" },
-    198:  { name: "El Rancho Verde Park", status: "Design Development", budget: "$3,000,000", start: "Spring 2019", end: "TBD", size: "2.48 acres", scope: "Renovation of El Rancho Verde Park with a community-approved master plan centered on sports fields: one major field, one minor field, and a T-ball field around a central plaza with scoreboards, batting cages, sports lighting, bleachers, dugouts, a viewing lawn, picnic areas, a restroom/snack bar, and a new children's play area. Planning resumed following H.A.R.D.'s acquisition of 2.48 additional acres from New Haven USD (541 Blanche Street) to expand the park.", pm: "Marvin Yee" },
-    492:  { name: "Greenridge Park Renovation", status: "Planning", budget: "$425,000", start: "TBD", end: "TBD", size: "N/A", scope: "The basketball court at Greenridge Park was resurfaced and the parking lot improved in 2025 to meet current ADA standards. Playground equipment replacement is planned for 2026.", pm: "Meghan Tiernan" },
-    73:   { name: "Hayward Plunge Renovation", status: "Under Construction", budget: "$5,000,000", start: "Fall 2024", end: "Summer 2026", size: "Aquatic center", scope: "Renovation of the Hayward Plunge aquatic center at 24176 Mission Boulevard, addressing parking lot ADA access, structural repairs, concrete waterproofing, pool tiling and replastering, and diving board and swim lane revisions. Scope was determined following a full facility condition assessment, structural review, and environmental assessment. Construction is underway with completion expected Summer 2026.", pm: "Diane Hardy" },
-    79:   { name: "La Vista Park", status: "Under Construction", budget: "$15,400,000", start: "Summer 2017", end: "Summer 2027", size: "New community park", scope: "New community park managed by the City of Hayward; H.A.R.D. will operate the facility upon completion.", pm: "Meghan Tiernan" },
-    90:   { name: "San Lorenzo Community Center Renovation", status: "Under Construction", budget: "$15,270,000", start: "Spring 2024", end: "Early 2026", size: "8,236 sq ft facility", scope: "Renovation of the existing 8,236 sq ft San Lorenzo Community Center, delivering a modern facility for arts, adult education, youth and teen programming, preschool, and large community events. Currently under construction with completion expected early 2026.", pm: "Monty Boyd" },
-    99:   { name: "Weekes Community Park Renovation", status: "Planning", budget: "$2,042,000", start: "TBD", end: "TBD", size: "16.6 acres", scope: "Improvements to the 16.6-acre Weekes Community Park per a completed master plan that includes open lawn areas, restrooms, a concession building, playground, bocce courts, a fitness plaza, central plaza, group picnic areas, pavilion, shade structure, bandstand, promenade, and walking loop. Phase 1 (construction documents) is underway; Phase 2 construction will be funded with future bond proceeds.", pm: "Meghan Tiernan" },
-    980:  { name: "Palomares Hills Park Renovation", status: "Complete", budget: "$1,500,000", start: "Summer 2025", end: "Fall 2025", size: "Park-wide", scope: "Renovation of Palomares Hills Park in Castro Valley addressing slope stabilization, water runoff control, and pathway reconstruction and paving. Construction was completed in Fall 2025.", pm: "Diane Hardy" },
-    1329: { name: "Alameda County Agricultural History Center", status: "Complete", budget: "$500,000", start: "Spring 2024", end: "July 2025", size: "Historic orchard site", scope: "Restoration of the historic orchard and creation of an agricultural demonstration area at Meek Estate Park, with new interpretive signs guiding visitors along a self-guided tour of historic features and the Carriage House. Funded by ARPA, County Park Facility Fees, a Fremont Bank grant, and Measure F1 Bond funds. Construction began April 2025 and was completed July 2025.", pm: "Marvin Yee" },
-    1367: { name: "ADA Small Projects (District-Wide)", status: "Complete", budget: "$2,200,000", start: "Winter 2024", end: "Winter 2025", size: "Multiple sites", scope: "District-wide program to upgrade park pathways and parking lots to current ADA accessibility standards. Phase 1 (pathway repairs at 4 parks) and Phase 2 (parking lot repairs at 5 parks) are complete; Phase 3 is in planning.", pm: "Diane Hardy" },
-    1343: { name: "Basketball & Tennis Court Renovations – Phase 2", status: "Complete", budget: "$1,660,000", start: "Spring 2024", end: "January 2025", size: "16 basketball + 2 tennis courts", scope: "Renovations to 16 basketball courts and 2 tennis courts across 15 parks, including Castro Valley, Canyon View, Haymont Mini, Silver Star, Twin Bridges, Greenwood, Longwood, Centennial, Cherryland, San Felipe, Spring Grove, Greenridge, Nuestro Parquecito, Hillcrest Knolls, and Mt. Eden Parks. Upgrades included new paving, striping and surfacing, site furnishings, backstops, hoops, nets, and fencing. Phase 2 construction completed January 2025.", pm: "Darcie DeLashmutt" },
-    975:  { name: "Palma Ceia Park Renovation", status: "Complete", budget: "$1,500,000", start: "Spring 2022", end: "Fall 2024", size: "5.7 acres", scope: "Renovation of Palma Ceia Park, a 5.7-acre community park developed in 1957, serving students and families given its proximity to Palma Ceia Elementary School. Improvements include upgraded walkways with enhanced drainage, new picnic furnishings, barbecues, drinking fountains, repaved walking paths for improved accessibility, and an expanded play area with new playground equipment.", pm: "Diane Hardy" },
-    1213: { name: "Kenneth Aitken Senior & Community Center Renovation", status: "Complete", budget: "$2,250,000", start: "Winter 2021", end: "Summer 2023", size: "13,500 sq ft facility", scope: "Renovation of the Kenneth C. Aitken Senior and Community Center addressing deferred maintenance including a leaking roof, unreliable HVAC, and poor lighting. Exterior improvements included full ADA reconfiguration: new ramps, expanded accessible parking, and high-visibility pathways. Interior upgrades included commercial flooring, fresh paint, and an accessible transaction counter for programs including affordable meals and tax preparation services.", pm: "Diane Hardy" },
-    972:  { name: "Southgate Park Renovation", status: "Complete", budget: "$1,759,612", start: "Fall 2021", end: "Winter 2023", size: "13 acres", scope: "Comprehensive renovation of 13-acre Southgate Park including a new playground, six pickleball courts, a nine-hole disc golf course, ADA-compliant pathway resurfacing, new picnic spots, upgraded basketball court, improved irrigation, and an outdoor fitness court. The project extended the walking trail network to connect with the Eden Greenway, and incorporated Crime Prevention Through Environmental Design (CPTED) principles and improved lighting throughout.", pm: "Diane Hardy" },
-    1040: { name: "Sorensdale Park Renovation", status: "Complete", budget: "$1,500,000", start: "Spring 2021", end: "Winter 2022", size: "Park-wide", scope: "Renovation of Sorensdale Park and Recreation Center, which serves community members of all ages and abilities including individuals with special needs. Improvements include repaving of the parking lot and adjacent concrete walkways, grading and drainage enhancements, new picnic furnishings, barbecues, drinking fountains, improved access pathways, upgraded gates, and new trees in parking areas.", pm: "Diane Hardy" },
-    973:  { name: "Basketball & Tennis Court Renovations – Phase 1", status: "Complete", budget: "$2,330,000", start: "Fall 2021", end: "Fall 2023", size: "17 courts (4 parks)", scope: "Renovations to 17 existing sports courts across Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks, including basketball, tennis, and pickleball courts, plus a flexible multi-use court for futsal, roller skating, and other activities. Upgrades included new paving, striping, surfacing, site furnishings, drinking fountains, backstops, hoops, nets, and fencing.", pm: "Darcie DeLashmutt" },
-    745:  { name: "Ashland Roots Center at Madrone Terrace", status: "Complete", budget: "$5,800,000", start: "Spring 2019", end: "June 2025", size: "9,400 sq ft community center", scope: "New 9,400 sq ft H.A.R.D.-owned community center and 2,700 sq ft childcare facility within the Ashland Roots Center — a five-story, 79-unit affordable housing development built in partnership with Resources for Community Development (RCD). H.A.R.D. set aside general funds to provide free preschool care for 48 local children through a partnership with Davis Street Community Center. In its first six months, the center welcomed more than 20,000 visitors.", pm: "Brian Laczko" },
-    588:  { name: "Tennis Court Renovations (Phase 1 / Pickleball Conversions)", status: "Complete", budget: "$540,000", start: "Winter 2019", end: "Winter 2021", size: "Multiple courts", scope: "Renovation of tennis courts at Castro Valley Community Park (three courts renovated) and Southgate Park (two courts converted to six pickleball courts). Improvements include asphalt pavement, court surfacing and striping, new nets, chain link fencing, benches, windscreens, and signage.", pm: "Darcie DeLashmutt" },
-    77:   { name: "Kennedy Park Renovation", status: "Complete", budget: "$19,255,333", start: "Summer 2017", end: "Spring 2022", size: "15 acres", scope: "Renovation and modernization of Kennedy Park delivering new picnic shelters, a central play area, a teacup ride, a modern concession building with accessible restrooms, a renovated train station with a new electric train, improved ADA-compliant pathways, and new irrigated lawns. Now draws nearly 500,000 visitors annually — a 740% increase — with picnic reservations that regularly sell out. Award Winner.", pm: "Marvin Yee" },
-    94:   { name: "Tennyson Park Renovation", status: "Complete", budget: "$11,500,000", start: "Spring 2019", end: "Summer 2025", size: "10 acres", scope: "Renovation of the 10-acre Tennyson Park developed through community input in spring 2019, including renovation of the existing sports field and skate park, basketball courts, walking paths, a pump track, picnic areas, and parking. Construction began June 2024; a re-opening event was held September 19, 2025. Note: Mia's Dream Come True All-Abilities Playground is a separate independent project within Tennyson Park.", pm: "Marvin Yee" },
-    93:   { name: "Sunset Futsal Courts", status: "Complete", budget: "$3,450,000", start: "Fall 2019", end: "Spring 2023", size: "1 acre / 4 futsal courts", scope: "Construction of four futsal courts with perimeter netting, lighting, and a restroom, providing a high-quality venue for youth and adult soccer leagues. Opened February 24, 2023.", pm: "Hai-Ping Mo" },
-    92:   { name: "Sulphur Creek Nature Center Renovation", status: "Complete", budget: "$1,264,000", start: "Spring 2020", end: "Fall 2024", size: "N/A", scope: "Grounds enhancements and facility improvements at Sulphur Creek Nature Center per a 2021 community-led Master Plan, preserving and improving this beloved environmental education resource for children and families.", pm: "Darcie DeLashmutt" },
-    52:   { name: "San Lorenzo Community Park – Phase 1", status: "Complete", budget: "$12,000,000", start: "Spring 2012", end: "Fall 2017", size: "31 acres", scope: "Phase 1 improvements to San Lorenzo Community Park creating a new pond area, active play zone, and softball complex at the 31-acre site.", pm: "Meghan Tiernan" },
-    95:   { name: "Via Toledo Park", status: "Complete", budget: "$2,992,000", start: "Fall 2017", end: "Spring 2021", size: "2 acres", scope: "Design and construction of a new 2-acre park at 18651 Via Toledo in San Lorenzo. Improvements include a multipurpose lawn, half-court basketball, play area, fitness equipment, picnic areas, a plaza and shade structure, pathways, and seating. Completed Spring 2021.", pm: "Hai-Ping Mo" },
-    86:   { name: "Alden E. Oliver Sports Park Renovation", status: "Complete", budget: "$3,000,000", start: "Spring 2019", end: "Winter 2022", size: "Sports park", scope: "Replacement of synthetic turf at two soccer fields including a new 20-foot netting fence along the adjacent canal, adjacent picnic area upgrades, and conversion of sports field, parking, and pathway lights to energy-saving LED fixtures through a PG&amp;E program. Construction completed April 2019.", pm: "Hai-Ping Mo" },
-    91:   { name: "San Lorenzo Community Park – Phase 2", status: "Complete", budget: "$5,000,000", start: "Fall 2019", end: "Summer 2022", size: "31 acres", scope: "Phase 2 improvements to San Lorenzo Community Park, continuing the transformation of the 31-acre site into a vibrant regional hub for sports and recreation including soccer, softball, fitness, and play amenities.", pm: "Meghan Tiernan" },
-    1497: { name: "1797 D Street Acquisition", status: "Complete", budget: "$1,000,000", start: "Winter 2024", end: "Spring 2025", size: "1.43 acres", scope: "Acquisition of a 1.43-acre site at 1797 D Street adjacent to Sulphur Creek Nature Center, expanding the nature center's footprint for future development.", pm: "Brian Laczko" },
-    1164: { name: "541 Blanche Street Acquisition", status: "Complete", budget: "$3,230,000", start: "Spring 2021", end: "Spring 2022", size: "2.4 acres", scope: "Acquisition of 2.48 acres at 541 Blanche Street from the New Haven Unified School District, expanding El Rancho Verde Park to include an existing 90-foot baseball field and additional open space.", pm: "Brian Laczko" },
-    1089: { name: "1350 E Street Acquisition – Carol Pereira Park", status: "Complete", budget: "$1,385,000", start: "Spring 2021", end: "Summer 2021", size: "2.42 acres", scope: "Acquisition of 2.42 acres at 1350 E Street in Hayward. Together with the D &amp; Clay Street acquisition, the two parcels provide the future 4-acre Carol Pereira Park and a critical link in the future Foothill Trail.", pm: "Meghan Tiernan" },
-    1073: { name: "Picnic Area Upgrades – Castro Valley & Weekes Parks", status: "Complete", budget: "$1,000,000", start: "Winter 2020", end: "Fall 2021", size: "6 + 4 group picnic facilities", scope: "Renovation of six group picnic facilities at Castro Valley Community Park and four at Weekes Community Park. Upgrades included new paving, signage, trees, waste receptacles, picnic tables, benches, and BBQ grills. Construction completed Fall 2021.", pm: "Darcie DeLashmutt" },
-    451:  { name: "Sports Lighting Upgrades", status: "Complete", budget: "$2,500,000", start: "Winter 2020", end: "Fall 2021", size: "Multiple parks", scope: "LED sports lighting upgrades at multiple parks district-wide, improving safety and extending usable hours for athletic fields and courts.", pm: "Monty Boyd" },
-    61:   { name: "Mia's Dream Come True All-Abilities Playground", status: "Complete", budget: "$7,121,957", start: "Summer 2017", end: "Fall 2021", size: "1 acre", scope: "A 1-acre all-abilities playground at Tennyson Park featuring five elements of inclusive play: cognitive, physical, social, sensory, and communication. Amenities include a Music Therapy Zone, Kindness Arches, swings and spinners, slides and rollers, fog sprays, animal and nature exhibits, a quiet reading area, art sculptures, accessible pathways, and a new restroom building. Built with F1 Bond funds and more than $2 million raised through the H.A.R.D. Foundation and partners including Kaiser Permanente, Disney, and the City of Hayward.", pm: "Marvin Yee" },
-    74:   { name: "Hayward Area Senior Center Renovation", status: "Complete", budget: "$5,714,459", start: "Fall 2018", end: "Summer 2022", size: "Senior center facility", scope: "Renovation and modernization of the Hayward Area Senior Center, preserving its distinctive Japanese architectural character while creating a new spacious lobby with vaulted ceiling, updated building systems, and improved lighting. A backup generator was installed, designating the center as a Red Cross-certified emergency shelter. Earned the 2024 California Parks and Recreation Society Award of Excellence.", pm: "Brian Laczko" },
-    72:   { name: "Hayward Community Gardens", status: "Complete", budget: "$1,208,390", start: "Spring 2019", end: "Summer 2020", size: "Community garden site", scope: "Development of master plan and Phase 1 improvements for the community garden at Whitman Street and Berry Avenue, including 70 garden plots with irrigation, raised beds, a small orchard, shade structure for outdoor classes, produce counter, seed library, demonstration garden, storage shed, compost, and greenhouse. A community socializing zone features a picnic area, BBQs, a kiwi tunnel, and a natural play area with art. CPRS 2020 Award of Excellence in Design – Park Planning.", pm: "Marvin Yee" },
-    82:   { name: "Meek Estate Park Improvements", status: "Complete", budget: "$1,000,000", start: "Fall 2017", end: "Summer 2020", size: "N/A", scope: "Renovation and expansion of the existing parking lot at Meek Estate Park, improving access to this historic estate and the Alameda County Agricultural History Center.", pm: "Brian Laczko" },
-    83:   { name: "Memorial Park Restroom Replacement", status: "Complete", budget: "$325,500", start: "Summer 2017", end: "Fall 2017", size: "Park-wide", scope: "Demolition of an existing restroom and installation of a new public restroom building with ADA access improvements at Memorial Park. Project was completed in Fall 2017.", pm: "Meghan Tiernan" },
-    85:   { name: "Mission Hills Golf Course – Driving Range Renovation", status: "Complete", budget: "$3,377,020", start: "Fall 2017", end: "Spring 2019", size: "Golf course", scope: "Renovation of the Mission Hills Golf Course Driving Range including replacement of synthetic turf surfacing and vertical mesh netting, damaged paving repair, and replacement of the maintenance access gate. Also included conversion of driving range, pro shop, and bunker lights to energy-saving LED fixtures through a PG&amp;E rebate program. Construction completed June 2019.", pm: "Marvin Yee" },
-    65:   { name: "East Avenue Park Renovation", status: "Complete", budget: "$2,425,420", start: "Summer 2018", end: "Spring 2020", size: "2 acres", scope: "Renovation of a 2-acre portion of East Avenue Park including replacement of the restroom building, renovation of the basketball court, play area, picnic facilities, parking lot, and ADA walkways, along with planting and irrigation upgrades for water conservation. Community meeting held September 2018; construction completed 2020.", pm: "Diane Hardy" },
-    71:   { name: "Fairmont Terrace Park", status: "Complete", budget: "$5,000,000", start: "Summer 2017", end: "Fall 2022", size: "5 acres", scope: "Design and construction of park improvements and expansion of an existing 1.67-acre park to 5 acres. Improvements include ADA parking, a new restroom building, two playgrounds, a half basketball court, group picnic areas, small and large dog parks, an open lawn, pathways, and a hillside trail.", pm: "Darcie DeLashmutt" },
-    363:  { name: "Edendale Park Renovation", status: "Complete", budget: "$1,330,000", start: "Spring 2018", end: "Spring 2020", size: "1 acre", scope: "Renovation of a 1-acre park in San Lorenzo at 16278 Ashland Avenue, developed with community input at a June 2018 meeting. Improvements include new playground equipment, site furnishings, shade structure, drinking fountain, fencing, signage, paving upgrades, and planting and irrigation modifications. Funded by a Housing-Related Parks Program grant, CDBG grant through Alameda County, and Measure F1 Bond funds.", pm: "Hai-Ping Mo" },
-    70:   { name: "Edendale Community Center", status: "Complete", budget: "$2,500,000", start: "Winter 2017", end: "Spring 2019", size: "Community center facility", scope: "Renovation of Edendale Community Center improving the facility for the San Lorenzo community.", pm: "Monty Boyd" },
-    481:  { name: "Ashland Zócalo", status: "Complete", budget: "$7,300,000", start: "Spring 2019", end: "Summer 2024", size: "0.9 acres", scope: "Transformation of a vacant 0.9-acre lot along the Mission Corridor into a vibrant community plaza now accessible to more than 11,000 residents within a 10-minute walk. Features include a playground, exercise equipment, interactive water feature, performance stage, walking loop, promenade, and plaza with space for pop-up markets and cultural events. Measure F1 Bond funds provided the match that secured a $7.3M Statewide Park Development and Community Revitalization grant.", pm: "Hai-Ping Mo" },
-    582:  { name: "Unity Park", status: "Complete", budget: "$7,127,486", start: "Spring 2019", end: "Summer 2025", size: "2.5 acres", scope: "Creation of Unity Park on a former abandoned lot at Mission Boulevard and Mattox Road, converted using F1 Bond and ARPA funds into a full-sized basketball court, six pickleball courts, a multi-use court, roller-skating area, children's play area, ping pong tables, bike skills course, picnic areas, and food truck accommodations. A temporary-use facility with over 20,000 visitors to date, serving as a community hub at a key gateway to the Ashland, Hayward, and Cherryland neighborhoods.", pm: "Meghan Tiernan" },
-  };
+  let imageData = {};
 
-  const PARK_PROJECTS_LEGACY = {
-    "Alden E. Oliver Sports Park": [86, 451, 973],
-    "Ashland Grove Park": [965, 449],
-    "Ashland Zocolo": [481],
-    "Bay Trees Park": [1502, 973],
-    "Bechtel Mini Park": [1504],
-    "Bidwell Park": [197],
-    "Birchfield Park": [1504, 1509],
-    "Canyon View Park": [983],
-    "Carol Pereira Park": [1087, 1089],
-    "Castro Valley Community Park": [1073, 1343, 588],
-    "East Avenue Park": [65],
-    "Edendale Park": [363, 70],
-    "El Rancho Verde Park": [198, 1164],
-    "Fairmont Terrace Park": [71],
-    "Greenridge Park": [492, 1343],
-    "Hayward Area Senior Center": [74],
-    "Hayward Community Gardens": [72],
-    "Hayward Plunge": [73],
-    "Kennedy Park": [77],
-    "Kenneth C. Aitken Senior Community Center": [1213],
-    "Laurel School Site": [1472],
-    "Meek Estate Park": [1329, 82],
-    "Memorial Park": [83],
-    "Mission Hills Of Hayward Golf Course": [85],
-    "Mt. Eden Park": [981],
-    "Palma Ceia Park": [975],
-    "Palomares Hills Park": [980],
-    "San Lorenzo Community Park": [52, 91, 90],
-    "Sorensdale Park": [1040],
-    "Southgate Park": [972, 588, 451],
-    "Stonybrook Park": [973, 1504],
-    "Sulphur Creek Nature Center": [1454, 1497, 92],
-    "Sunset Futsol": [93],
-    "Tennyson Park": [94, 61, 451],
-    "Unity Park": [582],
-    "Valley View Park": [584],
-    "Via Toledo Park": [95],
-    "Weekes Park": [973, 1073, 99],
-  };
+  Promise.all([
+    fetch("popup_data.json").then(r => r.json()),
+    fetch("images.json").then(r => r.json())
+  ]).then(([pd, id]) => {
+    popupData = pd;
+    imageData = id;
+  }).catch(e => console.warn("Data load error:", e));
 
-  // ── Gallery ────────────────────────────────────────────────────────────────
-  function buildGallery(images) {
-    const valid   = images.filter(u => u && u.trim().startsWith("http"));
+  // Set of CIP park names for fast lookup (populated after popup_data loads)
+  // Used by renderer and click handler — populated dynamically
+  const CIP_NAMES = new Set([
+    "Alden E. Oliver Sports Park","Ashland Grove Park","Ashland Zocolo","Bay Trees Park",
+    "Bechtel Mini Park","Bidwell Park","Birchfield Park","Canyon View Park","Carol Pereira Park",
+    "Castro Valley Community Park","East Avenue Park","Edendale Park","El Rancho Verde Park",
+    "Fairmont Terrace Park","Greenridge Park","Hayward Area Senior Center","Hayward Community Gardens",
+    "Hayward Plunge","Kennedy Park","Kenneth C. Aitken Senior Community Center","La Vista Park",
+    "Laurel School Site","Meek Estate Park","Memorial Park","Mission Hills Of Hayward Golf Course",
+    "Mt. Eden Park","Palma Ceia Park","Palomares Hills Park","San Lorenzo Community Park",
+    "Sorensdale Park","Southgate Park","Stonybrook Park","Sulphur Creek Nature Center",
+    "Sunset Futsol","Tennyson Park","Unity Park","Valley View Park","Via Toledo Park","Weekes Park"
+  ]);
+
+  // ── Amenity data (name → category list) ──────────────────────────────────
+  const parkAmenitiesNamed = new _NativeMap();
+
+  // ── Gallery ───────────────────────────────────────────────────────────────
+  function buildGallery(urls) {
+    const valid = (urls || []).filter(u => u && u.startsWith("http"));
     const gallery = document.getElementById("image-gallery");
-
-    // Remove any previously added images (keep the label div)
     gallery.querySelectorAll("img").forEach(el => el.remove());
-
-    if (valid.length === 0) {
-      gallery.classList.remove("has-images");
-      return;
-    }
-
+    if (!valid.length) { gallery.classList.remove("has-images"); return; }
     gallery.classList.add("has-images");
     valid.forEach(url => {
       const img = document.createElement("img");
-      img.src = url;
-      img.alt = "Park photo";
-      gallery.appendChild(img);
+      img.src = url; img.alt = "Park photo"; gallery.appendChild(img);
     });
   }
 
-  // ── Panel ──────────────────────────────────────────────────────────────────
-  function showPark(attrs) {
-    const parkName = attrs.Park_Name || attrs.Name || attrs.name || "";
+  // ── Render one CIP project card ───────────────────────────────────────────
+  function renderProjectCard(p) {
+    const badgeStyle = STATUS_STYLES[p.status] || "background:#eee;color:#333;";
+    return `<div class="project-card">
+      <div class="project-name">${p.name}</div>
+      <span class="status-badge" style="${badgeStyle}">${p.status}</span>
+      <div class="project-meta">
+        <div><div class="meta-label">Budget</div><div class="meta-value">${p.budget}</div></div>
+        <div><div class="meta-label">Timeline</div><div class="meta-value">${p.start} – ${p.end}</div></div>
+        <div><div class="meta-label">Size</div><div class="meta-value">${p.size}</div></div>
+        <div><div class="meta-label">Project Manager</div><div class="meta-value">${p.pm}</div></div>
+      </div>
+      <div class="project-scope">${p.scope}</div>
+      <a class="project-link" href="${p.link}" target="_blank">🔗 View Full Project Details</a>
+    </div>`;
+  }
+
+  // ── Render non-CIP park info panel ────────────────────────────────────────
+  function renderParkInfo(attrs) {
+    const type  = attrs.P_TYPE || "Park";
+    const acres = attrs.Acres  ? `${parseFloat(attrs.Acres).toFixed(1)} acres` : "";
+    const name  = attrs.Name   || "";
+    const amenities = parkAmenitiesNamed.get(name) || [];
+
+    let html = `<div class="park-info-card">
+      <span class="park-type-badge">${type}</span>`;
+    if (acres) {
+      html += `<div style="margin-bottom:10px;">
+        <div class="meta-label">Size</div>
+        <div class="meta-value">${acres}</div>
+      </div>`;
+    }
+    if (amenities.length) {
+      html += `<div class="meta-label" style="margin-bottom:6px;">Bond-Funded Improvements</div>
+        <div class="amenity-tags">
+          ${amenities.map(c => `<span class="amenity-tag">${c.emoji} ${c.label}</span>`).join("")}
+        </div>`;
+    }
+    html += `<p class="no-cip-note">This park has no active Capital Improvement Projects in the current program.</p>
+    </div>`;
+    return html;
+  }
+
+  // ── Show park panel ───────────────────────────────────────────────────────
+  function showPark(parkName, isCIP, baseAttrs) {
     document.getElementById("detail-name").textContent = parkName;
+    document.getElementById("detail-subtitle").textContent =
+      isCIP ? "HARD Capital Improvement Projects" : "Hayward Area Recreation and Park District";
     document.getElementById("panel-default").style.display = "none";
     document.getElementById("park-detail").classList.add("active");
 
-    // Images — field names from feature service
-    const imgFields = ["Image_URL_", "Image_URL1", "Image_UR_1", "Image_UR_2", "Image_UR_3"];
-    const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.trim().startsWith("http"));
-    buildGallery(imgs);
+    buildGallery(imageData[parkName]);
 
-    // Projects — read from popup_data.json (served from this GitHub repo)
-    // To update: re-run build_hard_popup.ipynb → push popup_data.json to GitHub
     const container = document.getElementById("projects-container");
-    const htmlPopup = popupData[parkName];
-
-    if (htmlPopup && htmlPopup.trim()) {
-      container.innerHTML = `<div class="popup-inject">${htmlPopup}</div>`;
+    if (isCIP) {
+      const data = popupData[parkName];
+      if (data && data.projects && data.projects.length) {
+        container.innerHTML = data.projects.map(renderProjectCard).join("");
+      } else {
+        container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">Project details not yet available.</p>`;
+      }
     } else {
-      container.innerHTML = `<p style="color:var(--text-muted);font-size:13px;padding:8px 0;">No project details available.</p>`;
+      container.innerHTML = renderParkInfo(baseAttrs || {});
     }
   }
 
   function closePanel() {
     document.getElementById("park-detail").classList.remove("active");
     document.getElementById("panel-default").style.display = "flex";
-    // On mobile, collapse panel back to map
-    if (window.innerWidth <= 700) {
-      document.getElementById("panel").classList.add("hidden");
-    }
+    if (window.innerWidth <= 700) document.getElementById("panel").classList.add("hidden");
   }
   window.closePanel = closePanel;
 
-  // ── Map ────────────────────────────────────────────────────────────────────
-  const renderer = {
-    type: "simple",
-    symbol: {
-      type: "simple-fill",
-      color: [0, 87, 117, 0.45],           /* Primary Dark Blue */
-      outline: { color: [60, 164, 212, 0.9], width: 1.5 }  /* Primary Light Blue */
-    }
-  };
+  // ── Map layers ────────────────────────────────────────────────────────────
+  // Base layer: all 132 HARD parks — gray, always visible
+  const baseLayer = new FeatureLayer({
+    url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/HARD_Parks_3_18_26/FeatureServer/0",
+    renderer: {
+      type: "simple",
+      symbol: { type: "simple-fill", color: [80,100,120,0.18], outline: { color: [120,150,170,0.45], width: 0.8 } }
+    },
+    outFields: ["Name", "Acres", "P_TYPE"],
+    popupEnabled: false,
+    title: "All Parks"
+  });
 
-  const layer = new FeatureLayer({
+  // CIP layer: 39 parks with active/past capital projects — blue highlight on top
+  const cipLayer = new FeatureLayer({
     url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CIP_Investment_v2/FeatureServer/0",
-    renderer,
-    outFields: ["*"],
+    renderer: {
+      type: "simple",
+      symbol: { type: "simple-fill", color: [0,87,117,0.55], outline: { color: [60,164,212,0.9], width: 1.5 } }
+    },
+    outFields: ["Park_Name"],
     popupEnabled: false,
     title: "CIP Parks"
   });
 
   // ── Trail layers ──────────────────────────────────────────────────────────
   const trailBase = "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer";
+  const foothillStyle = { type: "simple", symbol: { type: "simple-line", color: [242,174,0,0.95], width: 3 } };
+  const slcStyle      = { type: "simple", symbol: { type: "simple-line", color: [60,164,212,0.95], width: 3 } };
+  const foothillTrails = [0, 8].map(id => new FeatureLayer({ url: `${trailBase}/${id}`, renderer: foothillStyle, popupEnabled: false, title: "Foothill Trail" }));
+  const slcTrails      = [1, 2].map(id => new FeatureLayer({ url: `${trailBase}/${id}`, renderer: slcStyle,      popupEnabled: false, title: "San Lorenzo Creek Trail" }));
 
-  // Foothill Trail: layers 0 (WRTfoothill040) + 8 (FoothillTrail) — HARD Mustard
-  const foothillStyle = {
-    type: "simple",
-    symbol: { type: "simple-line", color: [242, 174, 0, 0.95], width: 3, style: "solid" }
-  };
-  const foothillTrails = [0, 8].map(id => new FeatureLayer({
-    url: `${trailBase}/${id}`,
-    renderer: foothillStyle,
-    popupEnabled: false,
-    title: "Foothill Trail"
-  }));
+  // Amenity marker layer
+  const markerLayer = new GraphicsLayer({ title: "Park Amenities" });
 
-  // San Lorenzo Creek Trail: layers 1 (SLCTrail_WRT) + 2 (SanLorenzoCreekTrail) — HARD Light Blue
-  const slcStyle = {
-    type: "simple",
-    symbol: { type: "simple-line", color: [60, 164, 212, 0.95], width: 3, style: "solid" }
-  };
-  const slcTrails = [1, 2].map(id => new FeatureLayer({
-    url: `${trailBase}/${id}`,
-    renderer: slcStyle,
-    popupEnabled: false,
-    title: "San Lorenzo Creek Trail"
-  }));
-
-  const map = new Map({ basemap: "dark-gray-vector", layers: [...foothillTrails, ...slcTrails, layer] });
+  const map = new Map({
+    basemap: "dark-gray-vector",
+    layers: [...foothillTrails, ...slcTrails, baseLayer, cipLayer, markerLayer]
+  });
 
   const view = new MapView({
-    container: "map",
-    map,
-    center: [-122.075, 37.668],
-    zoom: 13,
+    container: "map", map,
+    center: [-122.075, 37.668], zoom: 13,
     ui: { components: ["zoom", "compass"] }
   });
 
@@ -917,32 +564,37 @@ require([
     setTimeout(() => loading.remove(), 900);
   });
 
+  // ── Click handler ─────────────────────────────────────────────────────────
   view.on("click", async (event) => {
-    const response = await view.hitTest(event, { include: [layer] });
-    if (response.results.length > 0) {
-      const attrs = response.results[0].graphic.attributes;
-      showPark(attrs);
-      if (window.innerWidth <= 700) {
-        document.getElementById("panel").classList.remove("hidden");
-      }
+    const response = await view.hitTest(event, { include: [cipLayer, baseLayer] });
+    if (!response.results.length) return;
+
+    const cipHit  = response.results.find(r => r.layer === cipLayer);
+    const baseHit = response.results.find(r => r.layer === baseLayer);
+
+    if (cipHit) {
+      const name = cipHit.graphic.attributes.Park_Name;
+      showPark(name, true, null);
+    } else if (baseHit) {
+      const a = baseHit.graphic.attributes;
+      showPark(a.Name, false, a);
     }
+
+    if (window.innerWidth <= 700) document.getElementById("panel").classList.remove("hidden");
   });
 
-  // Pointer cursor over CIP polygons only — lightweight, no async hitTest on move
+  // Pointer cursor over any park polygon
   view.on("pointer-move", (event) => {
-    view.hitTest(event, { include: [layer] }).then(r => {
-      view.container.style.cursor = r.results.length > 0 ? "pointer" : "default";
+    view.hitTest(event, { include: [cipLayer, baseLayer] }).then(r => {
+      view.container.style.cursor = r.results.length ? "pointer" : "default";
     });
   });
 
-  // ── Mobile panel toggle ───────────────────────────────────────────────────
-  function openPanel() {
-    document.getElementById("panel").classList.remove("hidden");
-  }
+  // ── Mobile toggle ─────────────────────────────────────────────────────────
+  function openPanel() { document.getElementById("panel").classList.remove("hidden"); }
   window.openPanel = openPanel;
 
   // ── Amenity categories ────────────────────────────────────────────────────
-  // fields: amenity columns from HARD_Parks_District_Point (layer 3)
   const CATEGORIES = [
     { id: "basketball", label: "Basketball",       emoji: "🏀", fields: ["CIP_CBOC_Basketball_Ct_Renovations_additions"] },
     { id: "tennis",     label: "Tennis",           emoji: "🎾", fields: ["CIP_CBOC_Tennis_Ct_Renovation"] },
@@ -954,12 +606,8 @@ require([
     { id: "renovation", label: "Park Renovation",  emoji: "🌳", fields: ["CIP_CBOC_Renovation"] },
   ];
 
-  // Single layer for all park amenity markers
-  const markerLayer = new GraphicsLayer({ title: "Park Amenities" });
-  map.add(markerLayer);
-
-  // Which categories are currently active (for toggle filtering)
   const activeCategories = new Set(CATEGORIES.map(c => c.id));
+  const parkAmenityMap   = new _NativeMap();
 
   // Build amenity toggle pills
   const pillsContainer = document.getElementById("amenity-pills");
@@ -970,8 +618,7 @@ require([
     pill.title = `Toggle ${cat.label}`;
     pill.addEventListener("click", () => {
       const isOff = pill.classList.toggle("off");
-      if (isOff) activeCategories.delete(cat.id);
-      else activeCategories.add(cat.id);
+      if (isOff) activeCategories.delete(cat.id); else activeCategories.add(cat.id);
       rebuildMarkers();
     });
     pillsContainer.appendChild(pill);
@@ -996,104 +643,75 @@ require([
     trailPillsContainer.appendChild(pill);
   });
 
-  // parkAmenityMap: coordKey → { cats: [...], geometry }
-  const parkAmenityMap = new _NativeMap();
-
-  // Build/rebuild one combined emoji marker per park using currently active categories
   function rebuildMarkers() {
     markerLayer.removeAll();
-    parkAmenityMap.forEach(({ cats, geometry }, key) => {
+    parkAmenityMap.forEach(({ cats, geometry }) => {
       const visible = cats.filter(c => activeCategories.has(c.id));
-      if (visible.length === 0) return;
-
+      if (!visible.length) return;
       const emojis = visible.map(c => c.emoji).join("");
-      // Each emoji is ~18px wide; add small padding
-      const w = visible.length * 18 + 4;
-      const h = 22;
-      // Match the exact SVG format that worked for single-emoji markers
+      const w = visible.length * 18 + 4, h = 22;
       const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><text y='18' font-size='16'>${emojis}</text></svg>`;
-
       markerLayer.add(new Graphic({
         geometry,
-        symbol: {
-          type: "picture-marker",
-          url: "data:image/svg+xml," + encodeURIComponent(svg),
-          width: w,
-          height: h
-        },
-        attributes: { parkKey: key }
+        symbol: { type: "picture-marker", url: "data:image/svg+xml," + encodeURIComponent(svg), width: w, height: h }
       }));
     });
   }
 
-  // After view loads, query HARD_Parks_District_Point for amenity field values
+  // ── After view loads: fetch amenity data + park names ─────────────────────
   view.when(async () => {
+    // 1. Amenity point layer
     try {
       const ptLayer = new FeatureLayer({
-        url: "https://services7.arcgis.com/m05DQL3pbt0Uigbe/arcgis/rest/services/CapitalStoryMap_AcrOnline_gdb/FeatureServer/3"
+        url: `${trailBase}/3`
       });
       await ptLayer.load();
-
-      const allFields = CATEGORIES.flatMap(c => c.fields);
+      const allFields = [...CATEGORIES.flatMap(c => c.fields), "Name"];
       const result = await ptLayer.queryFeatures({
-        where: "1=1",
-        outFields: allFields,
-        returnGeometry: true,
-        outSpatialReference: { wkid: 3857 },
-        num: 2000
+        where: "1=1", outFields: allFields,
+        returnGeometry: true, outSpatialReference: { wkid: 3857 }, num: 2000
       });
-
       result.features.forEach(f => {
         const attrs = f.attributes;
-        const key = `${Math.round(f.geometry.x)},${Math.round(f.geometry.y)}`;
-        const presentCats = [];
-
-        CATEGORIES.forEach(cat => {
-          const hasAmenity = cat.fields.some(field => attrs[field] && attrs[field] !== 0);
-          if (!hasAmenity) return;
-          presentCats.push(cat);
-        });
-
+        const key  = `${Math.round(f.geometry.x)},${Math.round(f.geometry.y)}`;
+        const name = attrs.Name || "";
+        const presentCats = CATEGORIES.filter(cat =>
+          cat.fields.some(field => attrs[field] && attrs[field] !== 0)
+        );
         if (presentCats.length > 0) {
           parkAmenityMap.set(key, { cats: presentCats, geometry: f.geometry });
+          if (name) parkAmenitiesNamed.set(name, presentCats);
         }
       });
-
-      console.log(`Amenity query: ${result.features.length} features, ${parkAmenityMap.size} parks with amenities`);
       rebuildMarkers();
     } catch (e) {
       console.error("Amenity layer load failed:", e);
     }
 
-    // Populate search park names from the CIP parks feature service
+    // 2. Park names for search (all parks from base layer)
     try {
-      const nameResult = await layer.queryFeatures({
-        where: "Park_Name IS NOT NULL",
-        outFields: ["Park_Name"],
-        returnGeometry: false,
-        num: 500
+      const nameResult = await baseLayer.queryFeatures({
+        where: "Name IS NOT NULL", outFields: ["Name"],
+        returnGeometry: false, num: 500
       });
-      parkNames = nameResult.features
-        .map(f => f.attributes.Park_Name)
-        .filter(Boolean)
-        .sort();
+      allParkNames = nameResult.features
+        .map(f => f.attributes.Name).filter(Boolean).sort();
     } catch (e) {
       console.error("Park name query failed:", e);
     }
   });
 
   // ── Search ────────────────────────────────────────────────────────────────
-  // Park names are sourced from the feature service, not a hardcoded list.
-  let parkNames = [];
+  let allParkNames = [];
   const searchInput    = document.getElementById("search-input");
   const searchDropdown = document.getElementById("search-dropdown");
 
   function renderDropdown(matches) {
     searchDropdown.innerHTML = "";
-    if (matches.length === 0) { searchDropdown.classList.remove("open"); return; }
+    if (!matches.length) { searchDropdown.classList.remove("open"); return; }
     matches.forEach(name => {
       const item = document.createElement("div");
-      item.className = "search-item";
+      item.className = "search-item" + (CIP_NAMES.has(name) ? " cip-item" : "");
       item.textContent = name;
       item.addEventListener("mousedown", () => selectPark(name));
       searchDropdown.appendChild(item);
@@ -1104,9 +722,8 @@ require([
   searchInput.addEventListener("input", () => {
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { searchDropdown.classList.remove("open"); return; }
-    renderDropdown(parkNames.filter(n => n.toLowerCase().includes(q)));
+    renderDropdown(allParkNames.filter(n => n.toLowerCase().includes(q)));
   });
-
   searchInput.addEventListener("blur", () => {
     setTimeout(() => searchDropdown.classList.remove("open"), 150);
   });
@@ -1114,18 +731,28 @@ require([
   async function selectPark(name) {
     searchInput.value = name;
     searchDropdown.classList.remove("open");
+    const isCIP = CIP_NAMES.has(name);
 
-    const result = await layer.queryFeatures({
-      where: `Park_Name = '${name.replace(/'/g, "''")}'`,
-      outFields: ["*"],
-      returnGeometry: true,
-      num: 1
-    });
-
-    if (!result.features.length) return;
-    const feature = result.features[0];
-    showPark(feature.attributes);
-    await view.goTo({ target: feature.geometry, zoom: 15 }, { duration: 800 });
+    if (isCIP) {
+      const result = await cipLayer.queryFeatures({
+        where: `Park_Name = '${name.replace(/'/g, "''")}'`,
+        outFields: ["Park_Name"], returnGeometry: true, num: 1
+      });
+      if (result.features.length) {
+        showPark(name, true, null);
+        await view.goTo({ target: result.features[0].geometry, zoom: 15 }, { duration: 800 });
+      }
+    } else {
+      const result = await baseLayer.queryFeatures({
+        where: `Name = '${name.replace(/'/g, "''")}'`,
+        outFields: ["*"], returnGeometry: true, num: 1
+      });
+      if (result.features.length) {
+        const f = result.features[0];
+        showPark(name, false, f.attributes);
+        await view.goTo({ target: f.geometry, zoom: 15 }, { duration: 800 });
+      }
+    }
   }
 
 });

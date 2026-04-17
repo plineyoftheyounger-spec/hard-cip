@@ -1,5 +1,6 @@
 {
   "Alden E. Oliver Sports Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Oliver Sports Park Synthetic Turf Replacement",
@@ -9,7 +10,8 @@
         "end": "Spring 2019",
         "size": "2 soccer fields",
         "pm": "Meghan Tiernan",
-        "scope": "Replacement of synthetic turf at two soccer fields, new 20-ft tall netting fence along canal, adjacent picnic area upgrades, and conversion of sports field, parking, and pathway lights to LED.",
+        "scope": "Replacement of synthetic turf at two soccer fields, new 20-ft tall netting fence along the canal, adjacent picnic area upgrades, and conversion of sports field, parking, and pathway lights to LED. Ribbon-cutting April 27, 2019.",
+        "narrative": "",
         "link": "https://hard.icitywork.com/#projectDetail86"
       },
       {
@@ -20,64 +22,72 @@
         "end": "Spring 2020",
         "size": "3 fitness courts",
         "pm": "Hai-Ping Mo",
-        "scope": "Three free outdoor fitness courts at Eden Greenway, Tennyson Park, and Alden E. Oliver Sports Park. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "scope": "Three free outdoor fitness courts at: Eden Greenway (across from Southgate Community Center), Tennyson Park, and Alden E. Oliver Sports Park. Partially funded by National Fitness Campaign. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "narrative": "Soccer is an increasingly popular sport across the Bay Area and continues to grow. The District, in collaboration with Hayward Unified School District, developed a unique facility in the East featuring a futsal court. This site includes four youth courts that can be converted into two adult courts. It also offers perimeter netting, lighting, new restrooms, drinking fountains, and spectator viewing areas. Since opening, this location has become a sought-after property for long-term ownership. \n",
         "link": "https://hard.icitywork.com/#projectDetail451"
       },
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 1",
+        "name": "Basketball & Tennis Court Renovations – Phase 1",
         "status": "Complete",
         "budget": "$2,330,000",
         "start": "Fall 2021",
         "end": "Fall 2023",
         "size": "17 courts (4 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court upgrades.",
+        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court. New paving, surfacing, furnishings, drinking fountains, hoops, fencing.",
+        "narrative": "Renovations to 17 existing sports courts across Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks, including basketball, tennis, and pickleball courts, plus a flexible multi-use court for futsal, roller skating, and other activities. Upgrades included new paving, striping, surfacing, site furnishings, drinking fountains, backstops, hoops, nets, and fencing.",
         "link": "https://hard.icitywork.com/#projectDetail973"
       }
     ]
   },
   "Ashland Grove Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "Ashland-East 14th Street - Ashland Grove",
+        "name": "Ashland-East 14th Street – Ashland Grove",
         "status": "Under Construction",
         "budget": "$13,733,000",
         "start": "Fall 2020",
         "end": "Fall 2027",
         "size": "1.77 acres",
         "pm": "Hai-Ping Mo",
-        "scope": "New neighborhood park (Ashland Grove) on 1.77-acre site. Features: multi-use lawn, active zone (sports courts/event plaza), play area, large shade trees, sensory plantings, water feature, climbable tactile wall. Awarded $3,997,500 LWCF grant + $883,914 ECRG grant.",
+        "scope": "New neighborhood park (Ashland Grove) on 1.77-acre site. Features: multi-use lawn, active zone (sports courts/event plaza), play area, large shade trees, sensory plantings, water feature, climbable tactile wall, shaded gathering area. Awarded $3,997,500 LWCF grant + $883,914 ECRG grant.",
+        "narrative": "The upcoming 1.77-acre Ashland Grove will incorporate one of three neighboring acquisitions, forming a continuous through-block park adjacent to the Ashland Roots Community Center. The community-focused design features a multi-use lawn, an active sports zone and event plaza, a looping pathway, a play area for all ages, shade trees, a water feature, sensory plantings, and quiet seating spots.",
         "link": "https://hard.icitywork.com/#projectDetail965"
       },
       {
-        "name": "Ashland-Mateo Street - future Ashland Grove",
+        "name": "Ashland-Mateo Street – future Ashland Grove",
         "status": "Construction Documents",
         "budget": "$10,852,000",
         "start": "Fall 2020",
         "end": "Fall 2027",
         "size": "1.43 acres",
         "pm": "Hai-Ping Mo",
-        "scope": "New 1.43-acre neighborhood park designed with Trust for Public Land. Awarded $7,082,000 Prop 68 Round 4 grant. Features: trees, terraced seating, looped walking path, play areas, multipurpose court, fitness stations, lighting. Construction to begin 2026.",
+        "scope": "New 1.43-acre neighborhood park designed with Trust for Public Land. Awarded $7,082,000 Prop 68 Round 4 grant. Features: trees/green space, terraced seating, looped walking path, play areas, multipurpose court, fitness stations, lighting. Construction to begin 2026.",
+        "narrative": "Groundbreaking and construction began in early 2026.",
         "link": "https://hard.icitywork.com/#projectDetail449"
       }
     ]
   },
   "Ashland Zocolo": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "Ashland Zocalo",
+        "name": "Ashland Zocalo (formerly Ashland Common)",
         "status": "Complete",
-        "budget": "$7,300,000",
+        "budget": "$7,300,000 (Prop 68 grant funded)",
         "start": "Spring 2019",
         "end": "Summer 2024",
         "size": "1 acre",
         "pm": "Brian Laczko",
-        "scope": "Community park and plaza at 166th Ave & East 14th St developed with Alameda County and Trust for Public Land. Features: flexible community space, multipurpose lawn, play areas, fitness court, interactive fountain, outdoor stage, open-air market structure, food truck accommodations. Completed July 2024.",
+        "scope": "Community park and plaza at 166th Ave & East 14th St developed with Alameda County and Trust for Public Land. Features: flexible community space, multipurpose lawn, play areas, fitness court, interactive fountain, outdoor stage, open-air market structure, food truck accommodations, dedicated public safety space. Completed July 2024.",
+        "narrative": "Transformation of a vacant 0.9-acre lot along the Mission Corridor into a vibrant community plaza now accessible to more than 11,000 residents within a 10-minute walk. Features include a playground, exercise equipment, interactive water feature, performance stage, walking loop, promenade, and plaza for pop-up markets and cultural events. Measure F1 Bond funds provided the match that secured a $7.3M Statewide Park Development and Community Revitalization grant. Now sees 7,000+ visitors annually - a 590% increase.",
         "link": "https://hard.icitywork.com/#projectDetail481"
       }
     ]
   },
   "Bay Trees Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Bay Trees ADA Improvements",
@@ -87,23 +97,26 @@
         "end": "Spring 2026",
         "size": "Park-wide",
         "pm": "Diane Hardy",
-        "scope": "Improvements to pathways and parking lots to meet current ADA standards. Construction began January 2026.",
+        "scope": "Improvements to pathways and parking lots to meet current ADA standards. Construction began January 2026; expected complete spring 2026.",
+        "narrative": "Phase one of the project revamped the Basketball Court and Tennis Courts, transforming them into a top-tier facility nestled in Castro Valley. The update also enhanced pathways and parking lots to comply with current ADA accessibility standards.",
         "link": "https://hard.icitywork.com/#projectDetail1502"
       },
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 1",
+        "name": "Basketball & Tennis Court Renovations – Phase 1",
         "status": "Complete",
         "budget": "$2,330,000",
         "start": "Fall 2021",
         "end": "Fall 2023",
         "size": "17 courts (4 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court upgrades.",
+        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court. New paving, surfacing, furnishings, drinking fountains, hoops, fencing.",
+        "narrative": "Renovations to 17 existing sports courts across Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks, including basketball, tennis, and pickleball courts, plus a flexible multi-use court for futsal, roller skating, and other activities. Upgrades included new paving, striping, surfacing, site furnishings, drinking fountains, backstops, hoops, nets, and fencing.",
         "link": "https://hard.icitywork.com/#projectDetail973"
       }
     ]
   },
   "Bechtel Mini Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Playground Renovations (District-Wide)",
@@ -113,12 +126,14 @@
         "end": "Summer 2027",
         "size": "Multiple sites",
         "pm": "Marvin Yee",
-        "scope": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "scope": "Renovation of playgrounds at multiple sites district-wide. Potential parks: Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "narrative": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
         "link": "https://hard.icitywork.com/#projectDetail1504"
       }
     ]
   },
   "Bidwell Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Bidwell Park and Community Center",
@@ -128,12 +143,14 @@
         "end": "Summer 2027",
         "size": "Former Bidwell Elementary School site",
         "pm": "Monty Boyd",
-        "scope": "Transformation of former Bidwell Elementary School into a community hub. Features: adaptive reuse of two buildings as community center, expanded play area, walking paths, multi-use sports court, bocce courts, event plaza, dog areas, picnic areas, edible gardens, multi-use lawn. Construction to begin early 2026.",
+        "scope": "Transformation of former Bidwell Elementary School into community hub. Features: adaptive reuse of two buildings as community center, expanded play area, walking paths, multi-use sports court, bocce courts, event plaza with gazebo, dog areas, picnic areas, edible gardens, multi-use lawn. Construction to begin early 2026.",
+        "narrative": "The former Bidwell Elementary School site at 175 Fairway Street is being transformed into a new community hub. The master plan, developed through community workshops in 2019, may include an expanded play areas, walking paths, a multi-use sports court, bocce courts, a fitness zone, an event plaza, dog-friendly areas, picnic spots, edible gardens, and a large multi-use lawn.",
         "link": "https://hard.icitywork.com/#projectDetail197"
       }
     ]
   },
   "Birchfield Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Playground Renovations (District-Wide)",
@@ -143,23 +160,26 @@
         "end": "Summer 2027",
         "size": "Multiple sites",
         "pm": "Marvin Yee",
-        "scope": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "scope": "Renovation of playgrounds at multiple sites district-wide. Potential parks: Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "narrative": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
         "link": "https://hard.icitywork.com/#projectDetail1504"
       },
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 3",
+        "name": "Basketball & Tennis Court Renovations – Phase 3",
         "status": "Planning",
         "budget": "$1,000,000",
         "start": "Winter 2025",
         "end": "Winter 2026",
         "size": "10 basketball + 1 tennis court",
         "pm": "Diane Hardy",
-        "scope": "Court renovations at Mervyn Morris Park (tennis) and Birchfield Park, Christian Penke Park, Deerview Park, Eden Greenway at Contessa, Eden Greenway at Cypress, Five Canyons Park, La Placita Park, Nuestro Parquecito, Ridge Trail Park (basketball).",
+        "scope": "Renovation of existing basketball and tennis courts at multiple locations. Tennis: Mervyn Morris Park. Basketball: Birchfield Park, Christian Penke Park, Deerview Park, Eden Greenway at Contessa, Eden Greenway at Cypress, Five Canyons Park, La Placita Park, Nuestro Parquecito, Ridge Trail Park.",
+        "narrative": "Court renovations at Mervyn Morris Park (tennis) and Birchfield Park, Christian Penke Park, Deerview Park, Eden Greenway at Contessa, Eden Greenway at Cypress, Five Canyons Park, La Placita Park, Nuestro Parquecito, Ridge Trail Park (basketball).",
         "link": "https://hard.icitywork.com/#projectDetail1509"
       }
     ]
   },
   "Canyon View Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Canyon Middle School Sports Fields",
@@ -169,26 +189,29 @@
         "end": "Summer 2026",
         "size": "School sports fields",
         "pm": "Meghan Tiernan",
-        "scope": "Partnership with Castro Valley USD to improve existing soccer and baseball fields at Canyon Middle School.",
+        "scope": "Partnership with Castro Valley Unified School District to improve existing soccer and baseball fields at Canyon Middle School.",
+        "narrative": "Joint enhancement of sports fields at Canyon Middle School, conducted in collaboration with the Castro Valley Unified School District. HARD contribution funds allocated for the renovation of the sports fields to serve the community's shared utilization.",
         "link": "https://hard.icitywork.com/#projectDetail983"
       }
     ]
   },
   "Carol Pereira Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "D & Clay Street Acquisition - Carol Pereira Park",
+        "name": "D & Clay Street Acquisition – Carol Pereira Park",
         "status": "Construction Documents",
         "budget": "$2,300,000",
         "start": "Fall 2021",
         "end": "2027",
         "size": "1.83 acres",
         "pm": "Hai-Ping Mo",
-        "scope": "Acquisition and development of 1.83-acre parcel. Combined with 1350 E Street parcel to create future 4-acre Carol Pereira Park. Awarded $1.3M LWCF grant and $597K Habitat Conservation Fund grant.",
+        "scope": "Acquisition and development of 1.83-acre park at SW corner of D & Clay Streets. Combined with 1350 E Street parcel to create future 4-acre Carol Pereira Park. Awarded $1.3M LWCF grant and $597K Habitat Conservation Fund grant.",
+        "narrative": "A former Caltrans 1.83-acre parcel at D and Clay Streets, along with the 1350 E Street acquisition, will form the future 4-acre Carol Pereira Park. This park will serve as a vital connection in the upcoming Foothill Trail and will feature natural trails within the center of Hayward.",
         "link": "https://hard.icitywork.com/#projectDetail1087"
       },
       {
-        "name": "1350 E Street Acquisition - Carol Pereira Park",
+        "name": "1350 E Street Acquisition – Carol Pereira Park",
         "status": "Complete",
         "budget": "$1,385,000",
         "start": "Spring 2021",
@@ -196,14 +219,16 @@
         "size": "2.42 acres",
         "pm": "Meghan Tiernan",
         "scope": "Acquisition of 2.42 acres of new parkland. Together with D & Clay Street acquisition, provides the future 4-acre Carol Pereira Park and a critical link in the Foothill Trail.",
+        "narrative": "Acquisition of 2.42 acres of new parkland. Together with D & Clay Street acquisition, provides the future 4-acre Carol Pereira Park and a critical link in the Foothill Trail.",
         "link": "https://hard.icitywork.com/#projectDetail1089"
       }
     ]
   },
   "Castro Valley Community Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "Picnic Area Upgrades - Castro Valley & Weekes Parks",
+        "name": "Picnic Area Upgrades – Castro Valley & Weekes Parks",
         "status": "Complete",
         "budget": "$1,000,000",
         "start": "Winter 2020",
@@ -211,17 +236,19 @@
         "size": "6 + 4 group picnic facilities",
         "pm": "Darcie DeLashmutt",
         "scope": "Renovation of six group picnic facilities at Castro Valley Community Park and four at Weekes Community Park. New paving, signage, trees, waste receptacles, picnic tables, benches, and BBQ grills.",
+        "narrative": "Renovation of six group picnic facilities at Castro Valley Community Park and four at Weekes Community Park. Upgrades included new paving, signage, trees, waste receptacles, picnic tables, benches, and BBQ grills. Construction completed Fall 2021.",
         "link": "https://hard.icitywork.com/#projectDetail1073"
       },
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 2",
+        "name": "Basketball & Tennis Court Renovations – Phase 2",
         "status": "Complete",
         "budget": "$1,660,000",
         "start": "Spring 2024",
         "end": "January 2025",
         "size": "16 basketball + 2 tennis courts (15 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks including Castro Valley, Canyon View, Greenridge, Nuestro Parquecito, Hillcrest Knolls, and Mt. Eden Parks.",
+        "scope": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks. Completed January 2025.",
+        "narrative": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks including Castro Valley, Canyon View, Haymont Mini, Silver Star, Twin Bridges, Greenwood, Longwood, Centennial, Cherryland, San Felipe, Spring Grove, Greenridge, Nuestro Parquecito, Hillcrest Knolls, and Mt. Eden Parks. Upgrades included new paving, striping and surfacing, site furnishings, backstops, hoops, nets, and fencing. Phase 2 construction completed January 2025.",
         "link": "https://hard.icitywork.com/#projectDetail1343"
       },
       {
@@ -232,12 +259,14 @@
         "end": "Winter 2021",
         "size": "Multiple courts",
         "pm": "Darcie DeLashmutt",
-        "scope": "Castro Valley Community Park: 3 tennis courts renovated. Southgate Park: 2 tennis courts converted to 6 pickleball courts.",
+        "scope": "Castro Valley Community Park: 3 tennis courts renovated. Southgate Park: 2 tennis courts converted to 6 pickleball courts. Improvements include pavement, surfacing, fencing, windscreens.",
+        "narrative": "Renovation of tennis courts at Castro Valley Community Park (three courts renovated) and Southgate Park (two courts converted to six pickleball courts). Improvements include asphalt pavement, court surfacing and striping, new nets, chain link fencing, benches, windscreens, and signage.",
         "link": "https://hard.icitywork.com/#projectDetail588"
       }
     ]
   },
   "East Avenue Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "East Avenue Park Renovation",
@@ -248,11 +277,13 @@
         "size": "2 acres (renovated portion)",
         "pm": "Hai-Ping Mo",
         "scope": "Renovation of 2-acre portion of neighborhood park: new restroom building, basketball court renovation, new play area, picnic facilities, parking lot, ADA walkways, planting/irrigation upgrades.",
+        "narrative": "The park renovated a 2-acre section of the neighborhood park. During community meetings, residents expressed preferences for the parking and drop-off areas, restroom location and exterior finishes, basketball court layout, playground equipment, and site furnishings. The final project involved replacing the restroom building and updating the basketball court, play area, picnic facilities, parking lot, ADA walkways, and implementing planting and irrigation upgrades to promote water conservation.",
         "link": "https://hard.icitywork.com/#projectDetail65"
       }
     ]
   },
   "Edendale Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Edendale Park Renovation",
@@ -262,7 +293,8 @@
         "end": "Spring 2020",
         "size": "1 acre",
         "pm": "Hai-Ping Mo",
-        "scope": "Renovation of 1-acre park: replacement of play equipment, new site furnishings, shade structure, drinking fountain, fencing, signage, paving upgrades, planting and irrigation.",
+        "scope": "Renovation of 1-acre park: replacement of play equipment, new site furnishings, shade structure, drinking fountain, fencing, signage, paving upgrades, planting and irrigation. Funded by Housing-Related Parks Program grant, Alameda County CDBG grant, and Measure F1 Bond.",
+        "narrative": "Renovated a 1-acre park by adding new playground equipment, site furnishings, a shade structure, drinking fountain, fencing, signage, paving improvements, and updated planting and irrigation systems. Additionally, the project involved demolishing the existing bathroom to construct a new DA-accessible restroom building.",
         "link": "https://hard.icitywork.com/#projectDetail363"
       },
       {
@@ -274,11 +306,13 @@
         "size": "N/A",
         "pm": "Meghan Tiernan",
         "scope": "Demolition of existing restroom and installation of new public restroom building and ADA access improvements.",
+        "narrative": "Renovated a 1-acre park by adding new playground equipment, site furnishings, a shade structure, drinking fountain, fencing, signage, paving improvements, and updated planting and irrigation systems. Additionally, the project involved demolishing the existing bathroom to construct a new DA-accessible restroom building.",
         "link": "https://hard.icitywork.com/#projectDetail70"
       }
     ]
   },
   "El Rancho Verde Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "El Rancho Verde Park",
@@ -288,7 +322,8 @@
         "end": "TBD",
         "size": "2.48 acres",
         "pm": "Marvin Yee",
-        "scope": "Board-approved master plan includes: major and minor baseball fields, T-ball field, central plaza, scoreboards, batting cages, sports lighting, bleachers, dugouts, outfield viewing lawn, picnic areas, new restroom/snack bar, children's play area.",
+        "scope": "Design and construction of improvements to existing park. Board-approved master plan includes: major and minor baseball fields, T-ball field, central plaza, scoreboards, batting cages, sports lighting, bleachers, dugouts, outfield viewing lawn, picnic areas, new restroom/snack bar, children's play area.",
+        "narrative": "In addition to acquiring a seldom-used baseball field adjacent to El Rancho Verde Park, the district upgraded the existing field to create an attractive Little League facility. Planned and ongoing improvements feature major and minor baseball fields, a T-ball field, a central plaza, scoreboards, batting cages, sports lighting, bleachers, dugouts, an outfield viewing lawn, picnic spots, a new restroom and snack bar, and a children's play area.",
         "link": "https://hard.icitywork.com/#projectDetail198"
       },
       {
@@ -300,11 +335,13 @@
         "size": "2.4 acres",
         "pm": "Brian Laczko",
         "scope": "Acquisition of existing 90-foot baseball field from New Haven USD directly adjacent to El Rancho Verde Park.",
+        "narrative": "Acquisition of an existing 90-foot baseball field from New Haven USD, directly adjacent to El Rancho Verde Park. This park allows for the expansion of ",
         "link": "https://hard.icitywork.com/#projectDetail1164"
       }
     ]
   },
   "Fairmont Terrace Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Fairmont Terrace Park Renovation & Expansion",
@@ -314,12 +351,14 @@
         "end": "Fall 2022",
         "size": "1.67 acres expanded to 5 acres",
         "pm": "Darcie DeLashmutt",
-        "scope": "Design and construction expanding park from 1.67 to 5 acres. Includes: ADA parking, new restroom, two playgrounds, half basketball court, group picnic areas, small and large dog parks, open lawn, pathways, hillside trail.",
+        "scope": "Design and construction of park improvements and expansion from 1.67 acres to 5 acres. Includes: ADA parking, new restroom, two playgrounds, half basketball court, group picnic areas, small and large dog parks, open lawn, pathways, and hillside trail.",
+        "narrative": "Design and construction of park improvements and expansion of an existing 1.67-acre park to 5 acres. Improvements include ADA parking, a new restroom building, two playgrounds, half basketball court, group picnic areas, small and large dog parks, open lawn, pathways, and a hillside trail.",
         "link": "https://hard.icitywork.com/#projectDetail71"
       }
     ]
   },
   "Greenridge Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Greenridge Park Renovation",
@@ -329,23 +368,26 @@
         "end": "TBD",
         "size": "N/A",
         "pm": "Meghan Tiernan",
-        "scope": "Park improvements including basketball court resurfacing and ADA parking lot improvements (completed 2025). Playground equipment to be replaced in 2026.",
+        "scope": "Park improvements at Greenridge Park. Basketball court resurfaced and parking lot improved in 2025 to meet ADA standards. Playground equipment to be replaced in 2026.",
+        "narrative": "With expansive views of the Bay Area, this park enhanced circulation by upgrading its pathways and parking lot. The basketball court, located in the valley, was renovated with new paving, equipment, and improved bathroom facilities. Additionally, the park hosted one of the district's largest tree planting events.",
         "link": "https://hard.icitywork.com/#projectDetail492"
       },
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 2",
+        "name": "Basketball & Tennis Court Renovations – Phase 2",
         "status": "Complete",
         "budget": "$1,660,000",
         "start": "Spring 2024",
         "end": "January 2025",
         "size": "16 basketball + 2 tennis courts (15 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks including Castro Valley, Canyon View, Greenridge, Nuestro Parquecito, Hillcrest Knolls, and Mt. Eden Parks.",
+        "scope": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks. Completed January 2025.",
+        "narrative": "Renovations to 16 basketball courts and 2 tennis courts across 15 parks including Castro Valley, Canyon View, Haymont Mini, Silver Star, Twin Bridges, Greenwood, Longwood, Centennial, Cherryland, San Felipe, Spring Grove, Greenridge, Nuestro Parquecito, Hillcrest Knolls, and Mt. Eden Parks. Upgrades included new paving, striping and surfacing, site furnishings, backstops, hoops, nets, and fencing. Phase 2 construction completed January 2025.",
         "link": "https://hard.icitywork.com/#projectDetail1343"
       }
     ]
   },
   "Hayward Area Senior Center": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Hayward Area Senior Center Renovation",
@@ -355,12 +397,14 @@
         "end": "Summer 2022",
         "size": "Senior center facility",
         "pm": "Brian Laczko",
-        "scope": "Renovation and modernization of Hayward Area Senior Center. Designed by Kava Massih Architects. Officially reopened June 24, 2022. Design Award Winner.",
+        "scope": "Renovation and modernization of Hayward Area Senior Center. Designed by Kava Massih Architects. Construction began October 2020. Officially reopened June 24, 2022. Design Award Winner.",
+        "narrative": "The Hayward Area Senior Center underwent renovation and modernization, maintaining its unique Japanese architectural style. The project included a new, spacious lobby with a vaulted ceiling, upgraded building systems, and better lighting. A backup generator was added, designating the center as a Red Cross-certified emergency shelter. The facility officially reopened on June 24, 2022, and received the 2024 California Parks and Recreation Society Award of Excellence.",
         "link": "https://hard.icitywork.com/#projectDetail74"
       }
     ]
   },
   "Hayward Community Gardens": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Hayward Community Garden",
@@ -370,12 +414,14 @@
         "end": "Fall 2019",
         "size": "Community garden site",
         "pm": "Hai-Ping Mo",
-        "scope": "Master plan and Phase 1: 70 garden plots with irrigation, raised beds, small orchard, shade structure, produce counter, seed library, demonstration garden, greenhouse, compost; community socializing zone with picnic area, BBQs, natural play area and mural. CPRS 2020 Award of Excellence.",
+        "scope": "Master plan and Phase 1: 70 garden plots with irrigation, raised beds, small orchard, shade structure, produce counter, seed library, demonstration garden, greenhouse, compost, pathways; community zone with picnic area, BBQs, natural play area and mural. CPRS 2020 Award of Excellence.",
+        "narrative": "The community consistently seeks more gardening opportunities. Phase 1 enhancements will introduced 70 garden plots with irrigation, raised beds, a small orchard, an outdoor classroom shade structure, a produce counter, seed library, demonstration garden, storage shed, compost area, greenhouse, and fencing. A social zone will include a picnic area, BBQs, a kiwi tunnel, and a natural play space with art. This project received the CPRS 2020 Award of Excellence in Park Planning.",
         "link": "https://hard.icitywork.com/#projectDetail72"
       }
     ]
   },
   "Hayward Plunge": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Hayward Plunge Renovation",
@@ -385,12 +431,14 @@
         "end": "Summer 2026",
         "size": "Aquatic center",
         "pm": "Diane Hardy",
-        "scope": "Renovation of Hayward Plunge aquatic center: parking lot ADA access, structural repairs, concrete waterproofing, pool tiling and replastering, diving board and swim lane revisions.",
+        "scope": "Renovation of Hayward Plunge aquatic center. Scope: parking lot ADA access, structural repairs, concrete waterproofing, pool tiling and replastering, diving board and swim lane revisions.",
+        "narrative": "Construction is currently in progress at the Hayward Plunge Aquatic Center. This historic gem will undergo a major renovation, including ADA-accessible parking lot improvements, structural repairs, concrete waterproofing, pool tiling and replastering, and updates to the diving board and swim lanes.",
         "link": "https://hard.icitywork.com/#projectDetail73"
       }
     ]
   },
   "Kennedy Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Kennedy Park Renovation",
@@ -400,12 +448,14 @@
         "end": "Spring 2022",
         "size": "N/A",
         "pm": "Marvin Yee",
-        "scope": "Design and construction per master plan: renovated picnic areas, group picnic shelters, new central play areas, new teacup amusement ride, new concession building and public restrooms, improved pathways, informal lawn areas, 39 net new trees. Park reopened April 2022. Award Winner.",
+        "scope": "Design and construction per master plan. Improvements: renovated picnic areas, group picnic shelters, new central play areas, new teacup amusement ride, new concession building and public restrooms, improved pathways with seating, informal lawn areas, 39 net new trees. Park reopened April 2022. Award Winner.",
+        "narrative": "Renovation and modernization of Kennedy Park delivering new picnic shelters, a central play area, a teacup ride, a modern concession building with accessible restrooms, a renovated train station with a new electric train, improved ADA-compliant pathways, and new irrigated lawns. Now draws nearly 500,000 visitors annually - a 740% increase - with picnic reservations that regularly sell out. Park reopened April 2022. Award Winner.",
         "link": "https://hard.icitywork.com/#projectDetail77"
       }
     ]
   },
   "Kenneth C. Aitken Senior Community Center": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Kenneth Aitken Senior & Community Center Renovation",
@@ -416,11 +466,13 @@
         "size": "13,500 sq ft facility",
         "pm": "Diane Hardy",
         "scope": "Roof and gutter replacement, new HVAC, energy-efficient lighting, accessible restrooms, site access and parking improvements, new flooring and paint. Re-opening event December 1, 2023.",
+        "narrative": "A cherished Senior and Community Center required updates to address deferred maintenance, such as repairing the leaking roof, unreliable HVAC, and inadequate lighting. To boost accessibility, the center underwent a full ADA reconfiguration, adding new ramps, expanded accessible parking, and high-visibility pathways. To further improve user experience, upgrades included commercial flooring, new paint, and an accessible transaction counter for programs like affordable meals and tax preparation services.",
         "link": "https://hard.icitywork.com/#projectDetail1213"
       }
     ]
   },
   "La Vista Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "La Vista Park",
@@ -431,11 +483,13 @@
         "size": "New community park",
         "pm": "Meghan Tiernan",
         "scope": "New community park managed by City of Hayward; HARD will operate upon completion. Features: nature play areas, basketball court, picnic areas, multi-use lawn/soccer field, parking, restrooms, walking paths, Foothill Trail segment, exercise stations, off-leash dog area, and Hayward's first bike terrain park. Construction contract awarded 2025.",
+        "narrative": "",
         "link": "https://hard.icitywork.com/#projectDetail79"
       }
     ]
   },
   "Laurel School Site": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Laurel School Acquisition & Future Neighborhood Park",
@@ -445,12 +499,14 @@
         "end": "Fall 2027",
         "size": "3.1 acres",
         "pm": "Brian Laczko",
-        "scope": "Acquisition of ~3.1 acres from Hayward USD (acquired December 2025). Northern field to be converted to a public neighborhood park.",
+        "scope": "Acquisition of ~3.1 acres from Hayward Unified School District (acquired December 2025). Northern field to be converted to public neighborhood park; southern play areas renovated for continued student use.",
+        "narrative": "In December 2025, approximately 3.1 acres of the Laurel Elementary School site were purchased from the Hayward Unified School District. H.A.R.D. is now collecting feedback on the northern part of the park, while the southern part remains in use by students during school days. Several community meetings will be held throughout the design process.",
         "link": "https://hard.icitywork.com/#projectDetail1472"
       }
     ]
   },
   "Meek Estate Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Alameda County Agricultural History Center",
@@ -460,7 +516,8 @@
         "end": "July 2025",
         "size": "Historic orchard site",
         "pm": "Marvin Yee",
-        "scope": "Restoration of historic orchard and creation of agricultural demonstration area at Meek Estate Park. New interpretive signs for self-guided tour.",
+        "scope": "Restoration of historic orchard and creation of agricultural demonstration area. New interpretive signs for self-guided tour. Funded by ARPA grant, County Park Facility Fees, Fremont Bank grant, and Measure F1 Bond.",
+        "narrative": "Alameda County Agricultural History Center at Meek Estate Park is located at 240 Hampton Road in Cherryland. It features a Historic Fruit Orchard, Agricultural Demonstration Garden, and Carriage House Museum. The Center invites families, students, and community members to connect with Alameda County's agricultural legacy through self-guided visits, group tours, seasonal events, and hands-on experiences",
         "link": "https://hard.icitywork.com/#projectDetail1329"
       },
       {
@@ -471,12 +528,14 @@
         "end": "Summer 2020",
         "size": "N/A",
         "pm": "Brian Laczko",
-        "scope": "Renovation and expansion of existing parking lot at Meek Estate Park. Funded by Measure WW. Completed and reopened Summer 2020.",
+        "scope": "Renovation and expansion of existing parking lot at Meek Estate Park in association with Cherryland Community Center project funded by Alameda County. Funded by Measure WW. Completed and reopened Summer 2020.",
+        "narrative": "To further emphasize the importance of the Cherryland Community Center, this project upgraded and expanded the parking lot and circulation to improve the capacity for both the park and the center. Pathway improvements, among other enhancements, establish the park as a vital partner to the center. The newly completed Agricultural History Museum completes the connection.",
         "link": "https://hard.icitywork.com/#projectDetail82"
       }
     ]
   },
   "Memorial Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Memorial Park Restroom Replacement",
@@ -487,11 +546,30 @@
         "size": "N/A",
         "pm": "Meghan Tiernan",
         "scope": "Demolition of existing restroom and installation of new public restroom building and ADA access improvements.",
+        "narrative": "Demolition of an existing restroom and installation of a new public restroom building with ADA access improvements at Memorial Park. Project was completed in Fall 2017.",
         "link": "https://hard.icitywork.com/#projectDetail83"
       }
     ]
   },
+  "Mia's Dream Park": {
+    "park_narrative": "",
+    "projects": [
+      {
+        "name": "Mia's Dream Come True All-Access Playground",
+        "status": "Complete",
+        "budget": "$7,121,957",
+        "start": "Summer 2017",
+        "end": "Fall 2021",
+        "size": "1 acre",
+        "pm": "Marvin Yee",
+        "scope": "1-acre all-access playground for inclusive play at Tennyson Park. Five elements of inclusion: cognitive, physical, social, sensory, and communication. Features: Music Therapy Zone, Kindness Arches, Fire Engine, Water Tower, swings, spinners, slides, fog sprays, accessible pathways, picnic areas, quiet reading area, art sculptures, new restroom.",
+        "narrative": "",
+        "link": "https://hard.icitywork.com/#projectDetail61"
+      }
+    ]
+  },
   "Mission Hills Of Hayward Golf Course": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Mission Hills Driving Range Renovation",
@@ -501,12 +579,14 @@
         "end": "Spring 2019",
         "size": "Driving range",
         "pm": "Meghan Tiernan",
-        "scope": "Replacement of synthetic turf surfacing and vertical mesh netting, damaged paving repair, maintenance access gate replacement, and conversion of lights to LED.",
+        "scope": "Replacement of synthetic turf surfacing and vertical mesh netting, damaged paving repair, maintenance access gate replacement, and conversion of driving range and pro shop lights to LED. Completed June 2019.",
+        "narrative": "Renovation of the Mission Hills Golf Course Driving Range including replacement of synthetic turf surfacing and vertical mesh netting, damaged paving repair, and replacement of the maintenance access gate. Also included conversion of driving range, pro shop, and bunker lights to energy-saving LED fixtures through a PG&E rebate program. Construction completed June 2019.",
         "link": "https://hard.icitywork.com/#projectDetail85"
       }
     ]
   },
   "Mt. Eden Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Mt. Eden Park Renovation",
@@ -516,12 +596,14 @@
         "end": "Summer 2026",
         "size": "Park-wide",
         "pm": "Diane Hardy",
-        "scope": "Sports field/court lighting upgrades, pavement repairs, fitness court, court resurfacing, pathway enhancements. New playground equipment installed 2025.",
+        "scope": "Sports field/court lighting upgrades, pavement repairs, fitness court, court resurfacing, pathway enhancements. New playground equipment installed 2025. Completion expected fall 2026.",
+        "narrative": "Renovation of Mt. Eden Park at 2451 W. Tennyson Road including upgrades to sports field and court lighting, concrete and asphalt pavement repairs, a new fitness court, court resurfacing, and pathway enhancements. New play equipment installed in 2025; remaining improvements underway with completion expected Fall 2026.",
         "link": "https://hard.icitywork.com/#projectDetail981"
       }
     ]
   },
   "Palma Ceia Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Palma Ceia Park Renovation",
@@ -531,12 +613,14 @@
         "end": "Fall 2024",
         "size": "5.7 acres",
         "pm": "Diane Hardy",
-        "scope": "Walkway upgrades with enhanced drainage, new picnic furnishings, barbecues, drinking fountains, repaved walking paths, expanded play area with new playground equipment.",
+        "scope": "Walkway upgrades with enhanced drainage, new picnic furnishings, barbecues, drinking fountains, repaved walking paths, and expanded play area with new playground equipment.",
+        "narrative": "This neighborhood park has long been a gathering place for families and a key resource for Palma Cia Elementary School. Recent improvements include upgraded walkways, new picnic tables, barbecues, drinking fountains, repaved paths, and an expanded children's play area, all aimed at enhancing the user experience.",
         "link": "https://hard.icitywork.com/#projectDetail975"
       }
     ]
   },
   "Palomares Hills Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Palomares Hills Park Renovation",
@@ -547,25 +631,28 @@
         "size": "Park-wide",
         "pm": "Diane Hardy",
         "scope": "Slope stabilization, water runoff control, and pathway reconstruction and paving.",
+        "narrative": "Renovation of Palomares Hills Park in Castro Valley addressing slope stabilization, water runoff control, and pathway reconstruction and paving. Construction completed Fall 2025.",
         "link": "https://hard.icitywork.com/#projectDetail980"
       }
     ]
   },
   "San Lorenzo Community Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "San Lorenzo Community Park - Phase 1",
+        "name": "San Lorenzo Community Park – Phase 1",
         "status": "Complete",
         "budget": "$12,000,000",
         "start": "Spring 2012",
         "end": "Fall 2017",
         "size": "31 acres (total park)",
         "pm": "Meghan Tiernan",
-        "scope": "Phase 1 construction focused on new pond area, active play zone, and softball complex. Park re-opened November 14, 2017.",
+        "scope": "Phase 1 construction focused on new pond area, active play zone, and softball complex. Master plan adopted November 26, 2012. Construction began August 31, 2015. Park re-opened November 14, 2017.",
+        "narrative": "H.A.R.D.'s investment turned an underdeveloped site into a lively recreational hub, providing San Lorenzo with a clear sense of place and identity. The tidal pond in the park was renovated to include information that enhances its habitat and offers beautiful views with the coastal range in the background. The park now boasts large soccer and softball fields, outdoor fitness stations, several playgrounds, and basketball courts — attracting over 600,000 visitors annually from across the East Bay.",
         "link": "https://hard.icitywork.com/#projectDetail52"
       },
       {
-        "name": "San Lorenzo Community Park - Phase 2",
+        "name": "San Lorenzo Community Park – Phase 2",
         "status": "Complete",
         "budget": "$14,000,000",
         "start": "Summer 2019",
@@ -573,6 +660,7 @@
         "size": "31 acres (total park)",
         "pm": "Michael C. Williams",
         "scope": "Phase 2 of 31-acre community park. Includes: multi-purpose field, two soccer fields, concessions building, dog park, community green, neighborhood play area, additional picnic facilities, exercise stations, and parking. Completed 2023.",
+        "narrative": "Phase 2 improvements to San Lorenzo Community Park.",
         "link": "https://hard.icitywork.com/#projectDetail91"
       },
       {
@@ -584,11 +672,13 @@
         "size": "8,236 sq ft facility",
         "pm": "Monty Boyd",
         "scope": "Renovation of existing 8,236 sq ft community center and surrounding site improvements. Design by Dahlin Group Architects.",
+        "narrative": "After years of anticipation, the newly completed San Lorenzo Community Center is now open and ready to serve the entire community — including children's programming for the first time. The centerpiece is a stunning event and meeting space featuring a commercial kitchen and floor-to-ceiling windows overlooking the park, ponds, and the coastal range beyond — making it an ideal venue for weddings, community gatherings, and civic events. This gem of a facility is set to become the social and civic heart of San Lorenzo for years to come.",
         "link": "https://hard.icitywork.com/#projectDetail90"
       }
     ]
   },
   "Sorensdale Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Sorensdale Park Renovation",
@@ -598,12 +688,14 @@
         "end": "Winter 2022",
         "size": "Park-wide",
         "pm": "Diane Hardy",
-        "scope": "Parking lot repaving, walkway improvements, grading and drainage enhancements, new picnic furnishings, BBQs, drinking fountains, improved access pathways, new tree plantings.",
+        "scope": "Parking lot repaving, adjacent concrete walkway improvements, grading and drainage enhancements, new picnic furnishings, BBQs, drinking fountains, improved access pathways, new tree plantings.",
+        "narrative": "The Sorensdale Park and Recreation Center renovation benefits community members of all ages and abilities, including those with special needs. Enhancements involve repaving the parking lot and walkways, improving grading and drainage, installing new picnic furniture, barbecues, drinking fountains, and upgrading access pathways, gates, and planting new trees.",
         "link": "https://hard.icitywork.com/#projectDetail1040"
       }
     ]
   },
   "Southgate Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Southgate Park Renovation",
@@ -614,6 +706,7 @@
         "size": "Park-wide",
         "pm": "Diane Hardy",
         "scope": "Drainage improvements, new picnic furnishings and BBQs, repaved walking paths, new playground equipment, two new picnic areas. Two tennis courts converted to six pickleball courts.",
+        "narrative": "The 13-acre Southgate Park has undergone a comprehensive renovation that includes a new playground, six pickleball courts, a nine-hole disc golf course developed with East Bay Disc Golf and 100k Trees for Humanity, ADA-compliant pathway resurfacing, new picnic areas, an upgraded basketball court, improved irrigation, and an outdoor fitness court. The walking trail network has been extended to connect with the Eden Greenway. Additionally, Crime Prevention Through Environmental Design principles and enhanced lighting have been incorporated throughout the park to improve safety.",
         "link": "https://hard.icitywork.com/#projectDetail972"
       },
       {
@@ -624,7 +717,8 @@
         "end": "Winter 2021",
         "size": "Multiple courts",
         "pm": "Darcie DeLashmutt",
-        "scope": "Castro Valley Community Park: 3 tennis courts renovated. Southgate Park: 2 tennis courts converted to 6 pickleball courts.",
+        "scope": "Castro Valley Community Park: 3 tennis courts renovated. Southgate Park: 2 tennis courts converted to 6 pickleball courts. Improvements include pavement, surfacing, fencing, windscreens.",
+        "narrative": "Renovation of tennis courts at Castro Valley Community Park (three courts renovated) and Southgate Park (two courts converted to six pickleball courts). Improvements include asphalt pavement, court surfacing and striping, new nets, chain link fencing, benches, windscreens, and signage.",
         "link": "https://hard.icitywork.com/#projectDetail588"
       },
       {
@@ -635,22 +729,25 @@
         "end": "Spring 2020",
         "size": "3 fitness courts",
         "pm": "Hai-Ping Mo",
-        "scope": "Three free outdoor fitness courts at Eden Greenway, Tennyson Park, and Alden E. Oliver Sports Park. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "scope": "Three free outdoor fitness courts at: Eden Greenway (across from Southgate Community Center), Tennyson Park, and Alden E. Oliver Sports Park. Partially funded by National Fitness Campaign. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "narrative": "Soccer is an increasingly popular sport across the Bay Area and continues to grow. The District, in collaboration with Hayward Unified School District, developed a unique facility in the East featuring a futsal court. This site includes four youth courts that can be converted into two adult courts. It also offers perimeter netting, lighting, new restrooms, drinking fountains, and spectator viewing areas. Since opening, this location has become a sought-after property for long-term ownership. \n",
         "link": "https://hard.icitywork.com/#projectDetail451"
       }
     ]
   },
   "Stonybrook Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 1",
+        "name": "Basketball & Tennis Court Renovations – Phase 1",
         "status": "Complete",
         "budget": "$2,330,000",
         "start": "Fall 2021",
         "end": "Fall 2023",
         "size": "17 courts (4 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court upgrades.",
+        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court. New paving, surfacing, furnishings, drinking fountains, hoops, fencing.",
+        "narrative": "Renovations to 17 existing sports courts across Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks, including basketball, tennis, and pickleball courts, plus a flexible multi-use court for futsal, roller skating, and other activities. Upgrades included new paving, striping, surfacing, site furnishings, drinking fountains, backstops, hoops, nets, and fencing.",
         "link": "https://hard.icitywork.com/#projectDetail973"
       },
       {
@@ -661,12 +758,14 @@
         "end": "Summer 2027",
         "size": "Multiple sites",
         "pm": "Marvin Yee",
-        "scope": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "scope": "Renovation of playgrounds at multiple sites district-wide. Potential parks: Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
+        "narrative": "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Castro Valley Community Park, Cherryland Park, Del Ray Park, Eden Greenway at Berry, Eldridge Park, Greenridge Park, Hillcrest Knolls Park, Ruus Park, Stonybrook Park.",
         "link": "https://hard.icitywork.com/#projectDetail1504"
       }
     ]
   },
   "Sulphur Creek Nature Center": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Discovery Center at Sulphur Creek Nature Center",
@@ -676,7 +775,8 @@
         "end": "TBD",
         "size": "55-year-old Discovery Center building",
         "pm": "Brian Laczko",
-        "scope": "Complete redesign of the Discovery Center. Design team: Noll & Tam Architects, Studio Terpeluk (Exhibit Design), Weldon Design (Interpretive Design). Funded in part by $250,000 Martins Family Foundation grant.",
+        "scope": "New design for the Discovery Center at Sulphur Creek Nature Center. HARD Foundation received $250,000 from Martins Family Foundation. Design team: Noll & Tam Architects, Studio Terpeluk (Exhibit Design), Weldon Design (Interpretive Design).",
+        "narrative": "The Discovery Center has been completely redesigned. The updates feature a new outdoor classroom with a rustic shade structure, a relocated amphitheater with seating created from salvaged trees, a creek overlook, and new signage funded by an Outdoor Environmental Education Grant.",
         "link": "https://hard.icitywork.com/#projectDetail1454"
       },
       {
@@ -688,6 +788,7 @@
         "size": "1.43 acres",
         "pm": "Brian Laczko",
         "scope": "Acquisition of 1.43-acre site adjacent to Sulphur Creek Nature Center to expand the park. Purchase completed 2025.",
+        "narrative": "",
         "link": "https://hard.icitywork.com/#projectDetail1497"
       },
       {
@@ -698,12 +799,14 @@
         "end": "Fall 2024",
         "size": "N/A",
         "pm": "Darcie DeLashmutt",
-        "scope": "Grounds enhancements per 2021 community-led Master Plan: outdoor education area, rustic shade structure, amphitheater from reclaimed trees, interpretive/wayfinding signage, welcome kiosk, updated seating, and pollinator garden.",
+        "scope": "Grounds enhancements per 2021 community-led Master Plan: outdoor education area, rustic shade structure, amphitheater from reclaimed trees, interpretive and wayfinding signage, welcome kiosk, updated seating, and pollinator garden. Non-Bond funding: $646,998.",
+        "narrative": "Grounds enhancements per 2021 community-led Master Plan: outdoor education area, rustic shade structure, amphitheater from reclaimed trees, interpretive/wayfinding signage, welcome kiosk, updated seating, and pollinator garden.",
         "link": "https://hard.icitywork.com/#projectDetail92"
       }
     ]
   },
   "Sunset Futsol": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Sunset Futsal Courts",
@@ -713,12 +816,14 @@
         "end": "Spring 2023",
         "size": "1 acre / 4 futsal courts",
         "pm": "Hai-Ping Mo",
-        "scope": "4 youth futsal courts, perimeter netting, lighting, restroom, drinking fountain, covered entry, spectator viewing areas. Opened February 24, 2023.",
+        "scope": "Partnership with Alameda County DSAL and HUSD. Provides 4 youth futsal courts (convertible to 2 adult courts), perimeter netting, lighting, restroom, drinking fountain, covered entry, spectator viewing areas. Opened February 24, 2023.",
+        "narrative": "Soccer is an increasingly popular sport across the Bay Area and continues to grow. The District, in collaboration with Hayward Unified School District, developed a unique facility in the East featuring a futsal court. This site includes four youth courts that can be converted into two adult courts. It also offers perimeter netting, lighting, new restrooms, drinking fountains, and spectator viewing areas. Since opening, this location has become a sought-after property for long-term ownership. \n",
         "link": "https://hard.icitywork.com/#projectDetail93"
       }
     ]
   },
   "Tennyson Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Tennyson Park Renovation",
@@ -728,7 +833,8 @@
         "end": "Summer 2025",
         "size": "10 acres",
         "pm": "Marvin Yee",
-        "scope": "Renovation of existing 10-acre park: renovated sports field and skate park, basketball courts, walking paths, pump track, picnic areas, parking, and outdoor fitness court. Re-opening event September 19, 2025.",
+        "scope": "Renovation of existing 10-acre park. Features: renovated sports field and skate park, basketball courts, walking paths, pump track, picnic areas, parking, and outdoor fitness court. Construction began June 2024. Re-opening event September 19, 2025.",
+        "narrative": "Building on the surge of investments in the area, including Mia's Dream and the Stack Community Center, H.A.R.D. has renovated this park. The 10-acre space now features the area's first bike pump track for all ages, offering a safe, enjoyable environment for both youth and adults to ride. Additional renovations included upgrading the existing sports field and skate park, basketball courts, walking paths, a pump track, picnic areas, and parking, and integrating an outdoor fitness court. Today, this park ranks among the District's key regional attractions.",
         "link": "https://hard.icitywork.com/#projectDetail94"
       },
       {
@@ -739,7 +845,8 @@
         "end": "Fall 2021",
         "size": "1 acre",
         "pm": "Marvin Yee",
-        "scope": "1-acre all-access playground for inclusive play at Tennyson Park. Features: Music Therapy Zone, Kindness Arches, Fire Engine, Water Tower, swings, spinners, slides, fog sprays, accessible pathways, picnic areas, quiet reading area, art sculptures, new restroom. Engineering Excellence Award Winner.",
+        "scope": "1-acre all-access playground for inclusive play at Tennyson Park. Five elements of inclusion: cognitive, physical, social, sensory, and communication. Features: Music Therapy Zone, Kindness Arches, Fire Engine, Water Tower, swings, spinners, slides, fog sprays, accessible pathways, picnic areas, quiet reading area, art sculptures, new restroom. Engineering Excellence Award Winner.",
+        "narrative": "",
         "link": "https://hard.icitywork.com/#projectDetail61"
       },
       {
@@ -750,27 +857,31 @@
         "end": "Spring 2020",
         "size": "3 fitness courts",
         "pm": "Hai-Ping Mo",
-        "scope": "Three free outdoor fitness courts at Eden Greenway, Tennyson Park, and Alden E. Oliver Sports Park. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "scope": "Three free outdoor fitness courts at: Eden Greenway (across from Southgate Community Center), Tennyson Park, and Alden E. Oliver Sports Park. Partially funded by National Fitness Campaign. Each court supports 28 simultaneous users on 30 equipment pieces.",
+        "narrative": "Soccer is an increasingly popular sport across the Bay Area and continues to grow. The District, in collaboration with Hayward Unified School District, developed a unique facility in the East featuring a futsal court. This site includes four youth courts that can be converted into two adult courts. It also offers perimeter netting, lighting, new restrooms, drinking fountains, and spectator viewing areas. Since opening, this location has become a sought-after property for long-term ownership. \n",
         "link": "https://hard.icitywork.com/#projectDetail451"
       }
     ]
   },
   "Unity Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Unity Park at Mission & Mattox",
         "status": "Complete",
-        "budget": "$7,126,000",
+        "budget": "$7,126,000 ($4,740,000 acq. + $2,386,000 dev.)",
         "start": "Spring 2019",
         "end": "Summer 2025",
         "size": "2.6 acres",
         "pm": "Meghan Tiernan",
         "scope": "Acquisition and development of 2.6 acres at NE corner of Mission Blvd & Mattox Road. Features: pickleball courts, basketball court, multi-use court, bike skills course, play area, off-street parking, food truck area. Opening event August 12, 2025.",
+        "narrative": "Located at a key junction serving Hayward, Ashland, and Cherryland, Unity Park turns an abandoned, blighted lot into a lively community space for recreation, gatherings, and food. Funded by Measure F1 Bond dollars, the park provides a safe, clean, and green area for adults and children in the Mission Corridor, within walking distance of this dense, low-resource neighborhood. By combining F1 Bond and ARPA funds creatively, H.A.R.D. added a full-sized basketball court, six pickleball courts, a roller-skating area, a children's play zone, a bike skills course, and easy access to food trucks. With over 20,000 visitors so far, Unity Park exemplifies how Measure F1 funds go beyond mere construction to support the health and well-being of local families.",
         "link": "https://hard.icitywork.com/#projectDetail582"
       }
     ]
   },
   "Valley View Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Valley View Park",
@@ -780,12 +891,14 @@
         "end": "Spring 2027",
         "size": "24 acres",
         "pm": "Brian Laczko",
-        "scope": "New 24-acre park with sweeping views. Master Plan includes parking, tot lot, adventure hill, multi-purpose grass area, restroom, picnic areas, terraced seating, overlooks, reflection grove, pump track, wellness areas, dog area, large loop path, and trails.",
+        "scope": "New 24-acre park with sweeping views. Master Plan: parking, tot lot, adventure hill, multi-purpose grass area, restroom, picnic areas, terraced seating, overlooks, reflection grove, pump track, wellness areas, dog area, large loop path, and trails. CUP approved May 30, 2025.",
+        "narrative": "A new 24-acre park in Castro Valley, offering natural open space and scenic views, is set to begin construction soon. The community's Master Plan includes a parking lot, a play area for children, a restroom, picnic spots, terraced seating, overlooks, a dog park, a large loop trail, and various trails such as a native plant walk.",
         "link": "https://hard.icitywork.com/#projectDetail584"
       }
     ]
   },
   "Via Toledo Park": {
+    "park_narrative": "",
     "projects": [
       {
         "name": "Via Toledo Park",
@@ -796,25 +909,28 @@
         "size": "2 acres",
         "pm": "Hai-Ping Mo",
         "scope": "Design and construction of new 2-acre park: multipurpose lawn, half-court basketball, play area, fitness stations, picnic areas, plaza and shade structure, pathways and seating.",
+        "narrative": "Design and construction of new 2-acre park: multipurpose lawn, half-court basketball, play area, fitness stations, picnic areas, plaza and shade structure, pathways and seating.",
         "link": "https://hard.icitywork.com/#projectDetail95"
       }
     ]
   },
   "Weekes Park": {
+    "park_narrative": "",
     "projects": [
       {
-        "name": "Basketball & Tennis Court Renovations - Phase 1",
+        "name": "Basketball & Tennis Court Renovations – Phase 1",
         "status": "Complete",
         "budget": "$2,330,000",
         "start": "Fall 2021",
         "end": "Fall 2023",
         "size": "17 courts (4 parks)",
         "pm": "Darcie DeLashmutt",
-        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court upgrades.",
+        "scope": "Renovations to 17 sports courts at Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks. Basketball, tennis, pickleball, and flexible multi-use court. New paving, surfacing, furnishings, drinking fountains, hoops, fencing.",
+        "narrative": "Renovations to 17 existing sports courts across Alden E. Oliver, Weekes, Bay Trees, and Stonybrook Parks, including basketball, tennis, and pickleball courts, plus a flexible multi-use court for futsal, roller skating, and other activities. Upgrades included new paving, striping, surfacing, site furnishings, drinking fountains, backstops, hoops, nets, and fencing.",
         "link": "https://hard.icitywork.com/#projectDetail973"
       },
       {
-        "name": "Picnic Area Upgrades - Castro Valley & Weekes Parks",
+        "name": "Picnic Area Upgrades – Castro Valley & Weekes Parks",
         "status": "Complete",
         "budget": "$1,000,000",
         "start": "Winter 2020",
@@ -822,6 +938,7 @@
         "size": "6 + 4 group picnic facilities",
         "pm": "Darcie DeLashmutt",
         "scope": "Renovation of six group picnic facilities at Castro Valley Community Park and four at Weekes Community Park. New paving, signage, trees, waste receptacles, picnic tables, benches, and BBQ grills.",
+        "narrative": "Renovation of six group picnic facilities at Castro Valley Community Park and four at Weekes Community Park. Upgrades included new paving, signage, trees, waste receptacles, picnic tables, benches, and BBQ grills. Construction completed Fall 2021.",
         "link": "https://hard.icitywork.com/#projectDetail1073"
       },
       {
@@ -832,7 +949,8 @@
         "end": "TBD",
         "size": "16.6 acres",
         "pm": "Meghan Tiernan",
-        "scope": "Master Plan: open lawn areas, restrooms, concession building, playground, half-court basketball, bocce courts, fitness plaza, central plaza, group picnic areas, pavilion, shade structure, bandstand, promenade and walking loop.",
+        "scope": "Design and development of improvements to 16.6-acre Weekes Community Park. Master Plan: open lawn areas, restrooms, concession building, playground, half-court basketball, bocce courts, fitness plaza, central plaza, group picnic areas, pavilion, shade structure, bandstand, promenade and walking loop.",
+        "narrative": "The ongoing updates at the 16.6-acre Weekes Community Park were guided by a carefully developed master plan. This plan includes open lawns,  restrooms, a convenient concession stand, an playground, bocce courts, a fitness plaza, and a friendly central plaza. It also features attractive group picnic spots, a picturesque pavilion, a shaded shade structure, an energetic bandstand, a scenic walkway, and a tranquil walking loop.",
         "link": "https://hard.icitywork.com/#projectDetail99"
       }
     ]

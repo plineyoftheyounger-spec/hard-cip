@@ -403,25 +403,40 @@
 
     .project-link:hover { color: white; }
 
-    /* ── Injected HTML_Popup from ArcGIS feature service ── */
+    /* ── Injected popup content ── */
     .popup-inject {
       background: #fff;
       border-radius: 6px;
       padding: 6px;
       overflow: hidden;
     }
-    /* Remove the max-width constraint designed for ArcGIS popup windows */
     .popup-inject > div {
       max-width: 100% !important;
     }
-    /* Hide the redundant park name header and subtitle already shown in the panel */
+    /* Hide redundant park name header and subtitle */
     .popup-inject h3,
     .popup-inject > div > p:first-of-type {
       display: none;
     }
-    /* Hide the small image strip inside the popup — the panel gallery shows larger photos */
+    /* Hide small image strip — panel gallery shows larger photos */
     .popup-inject > div > div:first-of-type {
       display: none;
+    }
+    /* Larger, readable description text */
+    .popup-inject span[style*="font-size:11px"] {
+      font-size: 13px !important;
+      color: #222 !important;
+      line-height: 1.5 !important;
+    }
+    /* Larger project name */
+    .popup-inject b[style*="font-size:13px"] {
+      font-size: 15px !important;
+      color: #111 !important;
+    }
+    /* Ensure all text in popup is dark on white */
+    .popup-inject b,
+    .popup-inject span {
+      color: #222;
     }
 
     /* ── Map controls (legend + amenities) ── */

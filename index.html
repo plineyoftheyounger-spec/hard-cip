@@ -117,14 +117,14 @@
     #map { flex: 1; position: relative; }
 
     #panel {
-      width: min(840px, 48vw);
+      width: min(520px, 38vw);
       background: var(--hard-panel);
       border-left: 1px solid var(--hard-border);
       display: flex; flex-direction: column; overflow: hidden;
       transition: transform 0.3s ease; flex-shrink: 0;
     }
     #panel.hidden {
-      transform: translateX(min(840px, 48vw));
+      transform: translateX(min(520px, 38vw));
       position: absolute; right: 0;
     }
 
@@ -254,7 +254,7 @@
       position: fixed; bottom: 24px; left: 16px; z-index: 500;
       display: flex; flex-direction: column; gap: 8px;
       max-height: calc(100vh - 96px);
-      max-width: calc(100vw - min(840px, 48vw) - 32px);
+      max-width: calc(100vw - min(520px, 38vw) - 32px);
       overflow-y: auto;
     }
     #map-controls::-webkit-scrollbar { width: 3px; }
@@ -448,14 +448,13 @@ require([
     return `<div class="project-card">
       <div class="project-name">${p.name}</div>
       <span class="status-badge" style="${badgeStyle}">${p.status}</span>
-      ${p.narrative ? `<div class="project-narrative">${p.narrative}</div>` : ""}
+      ${p.narrative ? `<div class="project-narrative">${p.narrative}</div>` : p.scope ? `<div class="project-scope">${p.scope}</div>` : ""}
       <div class="project-meta">
         <div><div class="meta-label">Budget</div><div class="meta-value">${p.budget}</div></div>
         <div><div class="meta-label">Timeline</div><div class="meta-value">${p.start} – ${p.end}</div></div>
         <div><div class="meta-label">Size</div><div class="meta-value">${p.size}</div></div>
         <div><div class="meta-label">Project Manager</div><div class="meta-value">${p.pm}</div></div>
       </div>
-      ${p.scope && p.scope !== p.narrative ? `<div class="project-scope">${p.scope}</div>` : ""}
       <a class="project-link" href="${p.link}" target="_blank">🔗 View Full Project Details</a>
     </div>`;
   }
@@ -654,12 +653,16 @@ require([
     parkAmenityMap.forEach(({ cats, geometry }) => {
       const visible = cats.filter(c => activeCategories.has(c.id));
       if (!visible.length) return;
-      const emojis = visible.map(c => c.emoji).join("");
-      const w = visible.length * 18 + 4, h = 22;
-      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'><text y='18' font-size='16'>${emojis}</text></svg>`;
       markerLayer.add(new Graphic({
         geometry,
-        symbol: { type: "picture-marker", url: "data:image/svg+xml," + encodeURIComponent(svg), width: w, height: h }
+        symbol: {
+          type: "text",
+          text: visible.map(c => c.emoji).join(" "),
+          font: { size: 14, family: "Arial Unicode MS" },
+          horizontalAlignment: "center",
+          verticalAlignment: "middle",
+          yoffset: 0
+        }
       }));
     });
   }

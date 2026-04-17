@@ -483,6 +483,18 @@
         "size": "New community park",
         "pm": "Meghan Tiernan",
         "scope": "New community park managed by City of Hayward; HARD will operate upon completion. Features: nature play areas, basketball court, picnic areas, multi-use lawn/soccer field, parking, restrooms, walking paths, Foothill Trail segment, exercise stations, off-leash dog area, and Hayward's first bike terrain park. Construction contract awarded 2025.",
+        "narrative": "In partnership with the City of Hayward, the new community park will offer expansive views of the Bay and Hayward as visitors explore the natural outdoor setting. This world-class park will feature sports fields, an amphitheater, trails, a bike park, and outdoor athletic courts. Groundbreaking for the project took place in spring 2026. ",
+        "link": "https://hard.icitywork.com/#projectDetail79"
+      },
+      {
+        "name": "La Vista Park",
+        "status": "Under Construction",
+        "budget": "$15,400,000 (HARD contribution)",
+        "start": "Summer 2017",
+        "end": "Summer 2027",
+        "size": "New community park",
+        "pm": "Meghan Tiernan",
+        "scope": "New community park managed by City of Hayward; HARD will operate upon completion. Features: nature play areas, basketball court, picnic areas, multi-use lawn/soccer field, parking, restrooms, walking paths, Foothill Trail segment, exercise stations, off-leash dog area, and Hayward's first bike terrain park. Construction contract awarded 2025.",
         "narrative": "",
         "link": "https://hard.icitywork.com/#projectDetail79"
       }
@@ -554,6 +566,18 @@
   "Mia's Dream Park": {
     "park_narrative": "",
     "projects": [
+      {
+        "name": "Mia's Dream Come True All-Access Playground",
+        "status": "Complete",
+        "budget": "$7,121,957",
+        "start": "Summer 2017",
+        "end": "Fall 2021",
+        "size": "1 acre",
+        "pm": "Marvin Yee",
+        "scope": "1-acre all-access playground for inclusive play at Tennyson Park. Five elements of inclusion: cognitive, physical, social, sensory, and communication. Features: Music Therapy Zone, Kindness Arches, Fire Engine, Water Tower, swings, spinners, slides, fog sprays, accessible pathways, picnic areas, quiet reading area, art sculptures, new restroom.",
+        "narrative": "Mia’s Dream Come True All-Abilities Playground at Tennyson Park was inspired by local resident Mia Vasquez and created through a strong community partnership to provide an inclusive space for people of all abilities. Supported by Measure F1 funds and over $2 million in contributions from local organizations, the playground reflects Mia’s love of storytelling, nature, and local landmarks. It features accessible play areas, sensory experiences, and themed elements designed to support a wide range of physical, cognitive, and social needs. Since its completion, the park has become a major regional destination, drawing over 100,000 visitors annually.",
+        "link": "https://hard.icitywork.com/#projectDetail61"
+      },
       {
         "name": "Mia's Dream Come True All-Access Playground",
         "status": "Complete",

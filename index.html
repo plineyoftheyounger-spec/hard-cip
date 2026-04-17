@@ -672,8 +672,13 @@ require([
     "Complete":               [50, 180, 50, 0.7],
   };
 
-  // ── Project data (now sourced from ArcGIS HTML_Popup field) ──────────────
-  // PROJECTS and PARK_PROJECTS removed — map reads HTML_Popup from FeatureServer/0
+  // ── Popup content (sourced from popup_data.json in this repo) ───────────
+  // To update: re-run build_hard_popup.ipynb → push popup_data.json to GitHub
+  let popupData = {};
+  fetch("popup_data.json")
+    .then(r => r.json())
+    .then(d => { popupData = d; })
+    .catch(e => console.warn("Could not load popup_data.json:", e));
   const PROJECTS_LEGACY = {
     1504: { name: "Playground Renovations (District-Wide)", status: "Planning", budget: "$4,167,000", start: "Winter 2025", end: "Summer 2027", size: "Multiple sites", scope: "Renovation of playgrounds at multiple sites district-wide, including Bechtel Mini Park, Birchfield Park, Stonybrook Park, and others. Scope at each site may include new equipment, safety surfacing, and site furnishings.", pm: "Marvin Yee" },
     1506: { name: "Restroom Renovations (District-Wide)", status: "Planning", budget: "$4,680,000", start: "Winter 2025", end: "Winter 2027", size: "Multiple sites", scope: "Restroom renovations and replacements at multiple park sites district-wide to improve safety, cleanliness, and ADA accessibility.", pm: "Brian Laczko" },
@@ -809,10 +814,10 @@ require([
     const imgs = imgFields.map(f => attrs[f]).filter(u => u && typeof u === "string" && u.trim().startsWith("http"));
     buildGallery(imgs);
 
-    // Projects — read HTML_Popup directly from the ArcGIS feature service attribute.
-    // To update project content: edit the Excel table → republish to ArcGIS Online.
+    // Projects — read from popup_data.json (served from this GitHub repo)
+    // To update: re-run build_hard_popup.ipynb → push popup_data.json to GitHub
     const container = document.getElementById("projects-container");
-    const htmlPopup = attrs.HTML_Popup;
+    const htmlPopup = popupData[parkName];
 
     if (htmlPopup && htmlPopup.trim()) {
       container.innerHTML = `<div class="popup-inject">${htmlPopup}</div>`;

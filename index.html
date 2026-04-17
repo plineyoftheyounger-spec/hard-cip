@@ -723,20 +723,28 @@ require([
     trailPillsContainer.appendChild(pill);
   });
 
+  function emojiToUrl(emojis) {
+    const n = emojis.length;
+    const w = n * 22 + 6, h = 26;
+    const canvas = document.createElement("canvas");
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    ctx.font = "18px serif";
+    ctx.textBaseline = "middle";
+    emojis.forEach((e, i) => ctx.fillText(e, i * 22 + 3, h / 2));
+    return canvas.toDataURL();
+  }
+
   function rebuildMarkers() {
     markerLayer.removeAll();
     parkAmenityMap.forEach(({ cats, x, y }) => {
       const visible = cats.filter(c => activeCategories.has(c.id));
       if (!visible.length) return;
+      const emojis = visible.map(c => c.emoji);
+      const w = emojis.length * 22 + 6;
       markerLayer.add(new Graphic({
         geometry: { type: "point", x, y, spatialReference: { wkid: 3857 } },
-        symbol: {
-          type: "text",
-          text: visible.map(c => c.emoji).join(" "),
-          font: { size: 14, family: "Arial Unicode MS" },
-          horizontalAlignment: "center",
-          verticalAlignment: "middle"
-        }
+        symbol: { type: "picture-marker", url: emojiToUrl(emojis), width: w, height: 26 }
       }));
     });
   }

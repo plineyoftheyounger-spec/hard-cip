@@ -172,33 +172,33 @@
     .close-btn:hover { background: rgba(255,255,255,0.25); }
 
     .park-body {
-      display: flex; flex: 1; overflow: hidden;
+      display: flex; flex-direction: column; flex: 1; overflow-y: auto;
     }
+    .park-body::-webkit-scrollbar { width: 4px; }
+    .park-body::-webkit-scrollbar-track { background: transparent; }
+    .park-body::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
     .projects-scroll {
-      width: 100%; overflow-y: auto; padding: 16px; flex-shrink: 0;
+      width: 100%; padding: 16px; flex-shrink: 0;
     }
-    .park-body.has-images .projects-scroll { width: 35%; }
-    .projects-scroll::-webkit-scrollbar { width: 4px; }
-    .projects-scroll::-webkit-scrollbar-track { background: transparent; }
-    .projects-scroll::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
     #image-gallery {
-      display: none; flex-direction: column; gap: 10px;
-      overflow-y: auto; padding: 16px;
-      border-left: 1px solid var(--hard-border);
-      width: 65%; flex-shrink: 0;
+      display: none; flex-direction: column; gap: 4px;
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--hard-border);
+      width: 100%; flex-shrink: 0;
     }
     #image-gallery.has-images { display: flex; }
-    #image-gallery::-webkit-scrollbar { width: 4px; }
-    #image-gallery::-webkit-scrollbar-track { background: transparent; }
-    #image-gallery::-webkit-scrollbar-thumb { background: var(--hard-border); border-radius: 2px; }
 
-    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; margin-bottom: 6px; }
+    .gallery-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; padding-top: 12px; margin-bottom: 8px; }
+
+    .gallery-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
 
     #image-gallery img {
-      width: 100%; height: 260px; object-fit: cover;
-      border-radius: 6px; display: block; flex-shrink: 0;
+      width: 100%; height: 180px; object-fit: cover;
+      border-radius: 6px; display: block;
     }
 
     .project-card {
@@ -439,19 +439,19 @@ require([
   function buildGallery(urls) {
     const valid = (urls || []).filter(u => u && u.startsWith("http"));
     const gallery = document.getElementById("image-gallery");
-    const body    = document.getElementById("park-body");
-    gallery.querySelectorAll("img").forEach(el => el.remove());
+    gallery.querySelectorAll(".gallery-grid").forEach(el => el.remove());
     if (!valid.length) {
       gallery.classList.remove("has-images");
-      body.classList.remove("has-images");
       return;
     }
     gallery.classList.add("has-images");
-    body.classList.add("has-images");
+    const grid = document.createElement("div");
+    grid.className = "gallery-grid";
     valid.forEach(url => {
       const img = document.createElement("img");
-      img.src = url; img.alt = "Park photo"; gallery.appendChild(img);
+      img.src = url; img.alt = "Park photo"; grid.appendChild(img);
     });
+    gallery.appendChild(grid);
   }
 
   // District-wide court projects shown via amenity icons — skip in popup cards
